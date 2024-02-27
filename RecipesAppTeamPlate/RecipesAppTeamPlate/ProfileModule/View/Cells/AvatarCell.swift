@@ -30,6 +30,7 @@ class AvatarCell: UITableViewCell {
     // MARK: - Private Methods
 
     private func configureImageView() {
+        selectionStyle = .none
         contentView.addSubview(avatarImageView)
 
         NSLayoutConstraint.activate([

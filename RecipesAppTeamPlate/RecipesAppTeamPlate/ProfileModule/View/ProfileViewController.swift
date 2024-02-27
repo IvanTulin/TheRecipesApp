@@ -103,11 +103,17 @@ extension ProfileViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.avatarIdentifier, for: indexPath)
             return cell
         case .userName:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.userNameIdentifier, for: indexPath)
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.userNameIdentifier,
+                for: indexPath
+            ) as? UserNameCell else { return UITableViewCell() }
+            cell.delegate = self
             return cell
         case .controlPanel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.controlPanelIdentifier, for: indexPath)
-            cell.backgroundColor = .magenta
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.controlPanelIdentifier,
+                for: indexPath
+            ) as? ControlPanelCell else { return UITableViewCell() }
             return cell
         }
     }
@@ -125,5 +131,25 @@ extension ProfileViewController: UITableViewDelegate {
         case .controlPanel:
             return 390
         }
+    }
+}
+
+extension ProfileViewController: CellDelegate {
+    func showAlert() {
+        let alert = UIAlertController(title: "Change your name and surname", message: nil, preferredStyle: .alert)
+        alert.addTextField { text in
+            text.placeholder = "Name Surname"
+        }
+        let actionOK = UIAlertAction(title: "Ok", style: .cancel) { _ in
+            if let text = alert.textFields?.first {
+                
+            }
+        }
+        let actionCancel = UIAlertAction(title: "Cancel", style: .default)
+
+        alert.addAction(actionOK)
+        alert.addAction(actionCancel)
+
+        present(alert, animated: true)
     }
 }

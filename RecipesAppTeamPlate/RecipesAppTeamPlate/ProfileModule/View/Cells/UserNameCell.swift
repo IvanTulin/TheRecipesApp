@@ -3,6 +3,11 @@
 
 import UIKit
 
+/// протокол для вызова метода, открывающий сайт
+protocol CellDelegate: AnyObject {
+    func showAlert()
+}
+
 /// Ячейка имени пользователя
 class UserNameCell: UITableViewCell {
     // MARK: - Constants
@@ -24,13 +29,18 @@ class UserNameCell: UITableViewCell {
         return userNamelabel
     }()
 
-    private let editButton: UIButton = {
+    private lazy var editButton: UIButton = {
         let button = UIButton()
         button.setImage(.pencilIcon, for: .normal)
         button.sizeToFit()
+        button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+
+    // MARK: - Puplic Properties
+
+    weak var delegate: CellDelegate?
 
     // MARK: - Initializers
 
@@ -38,6 +48,7 @@ class UserNameCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureLabel()
         configureButton()
+        selectionStyle = .none
     }
 
     @available(*, unavailable)
@@ -45,6 +56,7 @@ class UserNameCell: UITableViewCell {
         super.init(coder: coder)
         configureLabel()
         configureButton()
+        selectionStyle = .none
     }
 
     // MARK: - Private Methods
@@ -67,5 +79,9 @@ class UserNameCell: UITableViewCell {
             editButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             editButton.leftAnchor.constraint(equalTo: userNamelabel.rightAnchor, constant: 11),
         ])
+    }
+
+    @objc private func showAlert() {
+        delegate?.showAlert()
     }
 }
