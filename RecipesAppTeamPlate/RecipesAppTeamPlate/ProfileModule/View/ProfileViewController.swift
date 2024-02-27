@@ -33,6 +33,7 @@ class ProfileViewController: UIViewController {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorColor = .clear
         tableView.register(
             AvatarCell.self,
             forCellReuseIdentifier: Constants.avatarIdentifier
@@ -100,11 +101,9 @@ extension ProfileViewController: UITableViewDataSource {
         switch informationType[indexPath.section] {
         case .avatar:
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.avatarIdentifier, for: indexPath)
-            cell.backgroundColor = .gray
             return cell
         case .userName:
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.userNameIdentifier, for: indexPath)
-            cell.backgroundColor = .white
             return cell
         case .controlPanel:
             let cell = tableView.dequeueReusableCell(withIdentifier: Constants.controlPanelIdentifier, for: indexPath)
