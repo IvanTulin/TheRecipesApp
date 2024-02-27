@@ -26,7 +26,7 @@ class AppBuilder: Builder {
         let view = RecipesViewController()
         let recipePresenter = RecipesPresenter(view: view, source: recipesSource)
         view.presenter = recipePresenter
-        view.tabBarItem = UITabBarItem(title: "Recipe", image: UIImage(systemName: "homekit"), tag: 0)
+        view.tabBarItem = UITabBarItem(title: "Recipe", image: .recipecIcon, tag: 0)
         return view
     }
 
@@ -35,7 +35,7 @@ class AppBuilder: Builder {
         let view = FavoritesViewController()
         let favoritesPresenter = FavoritesPresenter(view: view, source: favoritesSource)
         view.presenter = favoritesPresenter
-        view.tabBarItem = UITabBarItem(title: "Favorites", image: UIImage(systemName: "homekit"), tag: 0)
+        view.tabBarItem = UITabBarItem(title: "Favorites", image: .favoriteIcon, tag: 0)
         return view
     }
 
@@ -44,7 +44,7 @@ class AppBuilder: Builder {
         let view = ProfileViewController()
         let profilePresenter = ProfilePresenter(view: view, source: profileSource)
         view.presenter = profilePresenter
-        view.tabBarItem = UITabBarItem(title: "Profile", image: UIImage(systemName: "doc.plaintext"), tag: 1)
+        view.tabBarItem = UITabBarItem(title: "Profile", image: .profile, tag: 1)
         return view
     }
 }

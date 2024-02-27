@@ -5,7 +5,7 @@ import UIKit
 
 /// Координатор главный
 final class AppCoordinator: BaseCoordinator {
-    private var tabBarController: RecipesTabBarController?
+    private var tabBarController: UITabBarController?
 
     override func start() {
         if "admin" == "admins" {
@@ -16,7 +16,9 @@ final class AppCoordinator: BaseCoordinator {
     }
 
     private func toMain() {
-        tabBarController = RecipesTabBarController()
+        tabBarController = UITabBarController()
+        tabBarController?.tabBar.unselectedItemTintColor = .black
+        tabBarController?.tabBar.tintColor = .appPaleBlue
 
         /// Set Recipe
         let recipeModuleView = AppBuilder.makeRecipeModule()
@@ -38,6 +40,7 @@ final class AppCoordinator: BaseCoordinator {
 
         profileCoordinator.onFinishFlow = { [weak self] in
             self?.remove(coordinator: recipeCoordinator)
+            self?.remove(coordinator: favoritesCoordinator)
             self?.remove(coordinator: profileCoordinator)
             self?.tabBarController = nil
             self?.t​oAuth​()
