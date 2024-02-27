@@ -1,13 +1,26 @@
-//
-//  LoginPresenter.swift
-//  RecipesAppTeamPlate
-//
-//  Created by Ivan Tulin on 26.02.2024.
-//
+// LoginPresenter.swift
+// Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
+protocol LoginViewProtocol: AnyObject {}
+
+protocol LoginViewPresenterProtocol: AnyObject {
+    init(view: LoginViewProtocol, source: Login)
+}
+
 /// Презентер логина
-class LoginPresenter {
-    
+class LoginPresenter: LoginViewPresenterProtocol {
+    weak var loginCoordinator: LoginCoordinator?
+    let loginView: LoginViewProtocol
+    let source: Login
+
+    required init(view: LoginViewProtocol, source: Login) {
+        loginView = view
+        self.source = source
+    }
+
+    func showRecipesTabBarcontroller() {
+        loginCoordinator?.onFinish()
+    }
 }

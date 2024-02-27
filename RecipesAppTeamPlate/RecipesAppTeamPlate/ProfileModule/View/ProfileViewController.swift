@@ -1,17 +1,16 @@
-//
-//  ProfileViewController.swift
-//  RecipesAppTeamPlate
-//
-//  Created by Ivan Tulin on 26.02.2024.
-//
+// ProfileViewController.swift
+// Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 /// Экран профиля
 class ProfileViewController: UIViewController {
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        // Do any additional setup after loading the view.
-//    }
+    var presenter: ProfilePresenter!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+    }
 }
+
+extension ProfileViewController: ProfileViewProtocol {}

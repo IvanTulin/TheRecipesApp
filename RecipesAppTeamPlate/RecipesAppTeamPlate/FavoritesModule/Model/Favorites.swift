@@ -1,13 +1,7 @@
-//
-//  Favorites.swift
-//  RecipesAppTeamPlate
-//
-//  Created by Ivan Tulin on 26.02.2024.
-//
+// Favorites.swift
+// Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
 /// Фавориты
-struct Favorites {
-    
-}
+struct Favorites {}

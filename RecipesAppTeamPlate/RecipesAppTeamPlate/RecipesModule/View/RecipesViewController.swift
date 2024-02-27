@@ -1,17 +1,16 @@
-//
-//  RecipesViewController.swift
-//  RecipesAppTeamPlate
-//
-//  Created by Ivan Tulin on 26.02.2024.
-//
+// RecipesViewController.swift
+// Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 /// Экран рецептов
 class RecipesViewController: UIViewController {
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        // Do any additional setup after loading the view.
-//    }
+    var presenter: RecipesPresenter!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+    }
 }
+
+extension RecipesViewController: RecipesViewProtocol {}

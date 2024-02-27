@@ -1,12 +1,22 @@
-//
-//  FavoritesPresenter.swift
-//  RecipesAppTeamPlate
-//
-//  Created by Ivan Tulin on 26.02.2024.
-//
+// FavoritesPresenter.swift
+// Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
-class FavoritesPresenter {
-    
+protocol FavoritesViewProtocol: AnyObject {}
+
+protocol FavoritesViewPresenterProtocol: AnyObject {
+    init(view: FavoritesViewProtocol, source: Favorites)
+}
+
+/// Презентер экрана избранного
+class FavoritesPresenter: FavoritesViewPresenterProtocol {
+    weak var favoritesCoordinator: FavoritesCoordinator?
+    let favoritesView: FavoritesViewProtocol
+    let source: Favorites
+
+    required init(view: FavoritesViewProtocol, source: Favorites) {
+        favoritesView = view
+        self.source = source
+    }
 }

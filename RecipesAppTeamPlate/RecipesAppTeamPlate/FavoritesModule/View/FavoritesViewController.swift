@@ -1,17 +1,16 @@
-//
-//  FavoritesViewController.swift
-//  RecipesAppTeamPlate
-//
-//  Created by Ivan Tulin on 26.02.2024.
-//
+// FavoritesViewController.swift
+// Copyright © RoadMap. All rights reserved.
 
 import UIKit
 
 /// Экран избранных рецетов
 class FavoritesViewController: UIViewController {
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        // Do any additional setup after loading the view.
-//    }
+    var presenter: FavoritesPresenter!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .white
+    }
 }
+
+extension FavoritesViewController: FavoritesViewProtocol {}

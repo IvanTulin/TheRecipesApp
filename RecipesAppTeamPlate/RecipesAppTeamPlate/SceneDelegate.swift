@@ -5,6 +5,7 @@ import UIKit
 
 /// SceneDelegate
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    private var appCoordinator: AppCoordinator?
     var window: UIWindow?
 
     func scene(
@@ -13,11 +14,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         options connectionOptions: UIScene.ConnectionOptions
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        let window = UIWindow(windowScene: windowScene)
-        let loginViewController = LoginViewController()
-        self.window = window
-        window.rootViewController = loginViewController
-        window.makeKeyAndVisible()
+        window = UIWindow(windowScene: windowScene)
+        if let window {
+            window.makeKeyAndVisible()
+            appCoordinator = AppCoordinator()
+            appCoordinator?.start()
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {}

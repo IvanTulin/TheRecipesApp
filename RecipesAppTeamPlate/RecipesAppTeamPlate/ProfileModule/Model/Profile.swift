@@ -1,13 +1,7 @@
-//
-//  Profile.swift
-//  RecipesAppTeamPlate
-//
-//  Created by Ivan Tulin on 26.02.2024.
-//
+// Profile.swift
+// Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
 /// Профиль
-struct Profile {
-    
-}
+struct Profile {}
