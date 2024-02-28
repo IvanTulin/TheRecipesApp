@@ -3,11 +3,6 @@
 
 import UIKit
 
-/// протокол для вызова метода, открывающий сайт
-protocol CellDelegate: AnyObject {
-    func showAlert()
-}
-
 /// Ячейка имени пользователя
 class UserNameCell: UITableViewCell {
     // MARK: - Constants
@@ -19,7 +14,7 @@ class UserNameCell: UITableViewCell {
 
     // MARK: - Visual Components
 
-    private let userNamelabel: UILabel = {
+    var userNamelabel: UILabel = {
         let userNamelabel = UILabel()
         userNamelabel.text = Constants.textForUserName
         userNamelabel.textAlignment = .center
@@ -40,7 +35,8 @@ class UserNameCell: UITableViewCell {
 
     // MARK: - Puplic Properties
 
-    weak var delegate: CellDelegate?
+    var onEditButtonTapped: (() -> ())?
+    var presenter: ProfilePresenter!
 
     // MARK: - Initializers
 
@@ -82,6 +78,12 @@ class UserNameCell: UITableViewCell {
     }
 
     @objc private func showAlert() {
-        delegate?.showAlert()
+        onEditButtonTapped?()
     }
 }
+
+// extension UserNameCell: CellDelegate {
+//    func didSubmitNewName(_ name: String) {
+//        userNamelabel.text = name
+//    }
+// }

@@ -7,7 +7,7 @@ import UIKit
 class ControlPanelCell: UITableViewCell {
     // MARK: - Constants
 
-    private enum Constants {
+    enum Constants {
         static let textForBonusesLabel = "Bonuses"
         static let textForPrivacyTerms = "Terms & Privacy Policy"
         static let nameForImagePrivacyTerms = "doc.text.fill"
@@ -131,6 +131,10 @@ class ControlPanelCell: UITableViewCell {
         return button
     }()
 
+    // MARK: - Puplic Properties
+
+    var onEditButtonTapped: (() -> ())?
+
     // MARK: - Initializers
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -217,5 +221,7 @@ class ControlPanelCell: UITableViewCell {
         contentView.layer.addSublayer(bottomLineLogOut)
     }
 
-    @objc private func showBonuses() {}
+    @objc private func showBonuses() {
+        onEditButtonTapped?()
+    }
 }

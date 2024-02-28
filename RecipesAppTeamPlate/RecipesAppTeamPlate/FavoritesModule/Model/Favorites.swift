@@ -3,5 +3,5 @@
 
 import Foundation
 
-/// Фавориты
+/// Избранные
 struct Favorites {}

@@ -7,7 +7,7 @@ import UIKit
 class ProfileViewController: UIViewController {
     // MARK: - Constants
 
-    private enum Constants {
+    enum Constants {
         static let nameTitle = "Profile"
         static let nameFontBold = "Verdana-Bold"
         static let avatarIdentifier = "AvatarCell"
@@ -82,10 +82,6 @@ class ProfileViewController: UIViewController {
     }
 }
 
-// MARK: - ProfileViewController + ProfileViewProtocol
-
-extension ProfileViewController: ProfileViewProtocol {}
-
 // MARK: - ProfileViewController + UITableViewDataSource
 
 extension ProfileViewController: UITableViewDataSource {
@@ -107,13 +103,20 @@ extension ProfileViewController: UITableViewDataSource {
                 withIdentifier: Constants.userNameIdentifier,
                 for: indexPath
             ) as? UserNameCell else { return UITableViewCell() }
-            cell.delegate = self
+            cell.onEditButtonTapped = { [weak self] in
+                guard let self = self else { return }
+                presenter?.profiledEditButtonTapped()
+            }
             return cell
         case .controlPanel:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: Constants.controlPanelIdentifier,
                 for: indexPath
             ) as? ControlPanelCell else { return UITableViewCell() }
+            cell.onEditButtonTapped = { [weak self] in
+                guard let self = self else { return }
+                self.presenter.showBonusesViewController()
+            }
             return cell
         }
     }
@@ -134,16 +137,18 @@ extension ProfileViewController: UITableViewDelegate {
     }
 }
 
-extension ProfileViewController: CellDelegate {
-    func showAlert() {
+// MARK: - ProfileViewController + ProfileViewProtocol
+
+extension ProfileViewController: ProfileViewProtocol {
+    func presentNameChangeAlert() {
         let alert = UIAlertController(title: "Change your name and surname", message: nil, preferredStyle: .alert)
         alert.addTextField { text in
             text.placeholder = "Name Surname"
         }
-        let actionOK = UIAlertAction(title: "Ok", style: .cancel) { _ in
-            if let text = alert.textFields?.first {
-                
-            }
+        let actionOK = UIAlertAction(title: "Ok", style: .cancel) { [weak self] _ in
+            guard let self = self,
+                  let newName = alert.textFields?[0].text else { return }
+            self.presenter?.didSubmitNewName(newName)
         }
         let actionCancel = UIAlertAction(title: "Cancel", style: .default)
 
@@ -153,3 +158,4 @@ extension ProfileViewController: CellDelegate {
         present(alert, animated: true)
     }
 }
+

@@ -40,7 +40,7 @@ class AppBuilder: Builder {
     }
 
     static func makeProfileModule() -> ProfileViewController {
-        let profileSource = Profile()
+        let profileSource = Profile(userName: "")
         let view = ProfileViewController()
         let profilePresenter = ProfilePresenter(view: view, source: profileSource)
         view.presenter = profilePresenter

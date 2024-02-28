@@ -4,4 +4,7 @@
 import Foundation
 
 /// Профиль
-struct Profile {}
+struct Profile {
+    /// имя пользователя
+    var userName: String
+}

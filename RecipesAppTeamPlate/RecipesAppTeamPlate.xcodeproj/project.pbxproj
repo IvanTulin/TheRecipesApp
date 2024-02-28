@@ -15,7 +15,6 @@
 		BA5D54DD2B8CC989000F1BEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA5D54DB2B8CC989000F1BEE /* LaunchScreen.storyboard */; };
 		BA6EBCA22B8E1ACD00862E67 /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6EBCA12B8E1ACD00862E67 /* BaseCoordinator.swift */; };
 		BA6EBCA62B8E255F00862E67 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6EBCA52B8E255F00862E67 /* AppCoordinator.swift */; };
-		BA6EBCA82B8E265100862E67 /* RecipesTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6EBCA72B8E265100862E67 /* RecipesTabBarController.swift */; };
 		BA6EBCAA2B8E281F00862E67 /* LoginCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6EBCA92B8E281F00862E67 /* LoginCoordinator.swift */; };
 		BA6EBCAC2B8E2AAA00862E67 /* RecipesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6EBCAB2B8E2AAA00862E67 /* RecipesCoordinator.swift */; };
 		BA6EBCAE2B8E2AEE00862E67 /* FavoritesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6EBCAD2B8E2AEE00862E67 /* FavoritesCoordinator.swift */; };
@@ -23,6 +22,7 @@
 		BA6EBCB32B8E483300862E67 /* AvatarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6EBCB22B8E483300862E67 /* AvatarCell.swift */; };
 		BA6EBCB52B8E4AAC00862E67 /* UserNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6EBCB42B8E4AAC00862E67 /* UserNameCell.swift */; };
 		BA6EBCB72B8E4AE600862E67 /* ControlPanelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6EBCB62B8E4AE600862E67 /* ControlPanelCell.swift */; };
+		BA733F032B8F1009002C31BB /* BonusesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733F022B8F1009002C31BB /* BonusesViewController.swift */; };
 		BA95EB6E2B8D06E700B22C15 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95EB6D2B8D06E700B22C15 /* Login.swift */; };
 		BA95EB712B8D073600B22C15 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95EB702B8D073600B22C15 /* LoginPresenter.swift */; };
 		BA95EB762B8D07F500B22C15 /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95EB752B8D07F500B22C15 /* RecipesViewController.swift */; };
@@ -47,7 +47,6 @@
 		BA5D54DE2B8CC989000F1BEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BA6EBCA12B8E1ACD00862E67 /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
 		BA6EBCA52B8E255F00862E67 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		BA6EBCA72B8E265100862E67 /* RecipesTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesTabBarController.swift; sourceTree = "<group>"; };
 		BA6EBCA92B8E281F00862E67 /* LoginCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCoordinator.swift; sourceTree = "<group>"; };
 		BA6EBCAB2B8E2AAA00862E67 /* RecipesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesCoordinator.swift; sourceTree = "<group>"; };
 		BA6EBCAD2B8E2AEE00862E67 /* FavoritesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesCoordinator.swift; sourceTree = "<group>"; };
@@ -55,6 +54,7 @@
 		BA6EBCB22B8E483300862E67 /* AvatarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCell.swift; sourceTree = "<group>"; };
 		BA6EBCB42B8E4AAC00862E67 /* UserNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameCell.swift; sourceTree = "<group>"; };
 		BA6EBCB62B8E4AE600862E67 /* ControlPanelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlPanelCell.swift; sourceTree = "<group>"; };
+		BA733F022B8F1009002C31BB /* BonusesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusesViewController.swift; sourceTree = "<group>"; };
 		BA95EB6D2B8D06E700B22C15 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		BA95EB702B8D073600B22C15 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		BA95EB752B8D07F500B22C15 /* RecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
@@ -101,7 +101,6 @@
 				BA5D54D02B8CC988000F1BEE /* AppDelegate.swift */,
 				BA5D54D22B8CC988000F1BEE /* SceneDelegate.swift */,
 				BA552C8B2B8DCA780027E2AB /* AppBuilder.swift */,
-				BA6EBCA72B8E265100862E67 /* RecipesTabBarController.swift */,
 				BA95EB692B8D05B100B22C15 /* LoginModule */,
 				BA95EB742B8D07A700B22C15 /* RecipesModule */,
 				BA95EB802B8D091700B22C15 /* FavoritesModule */,
@@ -135,6 +134,14 @@
 				BA6EBCB62B8E4AE600862E67 /* ControlPanelCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		BA733F012B8F0FD3002C31BB /* SubControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BA733F022B8F1009002C31BB /* BonusesViewController.swift */,
+			);
+			path = SubControllers;
 			sourceTree = "<group>";
 		};
 		BA95EB692B8D05B100B22C15 /* LoginModule */ = {
@@ -252,6 +259,7 @@
 		BA95EB912B8D0BAE00B22C15 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				BA733F012B8F0FD3002C31BB /* SubControllers */,
 				BA95EB8A2B8D0AC500B22C15 /* ProfileViewController.swift */,
 				BA6EBCB12B8E473E00862E67 /* Cells */,
 			);
@@ -395,6 +403,7 @@
 				BA95EB7F2B8D08F900B22C15 /* FavoritesViewController.swift in Sources */,
 				BA6EBCA62B8E255F00862E67 /* AppCoordinator.swift in Sources */,
 				BA6EBCB52B8E4AAC00862E67 /* UserNameCell.swift in Sources */,
+				BA733F032B8F1009002C31BB /* BonusesViewController.swift in Sources */,
 				BA6EBCB32B8E483300862E67 /* AvatarCell.swift in Sources */,
 				BA5D54D12B8CC988000F1BEE /* AppDelegate.swift in Sources */,
 				BA95EB8E2B8D0B2600B22C15 /* Profile.swift in Sources */,
@@ -410,7 +419,6 @@
 				BA6EBCB72B8E4AE600862E67 /* ControlPanelCell.swift in Sources */,
 				BA6EBCAC2B8E2AAA00862E67 /* RecipesCoordinator.swift in Sources */,
 				BA95EB762B8D07F500B22C15 /* RecipesViewController.swift in Sources */,
-				BA6EBCA82B8E265100862E67 /* RecipesTabBarController.swift in Sources */,
 				BA95EB712B8D073600B22C15 /* LoginPresenter.swift in Sources */,
 				BA6EBCA22B8E1ACD00862E67 /* BaseCoordinator.swift in Sources */,
 				BA6EBCAA2B8E281F00862E67 /* LoginCoordinator.swift in Sources */,
