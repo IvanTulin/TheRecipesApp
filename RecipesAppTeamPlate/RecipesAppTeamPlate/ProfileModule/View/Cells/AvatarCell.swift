@@ -9,7 +9,7 @@ class AvatarCell: UITableViewCell {
 
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = .avatarForProfile
+        // imageView.image = .avatarForProfile
         imageView.layer.cornerRadius = 80
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -25,6 +25,20 @@ class AvatarCell: UITableViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureImageView()
+    }
+
+    // MARK: - Public Methods
+
+    func setUserInformation(
+        _ userInfo: UserInfo,
+        changePhotoComplition: @escaping () -> ()
+    ) {
+        avatarImageView.image = UIImage(named: userInfo.userPhotoName)
+        avatarImageView.clipsToBounds = true
+        avatarImageView.contentMode = .scaleAspectFill
+
+        // TODO: Реализовать смену фотографии
+        // buttonChangePhotoHandler = changePhotoComplition
     }
 
     // MARK: - Private Methods

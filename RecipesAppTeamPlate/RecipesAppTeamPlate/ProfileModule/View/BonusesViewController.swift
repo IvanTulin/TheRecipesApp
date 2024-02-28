@@ -3,6 +3,14 @@
 
 import UIKit
 
+/// Протокол экрана бонусов
+protocol ProfileBonusesViewProtocol: AnyObject {
+    ///  Презентер экрана
+    var presenter: ProfileBonusesPresenter? { get set }
+    /// Установка значения количетсва бонусов
+    func setBonuses(bonusesCount: Int)
+}
+
 /// Экран бонусов
 class BonusesViewController: UIViewController {
     // MARK: - Constants
@@ -15,10 +23,11 @@ class BonusesViewController: UIViewController {
 
     // MARK: - Visual Components
 
-    private let closedButton: UIButton = {
+    private lazy var closedButton: UIButton = {
         let button = UIButton()
         button.setImage(.crossIcon, for: .normal)
         button.sizeToFit()
+        button.addTarget(self, action: #selector(dismissButtonTapped), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -59,6 +68,10 @@ class BonusesViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+
+    // MARK: - Public Properties
+
+    var presenter: ProfileBonusesPresenter?
 
     // MARK: - Life Cycle
 
@@ -109,5 +122,18 @@ class BonusesViewController: UIViewController {
             starImageView.topAnchor.constraint(equalTo: bonusesImageView.bottomAnchor, constant: 31),
             starImageView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 144),
         ])
+    }
+
+    @objc private func dismissButtonTapped() {
+        presenter?.close()
+    }
+}
+
+// MARK: - BonusesViewController + ProfileBonusesViewProtocol
+
+extension BonusesViewController: ProfileBonusesViewProtocol {
+    // TODO: Доделать передачу данных(количество бонусов)
+    func setBonuses(bonusesCount: Int) {
+        // bonusesCountLabel.text = String(bonusesCount)
     }
 }

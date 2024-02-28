@@ -14,16 +14,16 @@ protocol FavoritesViewPresenterProtocol: AnyObject {
 /// Презентер экрана избранного
 class FavoritesPresenter: FavoritesViewPresenterProtocol {
     // MARK: - Constants
-    
+
     let favoritesView: FavoritesViewProtocol
     let source: Favorites
-    
+
     // MARK: - Puplic Properties
-    
+
     weak var favoritesCoordinator: FavoritesCoordinator?
 
-    //MARK: - Initializers
-    
+    // MARK: - Initializers
+
     required init(view: FavoritesViewProtocol, source: Favorites) {
         favoritesView = view
         self.source = source

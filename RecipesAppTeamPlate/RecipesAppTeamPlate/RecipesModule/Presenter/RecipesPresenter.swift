@@ -14,16 +14,16 @@ protocol RecipesViewPresenterProtocol: AnyObject {
 /// Презентер Рецептов
 class RecipesPresenter: RecipesViewPresenterProtocol {
     // MARK: - Constants
-    
+
     let recipesView: RecipesViewProtocol
     let source: Recipes
-    
+
     // MARK: - Puplic Properties
-    
+
     weak var recipesCoordinator: RecipeCoordinator?
 
-    //MARK: - Initializers
-    
+    // MARK: - Initializers
+
     required init(view: RecipesViewProtocol, source: Recipes) {
         recipesView = view
         self.source = source

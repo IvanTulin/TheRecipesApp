@@ -14,23 +14,23 @@ protocol LoginViewPresenterProtocol: AnyObject {
 /// Презентер логина
 class LoginPresenter: LoginViewPresenterProtocol {
     // MARK: - Constants
-    
+
     let loginView: LoginViewProtocol
     let source: Login
-    
+
     // MARK: - Puplic Properties
-    
+
     weak var loginCoordinator: LoginCoordinator?
 
-    //MARK: - Initializers
-    
+    // MARK: - Initializers
+
     required init(view: LoginViewProtocol, source: Login) {
         loginView = view
         self.source = source
     }
 
     // MARK: - Public Methods
-    
+
     func showRecipesTabBarcontroller() {
         loginCoordinator?.onFinish()
     }

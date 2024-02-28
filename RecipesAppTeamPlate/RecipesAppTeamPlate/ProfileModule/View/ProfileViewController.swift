@@ -3,6 +3,12 @@
 
 import UIKit
 
+/// Интерфейс общения с ProfileViewController
+protocol ProfileViewProtocol: AnyObject {
+    func showChangeNameAlert()
+    func setNewNameFromSource()
+}
+
 /// Экран профиля
 class ProfileViewController: UIViewController {
     // MARK: - Constants
@@ -13,6 +19,7 @@ class ProfileViewController: UIViewController {
         static let avatarIdentifier = "AvatarCell"
         static let userNameIdentifier = "UserNameCell"
         static let controlPanelIdentifier = "ControlPanelCell"
+        static let nameSurname = "Name Surname"
     }
 
     /// Тип данных
@@ -80,6 +87,10 @@ class ProfileViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
+
+    private func setNewName(_ newName: String) {
+        presenter.didSubmitNewName(newName)
+    }
 }
 
 // MARK: - ProfileViewController + UITableViewDataSource
@@ -96,16 +107,21 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch informationType[indexPath.section] {
         case .avatar:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.avatarIdentifier, for: indexPath)
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.avatarIdentifier,
+                for: indexPath
+            ) as? AvatarCell else { return UITableViewCell() }
+            guard let userInfo = presenter.getUserInformation() else { return cell }
+            cell.setUserInformation(userInfo) {}
             return cell
         case .userName:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: Constants.userNameIdentifier,
                 for: indexPath
             ) as? UserNameCell else { return UITableViewCell() }
-            cell.onEditButtonTapped = { [weak self] in
-                guard let self = self else { return }
-                presenter?.profiledEditButtonTapped()
+            guard let userInfo = presenter.getUserInformation() else { return cell }
+            cell.setUserInformation(userInfo) { [weak self] in
+                self?.presenter.actionChangeName()
             }
             return cell
         case .controlPanel:
@@ -140,15 +156,14 @@ extension ProfileViewController: UITableViewDelegate {
 // MARK: - ProfileViewController + ProfileViewProtocol
 
 extension ProfileViewController: ProfileViewProtocol {
-    func presentNameChangeAlert() {
+    func showChangeNameAlert() {
         let alert = UIAlertController(title: "Change your name and surname", message: nil, preferredStyle: .alert)
         alert.addTextField { text in
-            text.placeholder = "Name Surname"
+            text.placeholder = Constants.nameSurname
         }
-        let actionOK = UIAlertAction(title: "Ok", style: .cancel) { [weak self] _ in
-            guard let self = self,
-                  let newName = alert.textFields?[0].text else { return }
-            self.presenter?.didSubmitNewName(newName)
+        let actionOK = UIAlertAction(title: "Ok", style: .cancel) { _ in
+            guard let newName = alert.textFields?[0].text else { return }
+            self.setNewName(newName)
         }
         let actionCancel = UIAlertAction(title: "Cancel", style: .default)
 
@@ -157,5 +172,8 @@ extension ProfileViewController: ProfileViewProtocol {
 
         present(alert, animated: true)
     }
-}
 
+    func setNewNameFromSource() {
+        tableView.reloadData()
+    }
+}

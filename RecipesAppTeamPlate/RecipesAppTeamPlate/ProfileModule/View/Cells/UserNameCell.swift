@@ -7,8 +7,7 @@ import UIKit
 class UserNameCell: UITableViewCell {
     // MARK: - Constants
 
-    private enum Constants {
-        static let textForUserName = "Surname Name"
+    enum Constants {
         static let nameFontBold = "Verdana-Bold"
     }
 
@@ -16,7 +15,6 @@ class UserNameCell: UITableViewCell {
 
     var userNamelabel: UILabel = {
         let userNamelabel = UILabel()
-        userNamelabel.text = Constants.textForUserName
         userNamelabel.textAlignment = .center
         userNamelabel.font = UIFont(name: Constants.nameFontBold, size: 28)
         userNamelabel.textColor = .darkGray
@@ -36,6 +34,7 @@ class UserNameCell: UITableViewCell {
     // MARK: - Puplic Properties
 
     var onEditButtonTapped: (() -> ())?
+    var buttonChangeHandler: (() -> ())?
     var presenter: ProfilePresenter!
 
     // MARK: - Initializers
@@ -53,6 +52,16 @@ class UserNameCell: UITableViewCell {
         configureLabel()
         configureButton()
         selectionStyle = .none
+    }
+
+    // MARK: - Public Methods
+
+    func setUserInformation(
+        _ userInfo: UserInfo,
+        changeNameComplition: @escaping () -> ()
+    ) {
+        userNamelabel.text = "\(userInfo.nameSurname)"
+        buttonChangeHandler = changeNameComplition
     }
 
     // MARK: - Private Methods
@@ -78,12 +87,7 @@ class UserNameCell: UITableViewCell {
     }
 
     @objc private func showAlert() {
-        onEditButtonTapped?()
+        print("showAlert")
+        buttonChangeHandler?()
     }
 }
-
-// extension UserNameCell: CellDelegate {
-//    func didSubmitNewName(_ name: String) {
-//        userNamelabel.text = name
-//    }
-// }

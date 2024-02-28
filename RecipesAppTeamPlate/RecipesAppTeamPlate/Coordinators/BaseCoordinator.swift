@@ -6,11 +6,11 @@ import UIKit
 /// Координатор базовый
 class BaseCoordinator {
     // MARK: - Private Properties
-    
+
     private var childCoordinator: [BaseCoordinator] = []
 
     // MARK: - Public Methods
-    
+
     func start() {
         fatalError("child должен быть реализован")
     }

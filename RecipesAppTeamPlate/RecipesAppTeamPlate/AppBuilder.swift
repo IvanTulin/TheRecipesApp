@@ -5,22 +5,13 @@ import UIKit
 
 /// Протокол билдер
 protocol Builder {
-    static func makeLoginModule() -> LoginViewController
     static func makeRecipeModule() -> RecipesViewController
     static func makeFavoriteModule() -> FavoritesViewController
-    static func makeProfileModule() -> ProfileViewController
+    static func makeProfileModule(coordinator: ProfileCoordinator) -> ProfileViewController
 }
 
 /// Класс билдер
 class AppBuilder: Builder {
-    static func makeLoginModule() -> LoginViewController {
-        let loginSource = Login()
-        let view = LoginViewController()
-        let presenter = LoginPresenter(view: view, source: loginSource)
-        view.presenter = presenter
-        return view
-    }
-
     static func makeRecipeModule() -> RecipesViewController {
         let recipesSource = Recipes()
         let view = RecipesViewController()
@@ -39,12 +30,31 @@ class AppBuilder: Builder {
         return view
     }
 
-    static func makeProfileModule() -> ProfileViewController {
-        let profileSource = Profile(userName: "")
+    static func makeProfileModule(coordinator: ProfileCoordinator) -> ProfileViewController {
         let view = ProfileViewController()
-        let profilePresenter = ProfilePresenter(view: view, source: profileSource)
+        let infoSource = InfoSource()
+        let profilePresenter = ProfilePresenter(view: view, coordinator: coordinator)
+        profilePresenter.infoSource = infoSource
         view.presenter = profilePresenter
         view.tabBarItem = UITabBarItem(title: "Profile", image: .profile, tag: 1)
         return view
     }
+
+    static func createBonusesProfileModule() -> UIViewController {
+        let view = BonusesViewController()
+        let infoSource = InfoSource()
+        let presenter = ProfileBonusesPresenter(view: view, infoSource: infoSource)
+        view.presenter = presenter
+        return view
+    }
+
+//    static func makeProfileModule() -> ProfileViewController {
+//        let view = ProfileViewController()
+//        let infoSource = InfoSource()
+//        let profilePresenter = ProfilePresenter(view: view)
+//        profilePresenter.infoSource = infoSource
+//        view.presenter = profilePresenter
+//        view.tabBarItem = UITabBarItem(title: "Profile", image: .profile, tag: 1)
+//        return view
+//    }
 }
