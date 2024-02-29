@@ -1,26 +1,71 @@
 // LoginPresenter.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
+import UIKit
 
-protocol LoginViewProtocol: AnyObject {}
-
-protocol LoginViewPresenterProtocol: AnyObject {
-    init(view: LoginViewProtocol, source: Login)
+/// Протокол авторизации
+protocol AutorizationProtocol: AnyObject {
+    /// Проверка логина
+    func chekUser(login: String?)
+    /// Проверка пароля
+    func chekPassword(password: String?, login: String?)
 }
 
-/// Презентер логина
-class LoginPresenter: LoginViewPresenterProtocol {
-    weak var loginCoordinator: LoginCoordinator?
-    let loginView: LoginViewProtocol
-    let source: Login
+/// Протокол авторизации вью
+protocol AutorizationViewControllerProtocol: AnyObject {
+    /// Меняем цвет тайтлу  при проверки валидности логина
+    func setTitleColorLogin(color: String, isValidateLogin: Bool)
+    /// Меняем цвет тайтлу  при проверки валидности пароля
+    func setTitleColorPassword(color: String, isValidatePassword: Bool)
+    /// Проверка юзера на валидность
+    func chekValidateUser(imageButton: String?, titleButton: String?)
+    /// Показать сплеш
+    func showSpashScreenOn()
+    /// Скрыть сплеш
+    func showSpashScreenOff()
+}
 
-    required init(view: LoginViewProtocol, source: Login) {
-        loginView = view
-        self.source = source
+/// Презентер для экрана с авторизацией
+final class LoginPresenter {
+    private weak var view: AutorizationViewControllerProtocol?
+    weak var autorizationCoordinator: LoginCoordinator?
+    init(view: AutorizationViewControllerProtocol) {
+        self.view = view
+    }
+}
+
+// MARK: - AutorizationProtocol
+
+extension LoginPresenter: AutorizationProtocol {
+    func chekPassword(password: String?, login: String?) {
+        guard let login = login else { return }
+        guard let password = password else { return }
+        if password.count < 6 {
+            view?.showSpashScreenOn()
+            view?.setTitleColorPassword(color: "splashColor", isValidatePassword: false)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.view?.showSpashScreenOff()
+            }
+            return
+        } else {
+            view?.setTitleColorPassword(
+                color: "splashColor",
+                isValidatePassword: true
+            )
+        }
+        view?.chekValidateUser(imageButton: "loader", titleButton: nil)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.view?.chekValidateUser(imageButton: nil, titleButton: "Login")
+            self.view?.showSpashScreenOff()
+        }
     }
 
-    func showRecipesTabBarcontroller() {
-        loginCoordinator?.onFinish()
+    func chekUser(login: String?) {
+        guard let login = login else { return }
+        if !login.hasSuffix("@"), !login.isEmpty {
+            view?.setTitleColorLogin(color: "splashColor", isValidateLogin: false)
+        } else {
+            view?.setTitleColorLogin(color: "splashColor", isValidateLogin: true)
+        }
     }
 }

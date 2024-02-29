@@ -16,8 +16,8 @@ class AppBuilder: Builder {
     static func makeLoginModule() -> LoginViewController {
         let loginSource = Login()
         let view = LoginViewController()
-        let presenter = LoginPresenter(view: view, source: loginSource)
-        view.presenter = presenter
+        let presenter = LoginPresenter(view: view)
+        view.autorizationPresenter = presenter
         return view
     }
 
