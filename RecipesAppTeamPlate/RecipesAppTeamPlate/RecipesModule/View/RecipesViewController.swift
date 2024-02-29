@@ -5,6 +5,12 @@ import UIKit
 
 /// Экран рецептов
 final class RecipesViewController: UIViewController {
+    // MARK: - Constants
+
+    enum Constants {
+        static let identifierCell = "FirstDishCell"
+    }
+
     // MARK: - Puplic Properties
 
     var presenter: RecipesPresenter!
