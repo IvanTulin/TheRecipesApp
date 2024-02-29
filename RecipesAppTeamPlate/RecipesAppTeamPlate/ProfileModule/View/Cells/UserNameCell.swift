@@ -87,7 +87,6 @@ final class UserNameCell: UITableViewCell {
     }
 
     @objc private func showAlert() {
-        print("showAlert")
         buttonChangeHandler?()
     }
 }

@@ -20,6 +20,9 @@ final class ProfileViewController: UIViewController {
         static let userNameIdentifier = "UserNameCell"
         static let controlPanelIdentifier = "ControlPanelCell"
         static let nameSurname = "Name Surname"
+        static let alertText = "Change your name and surname"
+        static let cancelButtonText = "Cancel"
+        static let okButtonText = "OK"
     }
 
     /// Тип данных
@@ -157,15 +160,15 @@ extension ProfileViewController: UITableViewDelegate {
 
 extension ProfileViewController: ProfileViewProtocol {
     func showChangeNameAlert() {
-        let alert = UIAlertController(title: "Change your name and surname", message: nil, preferredStyle: .alert)
+        let alert = UIAlertController(title: Constants.alertText, message: nil, preferredStyle: .alert)
         alert.addTextField { text in
             text.placeholder = Constants.nameSurname
         }
-        let actionOK = UIAlertAction(title: "Ok", style: .cancel) { _ in
+        let actionOK = UIAlertAction(title: Constants.okButtonText, style: .cancel) { _ in
             guard let newName = alert.textFields?[0].text else { return }
             self.setNewName(newName)
         }
-        let actionCancel = UIAlertAction(title: "Cancel", style: .default)
+        let actionCancel = UIAlertAction(title: Constants.cancelButtonText, style: .default)
 
         alert.addAction(actionOK)
         alert.addAction(actionCancel)

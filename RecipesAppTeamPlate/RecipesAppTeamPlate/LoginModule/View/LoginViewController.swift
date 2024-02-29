@@ -5,11 +5,17 @@ import UIKit
 
 /// Экран регистрации
 final class LoginViewController: UIViewController {
+    // MARK: - Constants
+
+    enum Constants {
+        static let textFortitleLoginButton = "Login"
+    }
+
     // MARK: - Visual Components
 
     private lazy var loginBitton: UIButton = {
         let button = UIButton()
-        button.setTitle("Login", for: .normal)
+        button.setTitle(Constants.textFortitleLoginButton, for: .normal)
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .black
         button.addTarget(self, action: #selector(showRecipesTabBarcontroller), for: .touchUpInside)
