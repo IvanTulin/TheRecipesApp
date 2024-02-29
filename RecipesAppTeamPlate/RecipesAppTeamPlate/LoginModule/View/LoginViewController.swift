@@ -3,6 +3,7 @@
 
 import UIKit
 
+// 1231145@mail.ru
 /// Экран с авторизацией пользователя
 final class LoginViewController: UIViewController {
     // MARK: - Constants

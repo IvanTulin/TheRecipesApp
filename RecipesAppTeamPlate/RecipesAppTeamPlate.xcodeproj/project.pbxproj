@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		BA0753DE2B9089F300C11B3B /* VoidHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0753DD2B9089F300C11B3B /* VoidHandler.swift */; };
 		BA552C8C2B8DCA780027E2AB /* AppBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA552C8B2B8DCA780027E2AB /* AppBuilder.swift */; };
+		BA5C8F252B90D285006F102B /* CategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5C8F242B90D285006F102B /* CategoriesCell.swift */; };
 		BA5D54D12B8CC988000F1BEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D54D02B8CC988000F1BEE /* AppDelegate.swift */; };
 		BA5D54D32B8CC988000F1BEE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D54D22B8CC988000F1BEE /* SceneDelegate.swift */; };
 		BA5D54D52B8CC988000F1BEE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA5D54D42B8CC988000F1BEE /* LoginViewController.swift */; };
@@ -43,6 +44,7 @@
 /* Begin PBXFileReference section */
 		BA0753DD2B9089F300C11B3B /* VoidHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidHandler.swift; sourceTree = "<group>"; };
 		BA552C8B2B8DCA780027E2AB /* AppBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBuilder.swift; sourceTree = "<group>"; };
+		BA5C8F242B90D285006F102B /* CategoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCell.swift; sourceTree = "<group>"; };
 		BA5D54CD2B8CC988000F1BEE /* RecipesAppTeamPlate.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RecipesAppTeamPlate.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA5D54D02B8CC988000F1BEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BA5D54D22B8CC988000F1BEE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -87,6 +89,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BA5C8F232B90D21D006F102B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BA5C8F242B90D285006F102B /* CategoriesCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		BA5D54C42B8CC987000F1BEE = {
 			isa = PBXGroup;
 			children = (
@@ -193,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				BA95EB752B8D07F500B22C15 /* RecipesViewController.swift */,
+				BA5C8F232B90D21D006F102B /* Cells */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -416,6 +427,7 @@
 				BA95EB8E2B8D0B2600B22C15 /* Profile.swift in Sources */,
 				BA95EB862B8D098B00B22C15 /* FavoritesPresenter.swift in Sources */,
 				BA95EB822B8D095600B22C15 /* Favorites.swift in Sources */,
+				BA5C8F252B90D285006F102B /* CategoriesCell.swift in Sources */,
 				BA0753DE2B9089F300C11B3B /* VoidHandler.swift in Sources */,
 				BA95EB782B8D083300B22C15 /* Recipes.swift in Sources */,
 				BA95EB8B2B8D0AC500B22C15 /* ProfileViewController.swift in Sources */,
