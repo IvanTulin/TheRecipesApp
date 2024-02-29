@@ -11,26 +11,35 @@ protocol Builder {
     static func createBonusesProfileModule() -> UIViewController
 }
 
-/// Билдер модулей
-final class AppBuilder: Builder {
-    // MARK: - Constants
 
-    enum Constants {
+/// Класс билдер
+final class AppBuilder: Builder {
+  
+   enum Constants {
         static let titleRecipes = "Recipes"
         static let titleFavorites = "Favorites"
         static let titleProfile = "Profile"
+   }
+    
+   // MARK: - Public Methods
+    static func makeLoginModule() -> LoginViewController {
+        let loginSource = Login()
+        let view = LoginViewController()
+        let presenter = LoginPresenter(view: view)
+        view.autorizationPresenter = presenter
+        return view
     }
 
     // MARK: - Public Methods
 
-    static func makeRecipeModule() -> RecipesViewController {
-        let recipesSource = Recipes()
-        let view = RecipesViewController()
-        let recipePresenter = RecipesPresenter(view: view, source: recipesSource)
-        view.presenter = recipePresenter
-        view.tabBarItem = UITabBarItem(title: Constants.titleRecipes, image: .recipecIcon, tag: 0)
-        return view
-    }
+//     static func makeRecipeModule() -> RecipesViewController {
+//         let recipesSource = Recipes()
+//         let view = RecipesViewController()
+//         let recipePresenter = RecipesPresenter(view: view, source: recipesSource)
+//         view.presenter = recipePresenter
+//         view.tabBarItem = UITabBarItem(title: Constants.titleRecipes, image: .recipecIcon, tag: 0)
+//         return view
+//     }
 
     static func makeFavoriteModule() -> FavoritesViewController {
         let favoritesSource = Favorites()

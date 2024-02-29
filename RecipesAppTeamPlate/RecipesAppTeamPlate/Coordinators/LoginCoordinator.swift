@@ -21,11 +21,10 @@ final class LoginCoordinator: BaseCoordinator {
     }
 
     func showLogin() {
-        let loginSource = Login()
         let loginViewController = LoginViewController()
-        let loginPresenter = LoginPresenter(view: loginViewController, source: loginSource)
-        loginViewController.presenter = loginPresenter
-        loginPresenter.loginCoordinator = self
+        let loginPresenter = LoginPresenter(view: loginViewController)
+        loginViewController.autorizationPresenter = loginPresenter
+        loginPresenter.autorizationCoordinator = self
 
         let rootController = UINavigationController(rootViewController: loginViewController)
         setAsRoot​(​_​: rootController)
