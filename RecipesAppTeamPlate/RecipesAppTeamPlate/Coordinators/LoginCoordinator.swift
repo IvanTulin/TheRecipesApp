@@ -5,8 +5,12 @@ import UIKit
 
 /// Координатор авторизации
 final class LoginCoordinator: BaseCoordinator {
+    // MARK: - Puplic Properties
+
     var rootController: UINavigationController?
     var onFinishFlow: (() -> ())?
+
+    // MARK: - Public Methods
 
     override func start() {
         showLogin()

@@ -4,19 +4,17 @@
 import UIKit
 
 /// Ячейка имени пользователя
-class UserNameCell: UITableViewCell {
+final class UserNameCell: UITableViewCell {
     // MARK: - Constants
 
-    private enum Constants {
-        static let textForUserName = "Surname Name"
+    enum Constants {
         static let nameFontBold = "Verdana-Bold"
     }
 
     // MARK: - Visual Components
 
-    private let userNamelabel: UILabel = {
+    var userNamelabel: UILabel = {
         let userNamelabel = UILabel()
-        userNamelabel.text = Constants.textForUserName
         userNamelabel.textAlignment = .center
         userNamelabel.font = UIFont(name: Constants.nameFontBold, size: 28)
         userNamelabel.textColor = .darkGray
@@ -24,13 +22,20 @@ class UserNameCell: UITableViewCell {
         return userNamelabel
     }()
 
-    private let editButton: UIButton = {
+    private lazy var editButton: UIButton = {
         let button = UIButton()
         button.setImage(.pencilIcon, for: .normal)
         button.sizeToFit()
+        button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+
+    // MARK: - Private Properties
+
+    private var onEditButtonTapped: VoidHandler?
+    private var buttonChangeHandler: VoidHandler?
+    private var presenter: ProfilePresenter!
 
     // MARK: - Initializers
 
@@ -38,6 +43,7 @@ class UserNameCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureLabel()
         configureButton()
+        selectionStyle = .none
     }
 
     @available(*, unavailable)
@@ -45,6 +51,17 @@ class UserNameCell: UITableViewCell {
         super.init(coder: coder)
         configureLabel()
         configureButton()
+        selectionStyle = .none
+    }
+
+    // MARK: - Public Methods
+
+    func setUserInformation(
+        _ userInfo: UserInfo,
+        changeNameComplition: @escaping () -> ()
+    ) {
+        userNamelabel.text = "\(userInfo.nameSurname)"
+        buttonChangeHandler = changeNameComplition
     }
 
     // MARK: - Private Methods
@@ -67,5 +84,9 @@ class UserNameCell: UITableViewCell {
             editButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             editButton.leftAnchor.constraint(equalTo: userNamelabel.rightAnchor, constant: 11),
         ])
+    }
+
+    @objc private func showAlert() {
+        buttonChangeHandler?()
     }
 }

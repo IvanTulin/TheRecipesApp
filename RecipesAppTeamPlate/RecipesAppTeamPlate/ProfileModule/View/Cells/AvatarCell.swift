@@ -4,16 +4,20 @@
 import UIKit
 
 /// Ячейка Аватара пользователя
-class AvatarCell: UITableViewCell {
+final class AvatarCell: UITableViewCell {
     // MARK: - Visual Components
 
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.image = .avatarForProfile
+        // imageView.image = .avatarForProfile
         imageView.layer.cornerRadius = 80
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+
+    // MARK: - Puplic Properties
+
+    var buttonChangePhotoHandler: VoidHandler?
 
     // MARK: - Initializers
 
@@ -27,9 +31,24 @@ class AvatarCell: UITableViewCell {
         configureImageView()
     }
 
+    // MARK: - Public Methods
+
+    func setUserInformation(
+        _ userInfo: UserInfo,
+        changePhotoComplition: @escaping () -> ()
+    ) {
+        avatarImageView.image = UIImage(named: userInfo.userPhotoName)
+        avatarImageView.clipsToBounds = true
+        avatarImageView.contentMode = .scaleAspectFill
+
+        // TODO: Реализовать смену фотографии
+        buttonChangePhotoHandler = changePhotoComplition
+    }
+
     // MARK: - Private Methods
 
     private func configureImageView() {
+        selectionStyle = .none
         contentView.addSubview(avatarImageView)
 
         NSLayoutConstraint.activate([

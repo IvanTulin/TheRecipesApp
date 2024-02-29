@@ -4,13 +4,19 @@
 import UIKit
 
 /// Экран рецептов
-class RecipesViewController: UIViewController {
+final class RecipesViewController: UIViewController {
+    // MARK: - Puplic Properties
+
     var presenter: RecipesPresenter!
+
+    // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
     }
 }
+
+// MARK: - RecipesViewController + RecipesViewProtocol
 
 extension RecipesViewController: RecipesViewProtocol {}

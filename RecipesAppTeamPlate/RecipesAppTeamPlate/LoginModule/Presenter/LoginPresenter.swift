@@ -3,6 +3,7 @@
 
 import UIKit
 
+
 /// Протокол авторизации
 protocol AutorizationProtocol: AnyObject {
     /// Проверка логина
@@ -28,10 +29,15 @@ protocol AutorizationViewControllerProtocol: AnyObject {
 /// Презентер для экрана с авторизацией
 final class LoginPresenter {
     private weak var view: AutorizationViewControllerProtocol?
-    weak var autorizationCoordinator: LoginCoordinator?
+    weak var loginCoordinator: LoginCoordinator?
     init(view: AutorizationViewControllerProtocol) {
         self.view = view
     }
+  
+  // MARK: - Public Methods
+  
+  func showRecipesTabBarcontroller() {
+        loginCoordinator?.onFinish()
 }
 
 // MARK: - AutorizationProtocol

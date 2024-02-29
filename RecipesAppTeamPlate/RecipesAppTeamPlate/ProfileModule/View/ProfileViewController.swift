@@ -3,16 +3,26 @@
 
 import UIKit
 
+/// Интерфейс общения с ProfileViewController
+protocol ProfileViewProtocol: AnyObject {
+    func showChangeNameAlert()
+    func setNewNameFromSource()
+}
+
 /// Экран профиля
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     // MARK: - Constants
 
-    private enum Constants {
+    enum Constants {
         static let nameTitle = "Profile"
         static let nameFontBold = "Verdana-Bold"
         static let avatarIdentifier = "AvatarCell"
         static let userNameIdentifier = "UserNameCell"
         static let controlPanelIdentifier = "ControlPanelCell"
+        static let nameSurname = "Name Surname"
+        static let alertText = "Change your name and surname"
+        static let cancelButtonText = "Cancel"
+        static let okButtonText = "OK"
     }
 
     /// Тип данных
@@ -33,6 +43,7 @@ class ProfileViewController: UIViewController {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.separatorColor = .clear
         tableView.register(
             AvatarCell.self,
             forCellReuseIdentifier: Constants.avatarIdentifier
@@ -79,11 +90,11 @@ class ProfileViewController: UIViewController {
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
     }
+
+    private func setNewName(_ newName: String) {
+        presenter.didSubmitNewName(newName)
+    }
 }
-
-// MARK: - ProfileViewController + ProfileViewProtocol
-
-extension ProfileViewController: ProfileViewProtocol {}
 
 // MARK: - ProfileViewController + UITableViewDataSource
 
@@ -99,16 +110,32 @@ extension ProfileViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch informationType[indexPath.section] {
         case .avatar:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.avatarIdentifier, for: indexPath)
-            cell.backgroundColor = .gray
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.avatarIdentifier,
+                for: indexPath
+            ) as? AvatarCell else { return UITableViewCell() }
+            guard let userInfo = presenter.getUserInformation() else { return cell }
+            cell.setUserInformation(userInfo) {}
             return cell
         case .userName:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.userNameIdentifier, for: indexPath)
-            cell.backgroundColor = .white
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.userNameIdentifier,
+                for: indexPath
+            ) as? UserNameCell else { return UITableViewCell() }
+            guard let userInfo = presenter.getUserInformation() else { return cell }
+            cell.setUserInformation(userInfo) { [weak self] in
+                self?.presenter.actionChangeName()
+            }
             return cell
         case .controlPanel:
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.controlPanelIdentifier, for: indexPath)
-            cell.backgroundColor = .magenta
+            guard let cell = tableView.dequeueReusableCell(
+                withIdentifier: Constants.controlPanelIdentifier,
+                for: indexPath
+            ) as? ControlPanelCell else { return UITableViewCell() }
+            cell.onEditButtonTapped = { [weak self] in
+                guard let self = self else { return }
+                self.presenter.showBonusesViewController()
+            }
             return cell
         }
     }
@@ -126,5 +153,30 @@ extension ProfileViewController: UITableViewDelegate {
         case .controlPanel:
             return 390
         }
+    }
+}
+
+// MARK: - ProfileViewController + ProfileViewProtocol
+
+extension ProfileViewController: ProfileViewProtocol {
+    func showChangeNameAlert() {
+        let alert = UIAlertController(title: Constants.alertText, message: nil, preferredStyle: .alert)
+        alert.addTextField { text in
+            text.placeholder = Constants.nameSurname
+        }
+        let actionOK = UIAlertAction(title: Constants.okButtonText, style: .cancel) { _ in
+            guard let newName = alert.textFields?[0].text else { return }
+            self.setNewName(newName)
+        }
+        let actionCancel = UIAlertAction(title: Constants.cancelButtonText, style: .default)
+
+        alert.addAction(actionOK)
+        alert.addAction(actionCancel)
+
+        present(alert, animated: true)
+    }
+
+    func setNewNameFromSource() {
+        tableView.reloadData()
     }
 }

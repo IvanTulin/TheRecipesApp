@@ -5,7 +5,11 @@ import UIKit
 
 /// Координатор главный
 final class AppCoordinator: BaseCoordinator {
+    // MARK: - Private Properties
+
     private var tabBarController: UITabBarController?
+
+    // MARK: - Public Methods
 
     override func start() {
         if "admin" == "admins" {
@@ -15,27 +19,29 @@ final class AppCoordinator: BaseCoordinator {
         }
     }
 
+    // MARK: - Private Methods
+
     private func toMain() {
         tabBarController = UITabBarController()
         tabBarController?.tabBar.unselectedItemTintColor = .black
         tabBarController?.tabBar.tintColor = .appPaleBlue
 
-        /// Set Recipe
+        /// устанавливаем Recipe
         let recipeModuleView = AppBuilder.makeRecipeModule()
         let recipeCoordinator = RecipeCoordinator(rootController: recipeModuleView)
         recipeModuleView.presenter?.recipesCoordinator = recipeCoordinator
         add(coordinator: recipeCoordinator)
 
-        /// Set Favorites
+        /// устанавливаем Favorites
         let favoritesModuleView = AppBuilder.makeFavoriteModule()
         let favoritesCoordinator = FavoritesCoordinator(rootController: favoritesModuleView)
         favoritesModuleView.presenter?.favoritesCoordinator = favoritesCoordinator
         add(coordinator: favoritesCoordinator)
 
-        /// Set Profile
-        let profileView = AppBuilder.makeProfileModule()
-        let profileCoordinator = ProfileCoordinator(rootController: profileView)
-        profileView.presenter?.profileCoordinator = profileCoordinator
+        /// устанавливаем Profile
+        let profileCoordinator = ProfileCoordinator()
+        let profileModule = AppBuilder.makeProfileModule(coordinator: profileCoordinator)
+        profileCoordinator.setRootViewController(view: profileModule)
         add(coordinator: profileCoordinator)
 
         profileCoordinator.onFinishFlow = { [weak self] in
@@ -46,8 +52,10 @@ final class AppCoordinator: BaseCoordinator {
             self?.t​oAuth​()
         }
 
+        guard let profileView = profileCoordinator.rootController else { return }
+
         tabBarController?.setViewControllers(
-            [recipeCoordinator.rootController, favoritesCoordinator.rootController, profileCoordinator.rootController],
+            [recipeCoordinator.rootController, favoritesCoordinator.rootController, profileView],
             animated: false
         )
 
