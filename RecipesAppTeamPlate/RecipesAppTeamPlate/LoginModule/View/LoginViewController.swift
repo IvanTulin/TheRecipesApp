@@ -3,7 +3,6 @@
 
 import UIKit
 
-
 /// Экран с авторизацией пользователя
 final class LoginViewController: UIViewController {
     // MARK: - Constants
@@ -34,6 +33,7 @@ final class LoginViewController: UIViewController {
     private let errorLoginLabel = UILabel()
     private let errorPasswordLabel = UILabel()
     private let passwordTextField = UITextField()
+
     private lazy var chekButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = Constants.loginButtonColor
@@ -202,6 +202,7 @@ final class LoginViewController: UIViewController {
     @objc private func tappedButton() {
         view.endEditing(true)
         autorizationPresenter?.chekPassword(password: passwordTextField.text, login: loginTextField.text)
+        autorizationPresenter?.showRecipesTabBarcontroller()
     }
 }
 

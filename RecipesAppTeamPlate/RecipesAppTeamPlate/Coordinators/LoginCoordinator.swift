@@ -24,7 +24,7 @@ final class LoginCoordinator: BaseCoordinator {
         let loginViewController = LoginViewController()
         let loginPresenter = LoginPresenter(view: loginViewController)
         loginViewController.autorizationPresenter = loginPresenter
-        loginPresenter.autorizationCoordinator = self
+        loginPresenter.loginCoordinator = self
 
         let rootController = UINavigationController(rootViewController: loginViewController)
         setAsRoot​(​_​: rootController)

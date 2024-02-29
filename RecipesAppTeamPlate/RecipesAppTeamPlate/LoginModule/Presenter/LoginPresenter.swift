@@ -3,7 +3,6 @@
 
 import UIKit
 
-
 /// Протокол авторизации
 protocol AutorizationProtocol: AnyObject {
     /// Проверка логина
@@ -33,14 +32,15 @@ final class LoginPresenter {
     init(view: AutorizationViewControllerProtocol) {
         self.view = view
     }
-  
-  // MARK: - Public Methods
-  
-  func showRecipesTabBarcontroller() {
-        loginCoordinator?.onFinish()
-}
 
-// MARK: - AutorizationProtocol
+    // MARK: - Public Methods
+
+    func showRecipesTabBarcontroller() {
+        loginCoordinator?.onFinish()
+    }
+
+    // MARK: - AutorizationProtocol
+}
 
 extension LoginPresenter: AutorizationProtocol {
     func chekPassword(password: String?, login: String?) {
