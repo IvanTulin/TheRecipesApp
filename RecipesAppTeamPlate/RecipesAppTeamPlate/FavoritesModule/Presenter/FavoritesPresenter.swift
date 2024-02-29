@@ -12,7 +12,7 @@ protocol FavoritesViewPresenterProtocol: AnyObject {
 }
 
 /// Презентер экрана избранного
-class FavoritesPresenter: FavoritesViewPresenterProtocol {
+final class FavoritesPresenter: FavoritesViewPresenterProtocol {
     // MARK: - Constants
 
     let favoritesView: FavoritesViewProtocol

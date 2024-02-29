@@ -4,7 +4,7 @@
 import UIKit
 
 /// Ячейка контроля управления
-class ControlPanelCell: UITableViewCell {
+final class ControlPanelCell: UITableViewCell {
     // MARK: - Constants
 
     enum Constants {
@@ -133,7 +133,7 @@ class ControlPanelCell: UITableViewCell {
 
     // MARK: - Puplic Properties
 
-    var onEditButtonTapped: (() -> ())?
+    var onEditButtonTapped: VoidHandler?
 
     // MARK: - Initializers
 

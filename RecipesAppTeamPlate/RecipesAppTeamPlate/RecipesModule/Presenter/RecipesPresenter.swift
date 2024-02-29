@@ -12,7 +12,7 @@ protocol RecipesViewPresenterProtocol: AnyObject {
 }
 
 /// Презентер Рецептов
-class RecipesPresenter: RecipesViewPresenterProtocol {
+final class RecipesPresenter: RecipesViewPresenterProtocol {
     // MARK: - Constants
 
     let recipesView: RecipesViewProtocol

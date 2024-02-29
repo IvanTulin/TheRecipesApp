@@ -4,7 +4,7 @@
 import UIKit
 
 /// Ячейка Аватара пользователя
-class AvatarCell: UITableViewCell {
+final class AvatarCell: UITableViewCell {
     // MARK: - Visual Components
 
     private let avatarImageView: UIImageView = {
@@ -14,6 +14,10 @@ class AvatarCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+
+    // MARK: - Puplic Properties
+
+    var buttonChangePhotoHandler: VoidHandler?
 
     // MARK: - Initializers
 
@@ -38,7 +42,7 @@ class AvatarCell: UITableViewCell {
         avatarImageView.contentMode = .scaleAspectFill
 
         // TODO: Реализовать смену фотографии
-        // buttonChangePhotoHandler = changePhotoComplition
+        buttonChangePhotoHandler = changePhotoComplition
     }
 
     // MARK: - Private Methods

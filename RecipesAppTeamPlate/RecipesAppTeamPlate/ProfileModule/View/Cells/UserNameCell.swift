@@ -4,7 +4,7 @@
 import UIKit
 
 /// Ячейка имени пользователя
-class UserNameCell: UITableViewCell {
+final class UserNameCell: UITableViewCell {
     // MARK: - Constants
 
     enum Constants {
@@ -31,11 +31,11 @@ class UserNameCell: UITableViewCell {
         return button
     }()
 
-    // MARK: - Puplic Properties
+    // MARK: - Private Properties
 
-    var onEditButtonTapped: (() -> ())?
-    var buttonChangeHandler: (() -> ())?
-    var presenter: ProfilePresenter!
+    private var onEditButtonTapped: VoidHandler?
+    private var buttonChangeHandler: VoidHandler?
+    private var presenter: ProfilePresenter!
 
     // MARK: - Initializers
 

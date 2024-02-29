@@ -4,7 +4,7 @@
 import UIKit
 
 /// Экран регистрации
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     // MARK: - Visual Components
 
     private lazy var loginBitton: UIButton = {

@@ -12,7 +12,7 @@ protocol LoginViewPresenterProtocol: AnyObject {
 }
 
 /// Презентер логина
-class LoginPresenter: LoginViewPresenterProtocol {
+final class LoginPresenter: LoginViewPresenterProtocol {
     // MARK: - Constants
 
     let loginView: LoginViewProtocol

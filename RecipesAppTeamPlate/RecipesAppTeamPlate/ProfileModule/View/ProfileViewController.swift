@@ -10,7 +10,7 @@ protocol ProfileViewProtocol: AnyObject {
 }
 
 /// Экран профиля
-class ProfileViewController: UIViewController {
+final class ProfileViewController: UIViewController {
     // MARK: - Constants
 
     enum Constants {

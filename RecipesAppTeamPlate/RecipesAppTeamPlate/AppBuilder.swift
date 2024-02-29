@@ -11,7 +11,7 @@ protocol Builder {
 }
 
 /// Класс билдер
-class AppBuilder: Builder {
+final class AppBuilder: Builder {
     static func makeRecipeModule() -> RecipesViewController {
         let recipesSource = Recipes()
         let view = RecipesViewController()
@@ -47,14 +47,4 @@ class AppBuilder: Builder {
         view.presenter = presenter
         return view
     }
-
-//    static func makeProfileModule() -> ProfileViewController {
-//        let view = ProfileViewController()
-//        let infoSource = InfoSource()
-//        let profilePresenter = ProfilePresenter(view: view)
-//        profilePresenter.infoSource = infoSource
-//        view.presenter = profilePresenter
-//        view.tabBarItem = UITabBarItem(title: "Profile", image: .profile, tag: 1)
-//        return view
-//    }
 }

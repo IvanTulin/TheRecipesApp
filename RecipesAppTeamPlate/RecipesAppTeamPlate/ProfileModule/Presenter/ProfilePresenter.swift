@@ -19,7 +19,7 @@ protocol InfoSourceProtocol: AnyObject {
 }
 
 /// Презентер профиля
-class ProfilePresenter: ProfileViewPresenterProtocol {
+final class ProfilePresenter: ProfileViewPresenterProtocol {
     // MARK: - Puplic Properties
 
     private weak var profileView: ProfileViewProtocol?

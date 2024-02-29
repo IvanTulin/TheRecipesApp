@@ -6,7 +6,7 @@ import Foundation
 final class InfoSource: InfoSourceProtocol {
     /// Информация о пользователе
     private var personInfo = UserInfo(
-        nameSurname: "Steve Wozniak",
+        nameSurname: "Surname Name",
         userPhotoName: "avatarForProfile",
         bonusesCount: 200
     )

@@ -4,7 +4,7 @@
 import UIKit
 
 /// Экран избранных рецетов
-class FavoritesViewController: UIViewController {
+final class FavoritesViewController: UIViewController {
     // MARK: - Puplic Properties
 
     var presenter: FavoritesPresenter!

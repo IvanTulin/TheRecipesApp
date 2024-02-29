@@ -12,7 +12,7 @@ protocol ProfileBonusesViewProtocol: AnyObject {
 }
 
 /// Экран бонусов
-class BonusesViewController: UIViewController {
+final class BonusesViewController: UIViewController {
     // MARK: - Constants
 
     enum Constants {

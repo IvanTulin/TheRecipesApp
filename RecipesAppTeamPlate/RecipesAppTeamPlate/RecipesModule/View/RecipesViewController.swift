@@ -4,7 +4,7 @@
 import UIKit
 
 /// Экран рецептов
-class RecipesViewController: UIViewController {
+final class RecipesViewController: UIViewController {
     // MARK: - Puplic Properties
 
     var presenter: RecipesPresenter!
