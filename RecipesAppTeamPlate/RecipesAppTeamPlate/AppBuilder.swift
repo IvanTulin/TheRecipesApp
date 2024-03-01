@@ -4,15 +4,20 @@
 import UIKit
 
 /// Протокол билдер
-protocol Builder {
-    static func makeRecipeModule() -> RecipesViewController
+protocol BuilderProtocol {
+    /// создаем экран Рецептов
+    static func makeRecipeModule(coordinator: RecipeCoordinator) -> RecipesViewController
+    // static func createCategoryModule() -> CategoryViewController
+    /// создаем экран Избранных
     static func makeFavoriteModule() -> FavoritesViewController
+    /// создаем экран Профиля
     static func makeProfileModule(coordinator: ProfileCoordinator) -> ProfileViewController
+    /// создаем экран Бонусов
     static func createBonusesProfileModule() -> UIViewController
 }
 
-/// Класс билдер
-final class AppBuilder: Builder {
+/// Билдер
+final class AppBuilder: BuilderProtocol {
     enum Constants {
         static let titleRecipes = "Recipes"
         static let titleFavorites = "Favorites"
@@ -29,19 +34,28 @@ final class AppBuilder: Builder {
         return view
     }
 
-    static func makeRecipeModule() -> RecipesViewController {
+    static func makeRecipeModule(coordinator: RecipeCoordinator) -> RecipesViewController {
         let recipesSource = Recipes()
         let view = RecipesViewController()
-        let recipePresenter = RecipesPresenter(view: view, source: recipesSource)
+        let recipePresenter = RecipesPresenter(view: view, coordinator: coordinator)
+        recipePresenter.source = recipesSource
         view.presenter = recipePresenter
         view.tabBarItem = UITabBarItem(title: Constants.titleRecipes, image: .recipecIcon, tag: 0)
         return view
     }
 
+//    static func createCategoryModule() -> CategoryViewController {
+//        let view = CategoryViewController()
+//        let recipesSource = RecipesInfo()
+//        let presenter = CategoryPresenter(view: view, source: recipesSource)
+//        view.presenter = presenter
+//        return view
+//    }
+
     static func makeFavoriteModule() -> FavoritesViewController {
         let favoritesSource = Favorites()
         let view = FavoritesViewController()
-        let favoritesPresenter = FavoritesPresenter(view: view, source: favoritesSource)
+        let favoritesPresenter = FavoritesPresenter(view: view, favorites: favoritesSource)
         view.presenter = favoritesPresenter
         view.tabBarItem = UITabBarItem(title: Constants.titleFavorites, image: .favoriteIcon, tag: 0)
         return view
@@ -49,9 +63,9 @@ final class AppBuilder: Builder {
 
     static func makeProfileModule(coordinator: ProfileCoordinator) -> ProfileViewController {
         let view = ProfileViewController()
-        let infoSource = InfoSource()
+        let profileInfo = ProfileInfo()
         let profilePresenter = ProfilePresenter(view: view, coordinator: coordinator)
-        profilePresenter.infoSource = infoSource
+        profilePresenter.profileInfo = profileInfo
         view.presenter = profilePresenter
         view.tabBarItem = UITabBarItem(title: Constants.titleProfile, image: .profile, tag: 1)
         return view
@@ -59,7 +73,7 @@ final class AppBuilder: Builder {
 
     static func createBonusesProfileModule() -> UIViewController {
         let view = BonusesViewController()
-        let infoSource = InfoSource()
+        let infoSource = ProfileInfo()
         let presenter = ProfileBonusesPresenter(view: view, infoSource: infoSource)
         view.presenter = presenter
         return view

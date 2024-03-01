@@ -27,10 +27,11 @@ final class AppCoordinator: BaseCoordinator {
         tabBarController?.tabBar.tintColor = .appPaleBlue
 
         /// устанавливаем Recipe
-        let recipeModuleView = AppBuilder.makeRecipeModule()
-        let recipeCoordinator = RecipeCoordinator(rootController: recipeModuleView)
-        recipeModuleView.presenter?.recipesCoordinator = recipeCoordinator
-        add(coordinator: recipeCoordinator)
+        let recipesCoordinator = RecipeCoordinator()
+        let recipeModuleView = AppBuilder.makeRecipeModule(coordinator: recipesCoordinator)
+        recipesCoordinator.setRootViewController(view: recipeModuleView)
+        // recipeModuleView.presenter?.recipesCoordinator = recipeCoordinator
+        add(coordinator: recipesCoordinator)
 
         /// устанавливаем Favorites
         let favoritesModuleView = AppBuilder.makeFavoriteModule()
@@ -45,7 +46,7 @@ final class AppCoordinator: BaseCoordinator {
         add(coordinator: profileCoordinator)
 
         profileCoordinator.onFinishFlow = { [weak self] in
-            self?.remove(coordinator: recipeCoordinator)
+            self?.remove(coordinator: recipesCoordinator)
             self?.remove(coordinator: favoritesCoordinator)
             self?.remove(coordinator: profileCoordinator)
             self?.tabBarController = nil
@@ -53,9 +54,10 @@ final class AppCoordinator: BaseCoordinator {
         }
 
         guard let profileView = profileCoordinator.rootController else { return }
+        guard let recipesView = recipesCoordinator.rootController else { return }
 
         tabBarController?.setViewControllers(
-            [recipeCoordinator.rootController, favoritesCoordinator.rootController, profileView],
+            [recipesView, favoritesCoordinator.rootController, profileView],
             animated: false
         )
 

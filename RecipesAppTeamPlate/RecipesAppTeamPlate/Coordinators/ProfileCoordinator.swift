@@ -8,8 +8,8 @@ final class ProfileCoordinator: BaseCoordinator {
     // MARK: - Puplic Properties
 
     var rootController: UINavigationController?
-    var onFinishFlow: (() -> ())?
-    var dismissBonuses: (() -> ())?
+    var onFinishFlow: VoidHandler?
+    var dismissBonuses: VoidHandler?
 
     // MARK: - Public Methods
 

@@ -1,9 +1,10 @@
-// InfoSource.swift
+// ProfileInfo.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
-final class InfoSource: InfoSourceProtocol {
+/// Источник информации
+final class ProfileInfo: InfoSourceProtocol {
     /// Информация о пользователе
     private var personInfo = UserInfo(
         nameSurname: "Surname Name",

@@ -85,21 +85,21 @@ final class ControlPanelCell: UITableViewCell {
         return label
     }()
 
-    private let bottomLineBonuses: CALayer = {
+    private let bottomLineBonusesLayer: CALayer = {
         let layer = CALayer()
         layer.frame = CGRect(x: 89, y: 76, width: 249, height: 1)
         layer.backgroundColor = UIColor.systemGray6.cgColor
         return layer
     }()
 
-    private let bottomLinePrivacyTerms: CALayer = {
+    private let bottomLinePrivacyTermsLayer: CALayer = {
         let layer = CALayer()
         layer.frame = CGRect(x: 89, y: 144, width: 249, height: 1)
         layer.backgroundColor = UIColor.systemGray6.cgColor
         return layer
     }()
 
-    private let bottomLineLogOut: CALayer = {
+    private let bottomLineLogOutLayer: CALayer = {
         let layer = CALayer()
         layer.frame = CGRect(x: 89, y: 217, width: 249, height: 1)
         layer.backgroundColor = UIColor.systemGray6.cgColor
@@ -123,7 +123,7 @@ final class ControlPanelCell: UITableViewCell {
         return button
     }()
 
-    private let showLogOutMessageutton: UIButton = {
+    private let showLogOutMessageButton: UIButton = {
         let button = UIButton()
         button.setImage(.rightIcon, for: .normal)
         button.sizeToFit()
@@ -163,7 +163,7 @@ final class ControlPanelCell: UITableViewCell {
 
         contentView.addSubview(showBonusesButton)
         contentView.addSubview(showPrivacyTermsButton)
-        contentView.addSubview(showLogOutMessageutton)
+        contentView.addSubview(showLogOutMessageButton)
 
         NSLayoutConstraint.activate([
             bonusesImageButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 25),
@@ -187,8 +187,8 @@ final class ControlPanelCell: UITableViewCell {
             showPrivacyTermsButton.topAnchor.constraint(equalTo: privacyTermsImageButton.topAnchor, constant: 15),
             showPrivacyTermsButton.leftAnchor.constraint(equalTo: privacyTermsImageButton.rightAnchor, constant: 277),
 
-            showLogOutMessageutton.topAnchor.constraint(equalTo: logOutImageButton.topAnchor, constant: 15),
-            showLogOutMessageutton.leftAnchor.constraint(equalTo: logOutImageButton.rightAnchor, constant: 277),
+            showLogOutMessageButton.topAnchor.constraint(equalTo: logOutImageButton.topAnchor, constant: 15),
+            showLogOutMessageButton.leftAnchor.constraint(equalTo: logOutImageButton.rightAnchor, constant: 277),
         ])
     }
 
@@ -216,9 +216,9 @@ final class ControlPanelCell: UITableViewCell {
     }
 
     private func configureCALayers() {
-        contentView.layer.addSublayer(bottomLineBonuses)
-        contentView.layer.addSublayer(bottomLinePrivacyTerms)
-        contentView.layer.addSublayer(bottomLineLogOut)
+        contentView.layer.addSublayer(bottomLineBonusesLayer)
+        contentView.layer.addSublayer(bottomLinePrivacyTermsLayer)
+        contentView.layer.addSublayer(bottomLineLogOutLayer)
     }
 
     @objc private func showBonuses() {

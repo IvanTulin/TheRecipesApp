@@ -8,7 +8,7 @@ final class FavoritesCoordinator: BaseCoordinator {
     // MARK: - Puplic Properties
 
     var rootController: UINavigationController
-    var onFinishFlow: (() -> ())?
+    var onFinishFlow: VoidHandler?
 
     // MARK: - Initializers
 
@@ -18,7 +18,7 @@ final class FavoritesCoordinator: BaseCoordinator {
 
     // MARK: - Public Methods
 
-    func pushFavorites() {
+    func showFavoritesModule() {
         let favoritesViewController = FavoritesViewController()
         rootController.pushViewController(favoritesViewController, animated: true)
     }
