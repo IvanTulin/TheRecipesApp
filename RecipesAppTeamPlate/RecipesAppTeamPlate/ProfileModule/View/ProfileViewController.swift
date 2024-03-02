@@ -29,7 +29,7 @@ final class ProfileViewController: UIViewController {
 
     /// Тип данных
     enum InformationType {
-        /// adatar профиля
+        /// avatar профиля
         case avatar
         /// имя пользователя
         case userName

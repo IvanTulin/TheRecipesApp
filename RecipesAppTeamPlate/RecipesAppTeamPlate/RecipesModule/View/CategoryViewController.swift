@@ -39,7 +39,7 @@ class CategoryViewController: UIViewController {
     }
 
     private func configureUI() {
-        //backButton.setTitle(recipes?.recipesInfo.first?.nameRecipesLabel, for: .normal)
+        // backButton.setTitle(recipes?.recipesInfo.first?.nameRecipesLabel, for: .normal)
         backButton.setTitle(recipes?.nameRecipesLabel, for: .normal)
     }
 
