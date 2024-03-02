@@ -78,4 +78,11 @@ final class AppBuilder: BuilderProtocol {
         view.presenter = presenter
         return view
     }
+
+    static func createDetailRecipesModule() -> DetailRecipesViewController {
+        let detailRecipesViewController = DetailRecipesViewController()
+        let presenter = DetailRecipesPresenter(view: detailRecipesViewController)
+        detailRecipesViewController.presenter = presenter
+        return detailRecipesViewController
+    }
 }

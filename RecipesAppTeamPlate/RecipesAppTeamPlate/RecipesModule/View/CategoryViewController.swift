@@ -121,7 +121,6 @@ class CategoryViewController: UIViewController {
     }
 
     @objc private func backToTheLastController() {
-        print("Back")
         navigationController?.popViewController(animated: true)
     }
 }
@@ -148,6 +147,10 @@ extension CategoryViewController: UITableViewDataSource {
         else { return UITableViewCell() }
         guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
         cell.getRecipes(recipe: cell1)
+        cell.buttonChangeHandler = { [weak self] in
+            guard let self = self else { return }
+            presenter.showDetails(cell1)
+        }
         return cell
     }
 
