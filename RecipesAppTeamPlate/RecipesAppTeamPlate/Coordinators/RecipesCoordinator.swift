@@ -7,19 +7,29 @@ import UIKit
 final class RecipeCoordinator: BaseCoordinator {
     // MARK: - Puplic Properties
 
-    var rootController: UINavigationController
-    var onFinishFlow: (() -> ())?
+    var rootController: UINavigationController?
+    var onFinishFlow: VoidHandler?
 
     // MARK: - Initializers
 
-    init(rootController: UIViewController) {
-        self.rootController = UINavigationController(rootViewController: rootController)
+    func setRootViewController(view: UIViewController) {
+        rootController = UINavigationController(
+            rootViewController: view
+        )
     }
 
     // MARK: - Public Methods
 
-    func pushRecipes() {
+    func showRecipes() {
         let recipeViewController = RecipesViewController()
-        rootController.pushViewController(recipeViewController, animated: true)
+        // let recipeViewController = AppBuilder.makeRecipeModule()
+        rootController?.pushViewController(recipeViewController, animated: true)
+    }
+
+    func showCategories(category: RecipesInfo) {
+        let categoryViewController = CategoryViewController()
+        let presenter = CategoryPresenter(view: categoryViewController, source: category)
+        categoryViewController.presenter = presenter
+        rootController?.pushViewController(categoryViewController, animated: true)
     }
 }

@@ -13,7 +13,7 @@ final class UserNameCell: UITableViewCell {
 
     // MARK: - Visual Components
 
-    var userNamelabel: UILabel = {
+    var userNameLabel: UILabel = {
         let userNamelabel = UILabel()
         userNamelabel.textAlignment = .center
         userNamelabel.font = UIFont(name: Constants.nameFontBold, size: 28)
@@ -33,7 +33,7 @@ final class UserNameCell: UITableViewCell {
 
     // MARK: - Private Properties
 
-    private var onEditButtonTapped: VoidHandler?
+    private var onEditButtonTappedHandler: VoidHandler?
     private var buttonChangeHandler: VoidHandler?
     private var presenter: ProfilePresenter!
 
@@ -60,20 +60,20 @@ final class UserNameCell: UITableViewCell {
         _ userInfo: UserInfo,
         changeNameComplition: @escaping () -> ()
     ) {
-        userNamelabel.text = "\(userInfo.nameSurname)"
+        userNameLabel.text = "\(userInfo.nameSurname)"
         buttonChangeHandler = changeNameComplition
     }
 
     // MARK: - Private Methods
 
     private func configureLabel() {
-        contentView.addSubview(userNamelabel)
+        contentView.addSubview(userNameLabel)
 
         NSLayoutConstraint.activate([
-            userNamelabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            userNamelabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 51),
-            userNamelabel.widthAnchor.constraint(equalToConstant: 256),
-            userNamelabel.heightAnchor.constraint(equalToConstant: 30),
+            userNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
+            userNameLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 51),
+            userNameLabel.widthAnchor.constraint(equalToConstant: 256),
+            userNameLabel.heightAnchor.constraint(equalToConstant: 30),
         ])
     }
 
@@ -82,7 +82,7 @@ final class UserNameCell: UITableViewCell {
 
         NSLayoutConstraint.activate([
             editButton.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            editButton.leftAnchor.constraint(equalTo: userNamelabel.rightAnchor, constant: 11),
+            editButton.leftAnchor.constraint(equalTo: userNameLabel.rightAnchor, constant: 11),
         ])
     }
 

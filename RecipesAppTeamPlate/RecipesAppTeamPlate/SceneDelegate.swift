@@ -14,6 +14,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         options connectionOptions: UIScene.ConnectionOptions
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
+        creatScreen(windowScene)
+    }
+
+    func creatScreen(_ windowScene: UIWindowScene) {
         window = UIWindow(windowScene: windowScene)
         if let window {
             window.makeKeyAndVisible()

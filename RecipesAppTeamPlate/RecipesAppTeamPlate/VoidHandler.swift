@@ -6,5 +6,5 @@ import Foundation
 // swiftlint:disable all
 
 /// Создаем тип для пустой кложуры
-public typealias VoidHandler = () -> ()
+typealias VoidHandler = () -> ()
 // swiftlint:enable all

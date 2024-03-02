@@ -5,9 +5,13 @@ import Foundation
 
 /// Интерфейс общения с ProfilePresenter
 protocol ProfileViewPresenterProtocol: AnyObject {
+    /// Получить информацию пользователя
     func getUserInformation() -> UserInfo?
+    /// Редактируем профиль
     func profiledEditButtonTapped()
+    /// Установка нового имени пользователю
     func didSubmitNewName(_ name: String)
+    /// Вызов алерта для смены имени
     func actionChangeName()
 }
 
@@ -24,7 +28,7 @@ final class ProfilePresenter: ProfileViewPresenterProtocol {
 
     private weak var profileView: ProfileViewProtocol?
     private weak var profileCoordinator: ProfileCoordinator?
-    var infoSource: InfoSourceProtocol?
+    var profileInfo: InfoSourceProtocol?
 
     // MARK: - Initializers
 
@@ -36,7 +40,7 @@ final class ProfilePresenter: ProfileViewPresenterProtocol {
     // MARK: - Public Methods
 
     func getUserInformation() -> UserInfo? {
-        infoSource?.getUserInfo()
+        profileInfo?.getUserInfo()
     }
 
     func profiledEditButtonTapped() {
@@ -48,7 +52,7 @@ final class ProfilePresenter: ProfileViewPresenterProtocol {
     }
 
     func didSubmitNewName(_ name: String) {
-        infoSource?.changeUserName(nameSurname: name)
+        profileInfo?.changeUserName(nameSurname: name)
         profileView?.setNewNameFromSource()
     }
 
