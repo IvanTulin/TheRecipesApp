@@ -50,20 +50,12 @@ final class FavoritesViewController: UIViewController {
         view.backgroundColor = .white
         title = Constants.favoritesLabel
         navigationController?.navigationBar.prefersLargeTitles = true
-//        view.addSubview(emptyView)
         view.addSubview(tableView)
         // setupEmptyView()
         setupUITableView()
     }
 
     // MARK: - Private Methods
-
-//    private func setupEmptyView() {
-//        emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-//        emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-//        emptyView.widthAnchor.constraint(equalToConstant: 350).isActive = true
-//        emptyView.heightAnchor.constraint(equalToConstant: 132).isActive = true
-//    }
 
     private func setupUITableView() {
         tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
