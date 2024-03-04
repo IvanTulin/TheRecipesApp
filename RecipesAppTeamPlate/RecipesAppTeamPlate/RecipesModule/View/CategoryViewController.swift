@@ -5,12 +5,23 @@ import UIKit
 
 /// Экран выбранной категории
 class CategoryViewController: UIViewController {
+    // MARK: - Constants
+    
+    enum Constants {
+       static let identifier = "RecipecViewCell"
+        static let tabBarPlaceHolder = "Search recipes"
+        static let font = "Verdana-Bold"
+        static let bigSize = 28
+        static let calories = "Calories"
+        static let time = "Time"
+    }
+    
     // MARK: - Visual Components
 
     lazy var searchBar: UISearchBar = {
         let search = UISearchBar()
         search.translatesAutoresizingMaskIntoConstraints = false
-        search.placeholder = "Search recipes"
+        search.placeholder = Constants.tabBarPlaceHolder
         search.searchTextField.borderStyle = .none
         search.searchBarStyle = .minimal
         search.searchTextField.backgroundColor = .appLightGray
@@ -21,7 +32,7 @@ class CategoryViewController: UIViewController {
     lazy var backButton: UIButton = {
         let customButton = UIButton(type: .custom)
         customButton.setImage(.backButton, for: .normal)
-        customButton.titleLabel?.font = UIFont(name: "Verdana-Bold", size: 28)
+        customButton.titleLabel?.font = UIFont(name: Constants.font, size: CGFloat(Constants.bigSize))
         customButton.setTitleColor(.black, for: .normal)
         customButton.addTarget(self, action: #selector(backToTheLastController), for: .touchUpInside)
         return customButton
@@ -30,16 +41,15 @@ class CategoryViewController: UIViewController {
     lazy var caloriesFilterButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Calories", for: .normal)
+        button.setTitle(Constants.calories, for: .normal)
         button.layer.cornerRadius = 12
         button.backgroundColor = .recipeCell
         return button
     }()
-
     lazy var timeFilterButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("Time", for: .normal)
+        button.setTitle(Constants.time, for: .normal)
         button.layer.cornerRadius = 12
         button.backgroundColor = .appPaleBlue
         return button
@@ -50,7 +60,7 @@ class CategoryViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.dataSource = self
         table.delegate = self
-        table.register(RecipesViewCell.self, forCellReuseIdentifier: "123")
+        table.register(RecipesViewCell.self, forCellReuseIdentifier: Constants.identifier)
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         return table
@@ -79,12 +89,11 @@ class CategoryViewController: UIViewController {
 
     private func setupTimeButton() {
         timeFilterButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 30).isActive = true
-        timeFilterButton.leadingAnchor.constraint(equalTo: caloriesFilterButton.trailingAnchor, constant: 11)
-            .isActive = true
+        timeFilterButton.leadingAnchor.constraint(equalTo: caloriesFilterButton.trailingAnchor, constant: 11).isActive = true
         timeFilterButton.widthAnchor.constraint(equalToConstant: 112).isActive = true
         timeFilterButton.heightAnchor.constraint(equalToConstant: 36).isActive = true
     }
-
+    
     private func setupCaloriesButton() {
         caloriesFilterButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 30).isActive = true
         caloriesFilterButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
@@ -115,6 +124,7 @@ class CategoryViewController: UIViewController {
         if let nameRecipes = recipes?.nameRecipesLabel {
             backButton.setTitle(" \(nameRecipes)", for: .normal)
         }
+
         setupSearchBar()
         setupTableView()
         setupCaloriesButton()
@@ -132,7 +142,6 @@ extension CategoryViewController: CategoryViewProtocol {
     }
 
     func setTittle(_ nameTitle: String) {
-        // backButton.setTitle(nameTitle, for: .normal)
     }
 }
 
@@ -144,7 +153,7 @@ extension CategoryViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "123", for: indexPath) as? RecipesViewCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.identifier, for: indexPath) as? RecipesViewCell
         else { return UITableViewCell() }
         guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
         cell.getRecipes(recipe: cell1)

@@ -23,7 +23,7 @@ final class AppCoordinator: BaseCoordinator {
 
     private func toMain() {
         tabBarController = UITabBarController()
-        tabBarController?.tabBar.unselectedItemTintColor = .black
+        tabBarController?.tabBar.unselectedItemTintColor = .gray
         tabBarController?.tabBar.tintColor = .appPaleBlue
 
         /// устанавливаем Recipe
