@@ -6,16 +6,16 @@ import UIKit
 /// Экран выбранной категории
 class CategoryViewController: UIViewController {
     // MARK: - Constants
-    
+
     enum Constants {
-       static let identifier = "RecipecViewCell"
+        static let identifier = "RecipecViewCell"
         static let tabBarPlaceHolder = "Search recipes"
         static let font = "Verdana-Bold"
         static let bigSize = 28
         static let calories = "Calories"
         static let time = "Time"
     }
-    
+
     // MARK: - Visual Components
 
     lazy var searchBar: UISearchBar = {
@@ -46,6 +46,7 @@ class CategoryViewController: UIViewController {
         button.backgroundColor = .recipeCell
         return button
     }()
+
     lazy var timeFilterButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -89,11 +90,12 @@ class CategoryViewController: UIViewController {
 
     private func setupTimeButton() {
         timeFilterButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 30).isActive = true
-        timeFilterButton.leadingAnchor.constraint(equalTo: caloriesFilterButton.trailingAnchor, constant: 11).isActive = true
+        timeFilterButton.leadingAnchor.constraint(equalTo: caloriesFilterButton.trailingAnchor, constant: 11)
+            .isActive = true
         timeFilterButton.widthAnchor.constraint(equalToConstant: 112).isActive = true
         timeFilterButton.heightAnchor.constraint(equalToConstant: 36).isActive = true
     }
-    
+
     private func setupCaloriesButton() {
         caloriesFilterButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 30).isActive = true
         caloriesFilterButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20).isActive = true
@@ -141,8 +143,7 @@ extension CategoryViewController: CategoryViewProtocol {
         self.recipes = recipes
     }
 
-    func setTittle(_ nameTitle: String) {
-    }
+    func setTittle(_ nameTitle: String) {}
 }
 
 extension CategoryViewController: UITableViewDelegate {}
@@ -153,7 +154,10 @@ extension CategoryViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Constants.identifier, for: indexPath) as? RecipesViewCell
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: Constants.identifier,
+            for: indexPath
+        ) as? RecipesViewCell
         else { return UITableViewCell() }
         guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
         cell.getRecipes(recipe: cell1)

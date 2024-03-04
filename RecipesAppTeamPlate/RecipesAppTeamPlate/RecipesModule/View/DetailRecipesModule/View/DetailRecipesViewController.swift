@@ -192,7 +192,6 @@ extension DetailRecipesViewController: UITableViewDelegate {
         }
     }
 
-
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         50
     }
