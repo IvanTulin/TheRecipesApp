@@ -44,14 +44,6 @@ final class AppBuilder: BuilderProtocol {
         return view
     }
 
-//    static func createCategoryModule() -> CategoryViewController {
-//        let view = CategoryViewController()
-//        let recipesSource = RecipesInfo()
-//        let presenter = CategoryPresenter(view: view, source: recipesSource)
-//        view.presenter = presenter
-//        return view
-//    }
-
     static func makeFavoriteModule() -> FavoritesViewController {
         let favoritesSource = Favorites()
         let view = FavoritesViewController()

@@ -12,23 +12,27 @@ final class FavoritesViewController: UIViewController {
         static let font = "Verdana-Bold"
         static let maxSize = 28
         static let emptyView = "EmptyView"
+        static let identifier = "CellFavorite"
     }
 
     // MARK: - Visual Components
-
-    private let favoritesLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont(name: Constants.font, size: CGFloat(Constants.maxSize))
-        label.text = Constants.favoritesLabel
-        return label
-    }()
 
     private let emptyView: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.image = UIImage(named: Constants.emptyView)
         return image
+    }()
+
+    private lazy var tableView: UITableView = {
+        let table = UITableView()
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.delegate = self
+        table.dataSource = self
+        table.separatorStyle = .none
+        table.separatorColor = .clear
+        table.register(RecipesViewCell.self, forCellReuseIdentifier: Constants.identifier)
+        return table
     }()
 
     // MARK: - Puplic Properties
@@ -44,29 +48,42 @@ final class FavoritesViewController: UIViewController {
 
     private func setupUI() {
         view.backgroundColor = .white
-        view.addSubview(favoritesLabel)
-        view.addSubview(emptyView)
-        setupFavoritesLabel()
-        setupEmptyView()
+        title = Constants.favoritesLabel
+        navigationController?.navigationBar.prefersLargeTitles = true
+//        view.addSubview(emptyView)
+        view.addSubview(tableView)
+        // setupEmptyView()
+        setupUITableView()
     }
 
     // MARK: - Private Methods
 
-    private func setupFavoritesLabel() {
-        favoritesLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 15).isActive = true
-        favoritesLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 55).isActive = true
-        favoritesLabel.widthAnchor.constraint(equalToConstant: 175).isActive = true
-        favoritesLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
-    }
+//    private func setupEmptyView() {
+//        emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+//        emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+//        emptyView.widthAnchor.constraint(equalToConstant: 350).isActive = true
+//        emptyView.heightAnchor.constraint(equalToConstant: 132).isActive = true
+//    }
 
-    private func setupEmptyView() {
-        emptyView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        emptyView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        emptyView.widthAnchor.constraint(equalToConstant: 350).isActive = true
-        emptyView.heightAnchor.constraint(equalToConstant: 132).isActive = true
+    private func setupUITableView() {
+        tableView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
     }
 }
 
 // MARK: - FavoritesViewController + FavoritesViewProtocol
 
 extension FavoritesViewController: FavoritesViewProtocol {}
+extension FavoritesViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        10
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        UITableViewCell()
+    }
+}
+
+extension FavoritesViewController: UITableViewDelegate {}
