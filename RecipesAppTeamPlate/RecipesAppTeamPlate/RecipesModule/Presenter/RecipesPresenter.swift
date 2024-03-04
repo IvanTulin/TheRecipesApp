@@ -8,7 +8,8 @@ protocol RecipesViewProtocol: AnyObject {}
 
 /// Интерфейс общения с RecipesPresenter
 protocol RecipesViewPresenterProtocol: AnyObject {
-    init(view: RecipesViewProtocol, source: Recipes)
+    func getUserInformation() -> [RecipesInfo]?
+    func showCategory(_ type: RecipesInfo)
 }
 
 /// Презентер Рецептов
@@ -16,16 +17,26 @@ final class RecipesPresenter: RecipesViewPresenterProtocol {
     // MARK: - Constants
 
     let recipesView: RecipesViewProtocol
-    let source: Recipes
+    var source: Recipes?
 
     // MARK: - Puplic Properties
 
-    weak var recipesCoordinator: RecipeCoordinator?
+    private weak var recipesCoordinator: RecipeCoordinator?
 
     // MARK: - Initializers
 
-    required init(view: RecipesViewProtocol, source: Recipes) {
+    init(view: RecipesViewProtocol, coordinator: RecipeCoordinator) {
         recipesView = view
-        self.source = source
+        recipesCoordinator = coordinator
+    }
+
+    // MARK: - Public Methods
+
+    func getUserInformation() -> [RecipesInfo]? {
+        source?.getUserInfo()
+    }
+
+    func showCategory(_ type: RecipesInfo) {
+        recipesCoordinator?.showCategories(category: type)
     }
 }

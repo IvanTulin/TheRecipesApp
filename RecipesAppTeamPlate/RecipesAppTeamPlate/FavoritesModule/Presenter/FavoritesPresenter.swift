@@ -8,7 +8,7 @@ protocol FavoritesViewProtocol: AnyObject {}
 
 /// Интерфейс общения с FavoritesPresenter
 protocol FavoritesViewPresenterProtocol: AnyObject {
-    init(view: FavoritesViewProtocol, source: Favorites)
+    init(view: FavoritesViewProtocol, favorites: Favorites)
 }
 
 /// Презентер экрана избранного
@@ -16,7 +16,7 @@ final class FavoritesPresenter: FavoritesViewPresenterProtocol {
     // MARK: - Constants
 
     let favoritesView: FavoritesViewProtocol
-    let source: Favorites
+    let favorites: Favorites
 
     // MARK: - Puplic Properties
 
@@ -24,8 +24,8 @@ final class FavoritesPresenter: FavoritesViewPresenterProtocol {
 
     // MARK: - Initializers
 
-    required init(view: FavoritesViewProtocol, source: Favorites) {
+    required init(view: FavoritesViewProtocol, favorites: Favorites) {
         favoritesView = view
-        self.source = source
+        self.favorites = favorites
     }
 }

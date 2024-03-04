@@ -9,7 +9,6 @@ final class AvatarCell: UITableViewCell {
 
     private let avatarImageView: UIImageView = {
         let imageView = UIImageView()
-        // imageView.image = .avatarForProfile
         imageView.layer.cornerRadius = 80
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -35,7 +34,7 @@ final class AvatarCell: UITableViewCell {
 
     func setUserInformation(
         _ userInfo: UserInfo,
-        changePhotoComplition: @escaping () -> ()
+        changePhotoComplition: @escaping VoidHandler
     ) {
         avatarImageView.image = UIImage(named: userInfo.userPhotoName)
         avatarImageView.clipsToBounds = true

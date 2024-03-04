@@ -8,7 +8,7 @@ final class LoginCoordinator: BaseCoordinator {
     // MARK: - Puplic Properties
 
     var rootController: UINavigationController?
-    var onFinishFlow: (() -> ())?
+    var onFinishFlow: VoidHandler?
 
     // MARK: - Public Methods
 

@@ -5,7 +5,9 @@ import UIKit
 
 /// Интерфейс общения с ProfileViewController
 protocol ProfileViewProtocol: AnyObject {
+    /// показываем алерт для смены имени пользователя
     func showChangeNameAlert()
+    /// устанавливаем новое имя пользователю
     func setNewNameFromSource()
 }
 
@@ -27,7 +29,7 @@ final class ProfileViewController: UIViewController {
 
     /// Тип данных
     enum InformationType {
-        /// adatar профиля
+        /// avatar профиля
         case avatar
         /// имя пользователя
         case userName
@@ -35,7 +37,7 @@ final class ProfileViewController: UIViewController {
         case controlPanel
     }
 
-    let informationType: [InformationType] = [.avatar, .userName, .controlPanel]
+    let informationTypes: [InformationType] = [.avatar, .userName, .controlPanel]
 
     // MARK: - Visual Components
 
@@ -62,7 +64,7 @@ final class ProfileViewController: UIViewController {
 
     // MARK: - Properties
 
-    var presenter: ProfilePresenter!
+    var presenter: ProfilePresenter?
 
     // MARK: - Life Cycle
 
@@ -92,7 +94,7 @@ final class ProfileViewController: UIViewController {
     }
 
     private func setNewName(_ newName: String) {
-        presenter.didSubmitNewName(newName)
+        presenter?.didSubmitNewName(newName)
     }
 }
 
@@ -100,7 +102,7 @@ final class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        informationType.count
+        informationTypes.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -108,13 +110,13 @@ extension ProfileViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch informationType[indexPath.section] {
+        switch informationTypes[indexPath.section] {
         case .avatar:
             guard let cell = tableView.dequeueReusableCell(
                 withIdentifier: Constants.avatarIdentifier,
                 for: indexPath
             ) as? AvatarCell else { return UITableViewCell() }
-            guard let userInfo = presenter.getUserInformation() else { return cell }
+            guard let userInfo = presenter?.getUserInformation() else { return cell }
             cell.setUserInformation(userInfo) {}
             return cell
         case .userName:
@@ -122,9 +124,9 @@ extension ProfileViewController: UITableViewDataSource {
                 withIdentifier: Constants.userNameIdentifier,
                 for: indexPath
             ) as? UserNameCell else { return UITableViewCell() }
-            guard let userInfo = presenter.getUserInformation() else { return cell }
+            guard let userInfo = presenter?.getUserInformation() else { return cell }
             cell.setUserInformation(userInfo) { [weak self] in
-                self?.presenter.actionChangeName()
+                self?.presenter?.actionChangeName()
             }
             return cell
         case .controlPanel:
@@ -134,7 +136,7 @@ extension ProfileViewController: UITableViewDataSource {
             ) as? ControlPanelCell else { return UITableViewCell() }
             cell.onEditButtonTapped = { [weak self] in
                 guard let self = self else { return }
-                self.presenter.showBonusesViewController()
+                self.presenter?.showBonusesViewController()
             }
             return cell
         }
@@ -145,7 +147,7 @@ extension ProfileViewController: UITableViewDataSource {
 
 extension ProfileViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch informationType[indexPath.section] {
+        switch informationTypes[indexPath.section] {
         case .avatar:
             return 180
         case .userName:
