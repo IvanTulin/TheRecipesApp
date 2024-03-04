@@ -20,7 +20,6 @@ class RecipeDescriptionCell: UITableViewCell {
             UIColor.white.cgColor
         ]
         gradient.cornerRadius = 24
-        // gradient.maskedCorners =
         return gradient
     }()
 
@@ -32,18 +31,6 @@ class RecipeDescriptionCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
-//    private lazy var recipeDescriptionTextView: UITextView = {
-//        let textView = UITextView()
-//        //textView.backgroundColor = .cyan
-//        // textView.isScrollEnabled = true
-//        textView.isEditable = true
-//        textView.delegate = self
-//        textView.font = UIFont(name: Constants.nameFontName, size: 14)
-//        textView.layer.cornerRadius = 24
-//        textView.translatesAutoresizingMaskIntoConstraints = false
-//        return textView
-//    }()
 
     // MARK: - Initializers
 
@@ -86,33 +73,7 @@ class RecipeDescriptionCell: UITableViewCell {
             recipeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
             recipeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 27),
             recipeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -27),
-            recipeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40)
+            recipeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
-
-        // contentView.addSubview(recipeDescriptionTextView)
-
-//        NSLayoutConstraint.activate([
-//            recipeDescriptionTextView.topAnchor.constraint(equalTo: contentView.topAnchor),
-//            recipeDescriptionTextView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-//            recipeDescriptionTextView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-//            recipeDescriptionTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-//
-//            // recipeDescriptionTextView.widthAnchor.constraint(equalToConstant: 390),
-        ////            recipeDescriptionTextView.heightAnchor.constraint(equalToConstant: 683),
-//        ])
-    }
-}
-
-extension RecipeDescriptionCell: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-//            let size = textView.bounds.size
-//            let newSize = textView.sizeThatFits(CGSize(width: size.width, height: CGFloat.greatestFiniteMagnitude))
-//
-//            if size.height != newSize.height {
-//                textViewHeightConstraint.constant = newSize.height // textViewHeightConstraint - констрейнт высоты для
-//                UITextView
-//                tableView.beginUpdates()
-//                tableView.endUpdates()
-//            }
     }
 }

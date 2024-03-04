@@ -25,41 +25,6 @@ class DetailRecipesViewController: UIViewController {
 
     let informationTypes: [InforantionType] = [.picture, .calorie, .description]
 
-    let nameRecipesImage = "fish1"
-    let calorieInformations = [""]
-    let textForRecipes = """
-    1/2 to 2 fish heads, depending on size, about 5 pounds total
-    2 tablespoons vegetable oil
-    1/4 cup red or green thai curry paste
-    3 tablespoons fish sauce or anchovy sauce
-    1 tablespoon sugar
-    1 can coconut milk, about 12 ounces
-    3 medium size asian eggplants, cut int 1 inch rounds
-    Handful of bird's eye chilies
-    1/2 cup thai basil leaves
-    Juice of 3 limes
-    1/2 to 2 fish heads, depending on size, about 5 pounds total
-    2 tablespoons vegetable oil
-    1/4 cup red or green thai curry paste
-    3 tablespoons fish sauce or anchovy sauce
-    1 tablespoon sugar
-    1 can coconut milk, about 12 ounces
-    3 medium size asian eggplants, cut int 1 inch rounds
-    Handful of bird's eye chilies
-    1/2 cup thai basil leaves
-    Juice of 3 limes
-    1/2 to 2 fish heads, depending on size, about 5 pounds total
-    2 tablespoons vegetable oil
-    1/4 cup red or green thai curry paste
-    3 tablespoons fish sauce or anchovy sauce
-    1 tablespoon sugar
-    1 can coconut milk, about 12 ounces
-    3 medium size asian eggplants, cut int 1 inch rounds
-    Handful of bird's eye chilies
-    1/2 cup thai basil leaves
-    Juice of 3 limes
-    """
-
     // MARK: - Visual Components
 
     private lazy var tableView: UITableView = {
@@ -101,6 +66,7 @@ class DetailRecipesViewController: UIViewController {
 
     var presenter: DetailRecipesPresenter?
     var detailRecipes: RecipesStorage?
+    var descriptions = Description()
 
     // MARK: - Life Cycle
 
@@ -204,7 +170,8 @@ extension DetailRecipesViewController: UITableViewDataSource {
                 withIdentifier: Constants.recipeDescriptionIdentifier,
                 for: indexPath
             ) as? RecipeDescriptionCell else { return UITableViewCell() }
-            cell.setupText(textForRecipes)
+            // cell.setupText(textForRecipes)
+            cell.setupText(descriptions.description.textDescription)
             return cell
         }
     }
@@ -221,13 +188,10 @@ extension DetailRecipesViewController: UITableViewDelegate {
             return 80
         case .description:
             // return UITableView.automaticDimension
-            return 600
+            return 630
         }
     }
 
-//    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 305
-//    }
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         50
