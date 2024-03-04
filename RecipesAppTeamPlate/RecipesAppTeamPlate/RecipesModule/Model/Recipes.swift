@@ -32,7 +32,7 @@ struct Recipes {
             storageRecipes: [
                 RecipesStorage(
                     dishLabel: "Simple Fish And Corn",
-                    dishImage: "fish&corn",
+                    dishImage: "fish1",
                     dishTime: "60 min",
                     dishKkal: "274 kkal"
                 ),

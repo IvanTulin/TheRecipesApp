@@ -66,12 +66,26 @@ class DetailRecipesViewController: UIViewController {
         let tableView = UITableView()
         tableView.dataSource = self
         tableView.delegate = self
-        // tableView.isScrollEnabled = false
+        tableView.separatorColor = .clear
         tableView.register(PictureOfDishCell.self, forCellReuseIdentifier: Constants.pictureOfDiskIdentifier)
         tableView.register(CalorieCell.self, forCellReuseIdentifier: Constants.caloriesIdentifier)
         tableView.register(RecipeDescriptionCell.self, forCellReuseIdentifier: Constants.recipeDescriptionIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
+    }()
+
+    private let shareButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "paperplane"), for: .normal)
+        button.tintColor = .black
+        return button
+    }()
+
+    private let favoritesButton: UIButton = {
+        let button = UIButton(type: .custom)
+        button.setImage(.favorites, for: .normal)
+        button.tintColor = .black
+        return button
     }()
 
     lazy var backButton: UIButton = {
@@ -116,8 +130,12 @@ class DetailRecipesViewController: UIViewController {
     }
 
     private func configureNavigation() {
-        let customBarButtomItem = UIBarButtonItem(customView: backButton)
-        navigationItem.leftBarButtonItem = customBarButtomItem
+        let backBarButtomItem = UIBarButtonItem(customView: backButton)
+        let shareBarButtomItem = UIBarButtonItem(customView: shareButton)
+        let favoritesBarButtomItem = UIBarButtonItem(customView: favoritesButton)
+
+        navigationItem.leftBarButtonItem = backBarButtomItem
+        navigationItem.rightBarButtonItems = [favoritesBarButtomItem, shareBarButtomItem]
     }
 
     @objc private func backToTheLastController() {

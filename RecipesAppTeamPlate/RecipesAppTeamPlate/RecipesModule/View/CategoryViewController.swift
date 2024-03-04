@@ -112,8 +112,9 @@ class CategoryViewController: UIViewController {
     }
 
     private func configureUI() {
-        // backButton.setTitle(recipes?.recipesInfo.first?.nameRecipesLabel, for: .normal)
-        backButton.setTitle(recipes?.nameRecipesLabel, for: .normal)
+        if let nameRecipes = recipes?.nameRecipesLabel {
+            backButton.setTitle(" \(nameRecipes)", for: .normal)
+        }
         setupSearchBar()
         setupTableView()
         setupCaloriesButton()

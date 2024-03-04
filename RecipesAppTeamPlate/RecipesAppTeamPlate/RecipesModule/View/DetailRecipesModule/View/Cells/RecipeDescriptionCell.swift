@@ -13,17 +13,37 @@ class RecipeDescriptionCell: UITableViewCell {
 
     // MARK: - Private Constants
 
-    private lazy var recipeDescriptionTextView: UITextView = {
-        let textView = UITextView()
-        textView.backgroundColor = .cyan
-        // textView.isScrollEnabled = true
-        textView.isEditable = true
-        textView.delegate = self
-        textView.font = UIFont(name: Constants.nameFontName, size: 14)
-        textView.layer.cornerRadius = 24
-        textView.translatesAutoresizingMaskIntoConstraints = false
-        return textView
+    private let gradientDescribe: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.colors = [
+            UIColor.appLightBlue.cgColor,
+            UIColor.white.cgColor
+        ]
+        gradient.cornerRadius = 24
+        // gradient.maskedCorners =
+        return gradient
     }()
+
+    private let recipeLabel = {
+        let label = UILabel()
+        label.textColor = .label
+        label.font = UIFont(name: Constants.nameFontName, size: 14)
+        label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+
+//    private lazy var recipeDescriptionTextView: UITextView = {
+//        let textView = UITextView()
+//        //textView.backgroundColor = .cyan
+//        // textView.isScrollEnabled = true
+//        textView.isEditable = true
+//        textView.delegate = self
+//        textView.font = UIFont(name: Constants.nameFontName, size: 14)
+//        textView.layer.cornerRadius = 24
+//        textView.translatesAutoresizingMaskIntoConstraints = false
+//        return textView
+//    }()
 
     // MARK: - Initializers
 
@@ -37,6 +57,11 @@ class RecipeDescriptionCell: UITableViewCell {
         configureCell()
     }
 
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        gradientDescribe.frame = rect
+    }
+
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         if selected {
@@ -47,22 +72,34 @@ class RecipeDescriptionCell: UITableViewCell {
     // MARK: - Public Methods
 
     func setupText(_ text: String) {
-        recipeDescriptionTextView.text = text
+        // recipeDescriptionTextView.text = text
+        recipeLabel.text = text
     }
 
     // MARK: - Private Methods
 
     private func configureCell() {
-        contentView.addSubview(recipeDescriptionTextView)
+        contentView.layer.addSublayer(gradientDescribe)
+        contentView.addSubview(recipeLabel)
 
         NSLayoutConstraint.activate([
-            recipeDescriptionTextView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            recipeDescriptionTextView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            recipeDescriptionTextView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            recipeDescriptionTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            // recipeDescriptionTextView.widthAnchor.constraint(equalToConstant: 390),
-//            recipeDescriptionTextView.heightAnchor.constraint(equalToConstant: 683),
+            recipeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
+            recipeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 27),
+            recipeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -27),
+            recipeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -40)
         ])
+
+        // contentView.addSubview(recipeDescriptionTextView)
+
+//        NSLayoutConstraint.activate([
+//            recipeDescriptionTextView.topAnchor.constraint(equalTo: contentView.topAnchor),
+//            recipeDescriptionTextView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+//            recipeDescriptionTextView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+//            recipeDescriptionTextView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+//
+//            // recipeDescriptionTextView.widthAnchor.constraint(equalToConstant: 390),
+        ////            recipeDescriptionTextView.heightAnchor.constraint(equalToConstant: 683),
+//        ])
     }
 }
 
