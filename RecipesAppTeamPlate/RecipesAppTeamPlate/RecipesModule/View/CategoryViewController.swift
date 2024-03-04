@@ -121,7 +121,10 @@ class CategoryViewController: UIViewController {
     }
 
     private func configureUI() {
-        backButton.setTitle(recipes?.nameRecipesLabel, for: .normal)
+        if let nameRecipes = recipes?.nameRecipesLabel {
+            backButton.setTitle(" \(nameRecipes)", for: .normal)
+        }
+
         setupSearchBar()
         setupTableView()
         setupCaloriesButton()
@@ -154,6 +157,10 @@ extension CategoryViewController: UITableViewDataSource {
         else { return UITableViewCell() }
         guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
         cell.getRecipes(recipe: cell1)
+        cell.buttonChangeHandler = { [weak self] in
+            guard let self = self else { return }
+            presenter.showDetails(cell1)
+        }
         return cell
     }
 

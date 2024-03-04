@@ -33,10 +33,11 @@ final class RecipesViewCell: UITableViewCell {
         return text
     }()
 
-    private let hardwareButton: UIButton = {
+    private lazy var hardwareButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setImage(UIImage(named: "iconHardware"), for: .normal)
+        button.addTarget(self, action: #selector(showDetailRecipes), for: .touchUpInside)
         return button
     }()
 
@@ -75,6 +76,10 @@ final class RecipesViewCell: UITableViewCell {
         label.font = UIFont(name: Constants.font, size: CGFloat(Constants.labelSize))
         return label
     }()
+
+    // MARK: - Puplic Properties
+
+    var buttonChangeHandler: VoidHandler?
 
     // MARK: - Public Methods
 
@@ -161,5 +166,10 @@ final class RecipesViewCell: UITableViewCell {
         dishKkal.centerYAnchor.constraint(equalTo: pizzaImage.centerYAnchor).isActive = true
         dishKkal.heightAnchor.constraint(equalToConstant: 15).isActive = true
         dishKkal.widthAnchor.constraint(equalToConstant: 55).isActive = true
+    }
+
+    @objc private func showDetailRecipes() {
+        print("showDetailRecipes")
+        buttonChangeHandler?()
     }
 }

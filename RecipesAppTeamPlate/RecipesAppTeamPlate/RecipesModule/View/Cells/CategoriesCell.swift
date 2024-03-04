@@ -32,7 +32,7 @@ class CategoriesCell: UICollectionViewCell {
         label.textColor = .white
         label.font = UIFont(name: Constants.nameFontName, size: 20)
         label.textAlignment = .center
-        label.layer.cornerRadius = 18
+        label.layer.cornerRadius = 12
         label.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         label.backgroundColor = UIColor(
             red: 0.5,

@@ -9,27 +9,28 @@ protocol CategoryViewProtocol: AnyObject {
 
 /// Интерфейс общения с RecipesPresenter
 protocol CategoryViewPresenterProtocol: AnyObject {
-    init(view: CategoryViewProtocol, source: RecipesInfo)
-
     func getTittle() -> String
+    func getRecipes()
+    func showDetails(_ details: RecipesStorage)
 }
 
 /// Презентер Рецептов
 final class CategoryPresenter: CategoryViewPresenterProtocol {
     // MARK: - Constants
 
-    let categoryView: CategoryViewProtocol?
-    var recipes: RecipesInfo
+    private let categoryView: CategoryViewProtocol?
+    private var recipes: RecipesInfo
 
     // MARK: - Puplic Properties
 
-    weak var recipesCoordinator: RecipeCoordinator?
+    private weak var recipesCoordinator: RecipeCoordinator?
 
     // MARK: - Initializers
 
-    init(view: CategoryViewProtocol, source: RecipesInfo) {
-        categoryView = view
-        recipes = source
+    init(categoryView: CategoryViewProtocol, recipes: RecipesInfo, recipesCoordinator: RecipeCoordinator) {
+        self.categoryView = categoryView
+        self.recipes = recipes
+        self.recipesCoordinator = recipesCoordinator
     }
 
     // MARK: - Public Methods
@@ -41,5 +42,9 @@ final class CategoryPresenter: CategoryViewPresenterProtocol {
 
     func getRecipes() {
         categoryView?.getRecipes(recipes: recipes)
+    }
+
+    func showDetails(_ details: RecipesStorage) {
+        recipesCoordinator?.showDetailRecipesViewController(details: details)
     }
 }
