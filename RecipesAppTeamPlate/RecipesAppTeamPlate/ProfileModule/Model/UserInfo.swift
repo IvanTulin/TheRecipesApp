@@ -11,10 +11,18 @@ struct UserInfo {
     var userPhotoName: String
     /// Количество бонусов
     var bonusesCount: Int
+    /// Текст условия конфидициальности
+    var textForDescription: String
 
-    init(nameSurname: String, userPhotoName: String = "userDefaultIcon", bonusesCount: Int) {
+    init(
+        nameSurname: String,
+        userPhotoName: String = "userDefaultIcon",
+        bonusesCount: Int,
+        textForDescription: String
+    ) {
         self.nameSurname = nameSurname
         self.userPhotoName = userPhotoName
         self.bonusesCount = bonusesCount
+        self.textForDescription = textForDescription
     }
 }

@@ -20,6 +20,7 @@ protocol InfoSourceProtocol: AnyObject {
     func getUserInfo() -> UserInfo
     func changeUserName(nameSurname: String)
     func getBonusesCount() -> Int
+    func getTextDescription() -> String
 }
 
 /// Презентер профиля
@@ -58,5 +59,13 @@ final class ProfilePresenter: ProfileViewPresenterProtocol {
 
     func showBonusesViewController() {
         profileCoordinator?.showBonusesViewController()
+    }
+
+    func showTermsOfConfidentiality() {
+        profileView?.showTermsOfConfidentialityController()
+    }
+
+    func getTextDescription() -> String {
+        profileInfo?.getTextDescription() ?? ""
     }
 }

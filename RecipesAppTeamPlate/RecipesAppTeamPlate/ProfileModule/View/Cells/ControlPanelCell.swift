@@ -115,10 +115,11 @@ final class ControlPanelCell: UITableViewCell {
         return button
     }()
 
-    private let showPrivacyTermsButton: UIButton = {
+    private lazy var showPrivacyTermsButton: UIButton = {
         let button = UIButton()
         button.setImage(.rightIcon, for: .normal)
         button.sizeToFit()
+        button.addTarget(self, action: #selector(showTermsViewController), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -134,6 +135,7 @@ final class ControlPanelCell: UITableViewCell {
     // MARK: - Puplic Properties
 
     var onEditButtonTapped: VoidHandler?
+    var onSetupCard: VoidHandler?
 
     // MARK: - Initializers
 
@@ -223,5 +225,10 @@ final class ControlPanelCell: UITableViewCell {
 
     @objc private func showBonuses() {
         onEditButtonTapped?()
+    }
+
+    @objc private func showTermsViewController() {
+        print("showTermsViewController")
+        onSetupCard?()
     }
 }

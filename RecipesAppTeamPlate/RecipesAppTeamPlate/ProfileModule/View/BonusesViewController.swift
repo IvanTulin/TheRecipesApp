@@ -84,7 +84,7 @@ final class BonusesViewController: UIViewController {
     }
 
     private func configureUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor.rgba(red: 255, green: 255, blue: 255, alfa: 1)
     }
 
     private func configureButton() {

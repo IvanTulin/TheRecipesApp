@@ -9,6 +9,7 @@ class CategoryViewController: UIViewController {
 
     enum Constants {
         static let identifier = "RecipecViewCell"
+        static let identifierForEmptyCell = "EmptyCell"
         static let tabBarPlaceHolder = "Search recipes"
         static let font = "Verdana-Bold"
         static let bigSize = 28
@@ -42,6 +43,7 @@ class CategoryViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Constants.calories, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 12
         button.backgroundColor = .recipeCell
         return button
@@ -51,6 +53,7 @@ class CategoryViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Constants.time, for: .normal)
+        button.setTitleColor(.black, for: .normal)
         button.layer.cornerRadius = 12
         button.backgroundColor = .appPaleBlue
         return button
@@ -62,6 +65,7 @@ class CategoryViewController: UIViewController {
         table.dataSource = self
         table.delegate = self
         table.register(RecipesViewCell.self, forCellReuseIdentifier: Constants.identifier)
+        table.register(EmptyCell.self, forCellReuseIdentifier: Constants.identifierForEmptyCell)
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         return table
@@ -71,11 +75,14 @@ class CategoryViewController: UIViewController {
 
     var presenter: CategoryPresenter!
     var recipes: RecipesInfo?
+    var isFirstTimeAppearing = true
+    var isShimmering = true
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
         view.backgroundColor = .white
         tabBarController?.tabBar.isHidden = true
         view.addSubview(tableView)
@@ -87,6 +94,37 @@ class CategoryViewController: UIViewController {
         presenter.getRecipes()
         configureUI()
     }
+
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        tableView.showShimmer()
+//
+//        // Имитация загрузки данных (замените этот блок на ваш реальный код загрузки данных)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            // Здесь передайте данные в таблицу после завершения анимации Шиммера
+//            // Например:
+//            self.tableView.reloadData()
+//            self.tableView.hideShimmer()
+//        }
+//    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        if isFirstTimeAppearing {
+            isFirstTimeAppearing = false
+
+            isShimmering = true
+            tableView.showShimmer()
+            tableView.reloadData()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.isShimmering = false
+                self.tableView.reloadData()
+                self.tableView.hideShimmer()
+            }
+        }
+    }
+
+    // MARK: - Private Methods
 
     private func setupTimeButton() {
         timeFilterButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 30).isActive = true
@@ -126,7 +164,6 @@ class CategoryViewController: UIViewController {
         if let nameRecipes = recipes?.nameRecipesLabel {
             backButton.setTitle(" \(nameRecipes)", for: .normal)
         }
-
         setupSearchBar()
         setupTableView()
         setupCaloriesButton()
@@ -141,6 +178,7 @@ class CategoryViewController: UIViewController {
 extension CategoryViewController: CategoryViewProtocol {
     func getRecipes(recipes: RecipesInfo) {
         self.recipes = recipes
+        tableView.reloadData()
     }
 
     func setTittle(_ nameTitle: String) {}
@@ -154,21 +192,90 @@ extension CategoryViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //        if isShimmering {
+        //            guard let cell = tableView.dequeueReusableCell(
+        //                withIdentifier: Constants.identifierForEmptyCell,
+        //                for: indexPath
+        //            ) as? EmptyCell else { return UITableViewCell() }
+        //            return cell
+        //        } else {
+        //            guard let cell = tableView.dequeueReusableCell(
+        //                withIdentifier: Constants.identifier,
+        //                for: indexPath
+        //            ) as? RecipesViewCell
+        //            else { return UITableViewCell() }
+        //            guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
+        //            cell.getRecipes(recipe: cell1)
+        //            cell.buttonChangeHandler = { [weak self] in
+        //                guard let self = self else { return }
+        //                presenter.showDetails(cell1)
+        //            }
+        //            return cell
+        //        }
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: Constants.identifier,
             for: indexPath
         ) as? RecipesViewCell
         else { return UITableViewCell() }
-        guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
-        cell.getRecipes(recipe: cell1)
-        cell.buttonChangeHandler = { [weak self] in
-            guard let self = self else { return }
-            presenter.showDetails(cell1)
+
+        if isShimmering {
+            cell.deleteRecipes()
+        } else {
+            guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
+            cell.getRecipes(recipe: cell1)
+            cell.buttonChangeHandler = { [weak self] in
+
+                guard let self = self else { return }
+                presenter.showDetails(cell1)
+            }
+            // cell.getRecipes(recipe: cell1)
         }
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         115
+    }
+}
+
+extension UITableView {
+    func showShimmer() {
+        for cell in visibleCells {
+            cell.contentView.startShimmering()
+        }
+    }
+
+    func hideShimmer() {
+        for cell in visibleCells {
+            cell.contentView.stopShimmering()
+        }
+    }
+}
+
+extension UIView {
+    func startShimmering() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [
+            UIColor.clear.cgColor,
+            UIColor.white.withAlphaComponent(0.5).cgColor,
+            UIColor.clear.cgColor
+        ]
+        gradientLayer.locations = [0.0, 0.5, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+        gradientLayer.frame = bounds
+
+        let animation = CABasicAnimation(keyPath: "transform.translation.x")
+        animation.duration = 1.0
+        animation.fromValue = -bounds.width
+        animation.toValue = bounds.width
+        animation.repeatCount = .greatestFiniteMagnitude
+        gradientLayer.add(animation, forKey: "shimmerAnimation")
+
+        layer.mask = gradientLayer
+    }
+
+    func stopShimmering() {
+        layer.mask = nil
     }
 }
