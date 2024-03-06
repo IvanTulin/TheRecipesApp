@@ -75,9 +75,9 @@ class CategoryViewController: UIViewController {
 
     var presenter: CategoryPresenter!
     var recipes: RecipesInfo?
-    
+
     // MARK: - Private Properties
-    
+
     private var stateShimer = StateShimer.initial
 
     // MARK: - Life Cycle
@@ -106,7 +106,7 @@ class CategoryViewController: UIViewController {
     }
 
     // MARK: - Private Methods
-    
+
     private func configureAllUI() {
         view.backgroundColor = .white
         tabBarController?.tabBar.isHidden = true
@@ -187,7 +187,6 @@ extension CategoryViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: Constants.identifier,
             for: indexPath
@@ -219,5 +218,3 @@ extension CategoryViewController: UITableViewDataSource {
 // MARK: - CategoryViewController + UITableViewDelegate
 
 extension CategoryViewController: UITableViewDelegate {}
-
-
