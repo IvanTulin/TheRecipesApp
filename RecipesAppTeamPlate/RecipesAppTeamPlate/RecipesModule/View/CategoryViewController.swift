@@ -19,7 +19,7 @@ class CategoryViewController: UIViewController {
 
     // MARK: - Visual Components
 
-    lazy var searchBar: UISearchBar = {
+    private lazy var searchBar: UISearchBar = {
         let search = UISearchBar()
         search.translatesAutoresizingMaskIntoConstraints = false
         search.placeholder = Constants.tabBarPlaceHolder
@@ -30,7 +30,7 @@ class CategoryViewController: UIViewController {
         return search
     }()
 
-    lazy var backButton: UIButton = {
+    private lazy var backButton: UIButton = {
         let customButton = UIButton(type: .custom)
         customButton.setImage(.backButton, for: .normal)
         customButton.titleLabel?.font = UIFont(name: Constants.font, size: CGFloat(Constants.bigSize))
@@ -39,7 +39,7 @@ class CategoryViewController: UIViewController {
         return customButton
     }()
 
-    lazy var caloriesFilterButton: UIButton = {
+    private lazy var caloriesFilterButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Constants.calories, for: .normal)
@@ -49,7 +49,7 @@ class CategoryViewController: UIViewController {
         return button
     }()
 
-    lazy var timeFilterButton: UIButton = {
+    private lazy var timeFilterButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Constants.time, for: .normal)
@@ -59,7 +59,7 @@ class CategoryViewController: UIViewController {
         return button
     }()
 
-    lazy var tableView: UITableView = {
+    private lazy var tableView: UITableView = {
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.dataSource = self
@@ -75,56 +75,49 @@ class CategoryViewController: UIViewController {
 
     var presenter: CategoryPresenter!
     var recipes: RecipesInfo?
-    var isFirstTimeAppearing = true
-    var isShimmering = true
+    
+    // MARK: - Private Properties
+    
+    private var stateShimer = StateShimer.initial
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        configureAllUI()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        switch stateShimer {
+        case .initial:
+            stateShimer = .shimmer
+            tableView.showShimmer()
+            tableView.reloadData()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.stateShimer = .loaded
+                self.tableView.reloadData()
+                self.tableView.hideShimmer()
+            }
+        default: break
+        }
+    }
+
+    // MARK: - Private Methods
+    
+    private func configureAllUI() {
         view.backgroundColor = .white
         tabBarController?.tabBar.isHidden = true
         view.addSubview(tableView)
         view.addSubview(searchBar)
         view.addSubview(caloriesFilterButton)
         view.addSubview(timeFilterButton)
-        // presenter.getTittle()
         configureNavigation()
         presenter.getRecipes()
         configureUI()
     }
-
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        tableView.showShimmer()
-//
-//        // Имитация загрузки данных (замените этот блок на ваш реальный код загрузки данных)
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            // Здесь передайте данные в таблицу после завершения анимации Шиммера
-//            // Например:
-//            self.tableView.reloadData()
-//            self.tableView.hideShimmer()
-//        }
-//    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        if isFirstTimeAppearing {
-            isFirstTimeAppearing = false
-
-            isShimmering = true
-            tableView.showShimmer()
-            tableView.reloadData()
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                self.isShimmering = false
-                self.tableView.reloadData()
-                self.tableView.hideShimmer()
-            }
-        }
-    }
-
-    // MARK: - Private Methods
 
     private func setupTimeButton() {
         timeFilterButton.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 30).isActive = true
@@ -175,6 +168,8 @@ class CategoryViewController: UIViewController {
     }
 }
 
+// MARK: - CategoryViewController + CategoryViewProtocol
+
 extension CategoryViewController: CategoryViewProtocol {
     func getRecipes(recipes: RecipesInfo) {
         self.recipes = recipes
@@ -184,7 +179,7 @@ extension CategoryViewController: CategoryViewProtocol {
     func setTittle(_ nameTitle: String) {}
 }
 
-extension CategoryViewController: UITableViewDelegate {}
+// MARK: - CategoryViewController + UITableViewDataSource
 
 extension CategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -192,35 +187,19 @@ extension CategoryViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        if isShimmering {
-        //            guard let cell = tableView.dequeueReusableCell(
-        //                withIdentifier: Constants.identifierForEmptyCell,
-        //                for: indexPath
-        //            ) as? EmptyCell else { return UITableViewCell() }
-        //            return cell
-        //        } else {
-        //            guard let cell = tableView.dequeueReusableCell(
-        //                withIdentifier: Constants.identifier,
-        //                for: indexPath
-        //            ) as? RecipesViewCell
-        //            else { return UITableViewCell() }
-        //            guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
-        //            cell.getRecipes(recipe: cell1)
-        //            cell.buttonChangeHandler = { [weak self] in
-        //                guard let self = self else { return }
-        //                presenter.showDetails(cell1)
-        //            }
-        //            return cell
-        //        }
+        
         guard let cell = tableView.dequeueReusableCell(
             withIdentifier: Constants.identifier,
             for: indexPath
         ) as? RecipesViewCell
         else { return UITableViewCell() }
 
-        if isShimmering {
+        switch stateShimer {
+        case .initial:
             cell.deleteRecipes()
-        } else {
+        case .shimmer:
+            cell.deleteRecipes()
+        case .loaded:
             guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
             cell.getRecipes(recipe: cell1)
             cell.buttonChangeHandler = { [weak self] in
@@ -228,7 +207,6 @@ extension CategoryViewController: UITableViewDataSource {
                 guard let self = self else { return }
                 presenter.showDetails(cell1)
             }
-            // cell.getRecipes(recipe: cell1)
         }
         return cell
     }
@@ -238,44 +216,8 @@ extension CategoryViewController: UITableViewDataSource {
     }
 }
 
-extension UITableView {
-    func showShimmer() {
-        for cell in visibleCells {
-            cell.contentView.startShimmering()
-        }
-    }
+// MARK: - CategoryViewController + UITableViewDelegate
 
-    func hideShimmer() {
-        for cell in visibleCells {
-            cell.contentView.stopShimmering()
-        }
-    }
-}
+extension CategoryViewController: UITableViewDelegate {}
 
-extension UIView {
-    func startShimmering() {
-        let gradientLayer = CAGradientLayer()
-        gradientLayer.colors = [
-            UIColor.clear.cgColor,
-            UIColor.white.withAlphaComponent(0.5).cgColor,
-            UIColor.clear.cgColor
-        ]
-        gradientLayer.locations = [0.0, 0.5, 1.0]
-        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
-        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
-        gradientLayer.frame = bounds
 
-        let animation = CABasicAnimation(keyPath: "transform.translation.x")
-        animation.duration = 1.0
-        animation.fromValue = -bounds.width
-        animation.toValue = bounds.width
-        animation.repeatCount = .greatestFiniteMagnitude
-        gradientLayer.add(animation, forKey: "shimmerAnimation")
-
-        layer.mask = gradientLayer
-    }
-
-    func stopShimmering() {
-        layer.mask = nil
-    }
-}

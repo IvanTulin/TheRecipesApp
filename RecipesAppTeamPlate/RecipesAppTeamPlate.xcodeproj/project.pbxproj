@@ -44,6 +44,9 @@
 		BA95EB8E2B8D0B2600B22C15 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95EB8D2B8D0B2600B22C15 /* Profile.swift */; };
 		BA95EB902B8D0B7900B22C15 /* ProfilePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95EB8F2B8D0B7900B22C15 /* ProfilePresenter.swift */; };
 		BAAA373C2B9141AE00866A97 /* CategoryPresent.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAAA373B2B9141AE00866A97 /* CategoryPresent.swift */; };
+		BACB1AF02B9850EC00BD5177 /* StateShimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACB1AEF2B9850EC00BD5177 /* StateShimer.swift */; };
+		BACB1AFC2B9858F400BD5177 /* RecipesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACB1AFB2B9858F400BD5177 /* RecipesStorage.swift */; };
+		BACB1AFE2B98596900BD5177 /* UITableView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BACB1AFD2B98596900BD5177 /* UITableView + Extension.swift */; };
 		BAD610FA2B975A8300F5E877 /* TermsOfConfidentialityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD610F92B975A8300F5E877 /* TermsOfConfidentialityViewController.swift */; };
 		BAD610FC2B976FF300F5E877 /* UIColor + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD610FB2B976FF300F5E877 /* UIColor + Extension.swift */; };
 		BAD7CA462B8FAB52000B7DEF /* BonusesPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD7CA452B8FAB52000B7DEF /* BonusesPresenter.swift */; };
@@ -96,6 +99,9 @@
 		BA95EB8D2B8D0B2600B22C15 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
 		BA95EB8F2B8D0B7900B22C15 /* ProfilePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePresenter.swift; sourceTree = "<group>"; };
 		BAAA373B2B9141AE00866A97 /* CategoryPresent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryPresent.swift; sourceTree = "<group>"; };
+		BACB1AEF2B9850EC00BD5177 /* StateShimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateShimer.swift; sourceTree = "<group>"; };
+		BACB1AFB2B9858F400BD5177 /* RecipesStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesStorage.swift; sourceTree = "<group>"; };
+		BACB1AFD2B98596900BD5177 /* UITableView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView + Extension.swift"; sourceTree = "<group>"; };
 		BAD610F92B975A8300F5E877 /* TermsOfConfidentialityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfConfidentialityViewController.swift; sourceTree = "<group>"; };
 		BAD610FB2B976FF300F5E877 /* UIColor + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extension.swift"; sourceTree = "<group>"; };
 		BAD7CA452B8FAB52000B7DEF /* BonusesPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusesPresenter.swift; sourceTree = "<group>"; };
@@ -124,6 +130,7 @@
 			children = (
 				BA43C16D2B9106A90083A0DD /* UIView + Extension.swift */,
 				BAD610FB2B976FF300F5E877 /* UIColor + Extension.swift */,
+				BACB1AFD2B98596900BD5177 /* UITableView + Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -257,6 +264,7 @@
 			children = (
 				BA95EB772B8D083300B22C15 /* Recipes.swift */,
 				BA43C16B2B90EE600083A0DD /* RecipesInfo.swift */,
+				BACB1AFB2B9858F400BD5177 /* RecipesStorage.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -384,6 +392,7 @@
 		BAEC14472B93D9FF00E9B64F /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BACB1AEF2B9850EC00BD5177 /* StateShimer.swift */,
 				BAEC144A2B93DB0500E9B64F /* Description.swift */,
 				BAEC14482B93DA6400E9B64F /* DescriptionInformation.swift */,
 			);
@@ -506,6 +515,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA43C16C2B90EE600083A0DD /* RecipesInfo.swift in Sources */,
+				BACB1AFE2B98596900BD5177 /* UITableView + Extension.swift in Sources */,
 				BA733F072B8F41C1002C31BB /* ProfileInfo.swift in Sources */,
 				BA6EBCB02B8E2B8200862E67 /* ProfileCoordinator.swift in Sources */,
 				BA5D54D52B8CC988000F1BEE /* LoginViewController.swift in Sources */,
@@ -521,6 +531,7 @@
 				BA733F052B8F4182002C31BB /* UserInfo.swift in Sources */,
 				BA5D54D12B8CC988000F1BEE /* AppDelegate.swift in Sources */,
 				BA95EB8E2B8D0B2600B22C15 /* Profile.swift in Sources */,
+				BACB1AFC2B9858F400BD5177 /* RecipesStorage.swift in Sources */,
 				BAEC143A2B93B5BF00E9B64F /* DetailRecipesPresenter.swift in Sources */,
 				BA95EB862B8D098B00B22C15 /* FavoritesPresenter.swift in Sources */,
 				BAEC14462B93D1C100E9B64F /* RecipeDescriptionCell.swift in Sources */,
@@ -534,6 +545,7 @@
 				BA95EB8B2B8D0AC500B22C15 /* ProfileViewController.swift in Sources */,
 				BA43C16E2B9106A90083A0DD /* UIView + Extension.swift in Sources */,
 				BAAA373C2B9141AE00866A97 /* CategoryPresent.swift in Sources */,
+				BACB1AF02B9850EC00BD5177 /* StateShimer.swift in Sources */,
 				BA552C8C2B8DCA780027E2AB /* AppBuilder.swift in Sources */,
 				BA5D54D32B8CC988000F1BEE /* SceneDelegate.swift in Sources */,
 				BA95EB7A2B8D087200B22C15 /* RecipesPresenter.swift in Sources */,

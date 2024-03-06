@@ -12,4 +12,31 @@ extension UIView {
         layer.shadowRadius = 2
         layer.masksToBounds = false
     }
+
+    /// Создаем шимер
+    func startShimmering() {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = [
+            UIColor.clear.cgColor,
+            UIColor.white.withAlphaComponent(0.5).cgColor,
+            UIColor.clear.cgColor
+        ]
+        gradientLayer.locations = [0.0, 0.5, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.5)
+        gradientLayer.frame = bounds
+
+        let animation = CABasicAnimation(keyPath: "transform.translation.x")
+        animation.duration = 1.0
+        animation.fromValue = -bounds.width
+        animation.toValue = bounds.width
+        animation.repeatCount = .greatestFiniteMagnitude
+        gradientLayer.add(animation, forKey: "shimmerAnimation")
+
+        layer.mask = gradientLayer
+    }
+
+    func stopShimmering() {
+        layer.mask = nil
+    }
 }

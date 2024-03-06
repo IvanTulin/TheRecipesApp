@@ -13,11 +13,3 @@ struct RecipesInfo {
     /// массив рецептов
     var storageRecipes: [RecipesStorage]
 }
-
-/// хранилище для ячейки Рыба
-struct RecipesStorage {
-    var dishLabel: String
-    var dishImage: String
-    var dishTime: String
-    var dishKkal: String
-}
