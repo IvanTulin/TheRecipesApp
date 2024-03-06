@@ -170,7 +170,7 @@ final class ProfileViewController: UIViewController {
             frameAnimator.startAnimation()
             runningAnimations.append(frameAnimator)
 
-            /// создаем анимацию сгругдения углов
+            /// создаем анимацию сгругления углов
             let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) { [weak self] in
                 guard let self = self else { return }
                 switch state {
@@ -240,7 +240,6 @@ final class ProfileViewController: UIViewController {
             updateInteractiveTransition(fractionCompleted: fractionComplete)
             navigationController?.isNavigationBarHidden = true
             tabBarController?.tabBar.isHidden = true
-        // updateInteractiveTransition(fractionCompleted: 0)
         case .ended:
             continueInteractiveTransition()
             navigationController?.isNavigationBarHidden = false

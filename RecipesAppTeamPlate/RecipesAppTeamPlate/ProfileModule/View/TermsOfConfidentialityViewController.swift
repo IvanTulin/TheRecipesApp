@@ -35,7 +35,6 @@ class TermsOfConfidentialityViewController: UIViewController {
 
     private lazy var termsOfUseTextView: UITextView = {
         let text = UITextView()
-        // text.text = textForDescription
         text.font = UIFont(name: Constants.nameFontName, size: 14)
         text.translatesAutoresizingMaskIntoConstraints = false
         return text
@@ -48,6 +47,8 @@ class TermsOfConfidentialityViewController: UIViewController {
         configureView()
         configureLable()
     }
+    
+    // MARK: - Public Methods
 
     func setupText(_ text: String) {
         termsOfUseTextView.text = text
