@@ -1,9 +1,5 @@
-//
-//  RecipesStorage.swift
-//  RecipesAppTeamPlate
-//
-//  Created by Ivan Tulin on 06.03.2024.
-//
+// RecipesStorage.swift
+// Copyright © RoadMap. All rights reserved.
 
 import Foundation
 

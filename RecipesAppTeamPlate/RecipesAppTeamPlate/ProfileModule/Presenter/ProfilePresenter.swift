@@ -72,4 +72,8 @@ final class ProfilePresenter: ProfileViewPresenterProtocol {
     func getTextDescription() -> String {
         profileInfo?.getTextDescription() ?? ""
     }
+
+    func hideTermsViewController() {
+        profileView?.hideController()
+    }
 }

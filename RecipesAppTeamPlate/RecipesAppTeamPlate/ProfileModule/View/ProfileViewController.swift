@@ -11,6 +11,8 @@ protocol ProfileViewProtocol: AnyObject {
     func setNewNameFromSource()
     ///  Показать экрана Условия конфидициальности
     func showTermsOfConfidentialityController()
+
+    func hideController()
 }
 
 /// Экран профиля
@@ -39,18 +41,10 @@ final class ProfileViewController: UIViewController {
         case controlPanel
     }
 
-    /// Cостояние карты
-    enum CardState {
-        /// увеличенное
-        case expanded
-        /// уменьшенныый
-        case reduced
-    }
-
     /// высота экрана
     let cardHieight: CGFloat = 670
     /// высота уменьшенного экрана
-    let cardHandleAreaHeight: CGFloat = 125
+    let cardHandleAreaHeight: CGFloat = 400
 
     let informationTypes: [InformationType] = [.avatar, .userName, .controlPanel]
 
@@ -80,12 +74,11 @@ final class ProfileViewController: UIViewController {
     // MARK: - Puplic Properties
 
     var presenter: ProfilePresenter?
-
     var termsViewController: TermsOfConfidentialityViewController!
     var profileViewcontroller: ProfileViewController!
     var visualEffectView: UIVisualEffectView!
     var cardVisible = false
-    var nextState: CardState {
+    var nextState: ScreenState {
         cardVisible ? .reduced : .expanded
     }
 
@@ -98,6 +91,16 @@ final class ProfileViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureTableView()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        print("ProfileViewController")
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("ProfileViewController")
     }
 
     // MARK: - Private Methods
@@ -132,8 +135,6 @@ final class ProfileViewController: UIViewController {
         if let text = presenter?.getTextDescription() {
             termsViewController.setupText(text)
         }
-        addChild(termsViewController)
-        view.addSubview(termsViewController.view)
 
         termsViewController.view.frame = CGRect(
             x: 0,
@@ -145,12 +146,26 @@ final class ProfileViewController: UIViewController {
 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleCardTap(recognizer:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleCardPan(recognizer:)))
-
         termsViewController.controlLineView.addGestureRecognizer(tapGestureRecognizer)
         termsViewController.controlLineView.addGestureRecognizer(panGestureRecognizer)
+        termsViewController.view.addGestureRecognizer(panGestureRecognizer)
+
+        let connectedScene = UIApplication.shared.connectedScenes
+        let windowScene = connectedScene.first as? UIWindowScene
+
+        /// добавляем контроллер по нажатию на кнопку вызывающая метод setupCard
+        UIView.animate(withDuration: 1) {
+            windowScene?.windows.last?.addSubview(self.termsViewController.view ?? UIView())
+        }
+
+        /// убираем контроллер по нажатию на кнопку
+        termsViewController.bottonHandler = { [weak self] in
+            guard let self = self else { return }
+            presenter?.hideTermsViewController()
+        }
     }
 
-    private func animateTransitionIfNeeded(state: CardState, duration: TimeInterval) {
+    private func animateTransitionIfNeeded(state: ScreenState, duration: TimeInterval) {
         if runningAnimations.isEmpty {
             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) { [weak self] in
                 guard let self = self else { return }
@@ -158,7 +173,10 @@ final class ProfileViewController: UIViewController {
                 case .expanded:
                     self.termsViewController.view.frame.origin.y = self.view.frame.height - self.cardHieight
                 case .reduced:
-                    self.termsViewController.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
+                    self.termsViewController.view.frame.origin.y = self.view.frame.height - 100
+                    if self.termsViewController.view.frame.origin.y < 900 {
+                        presenter?.hideTermsViewController()
+                    }
                 }
             }
             frameAnimator.addCompletion { [weak self] _ in
@@ -169,20 +187,6 @@ final class ProfileViewController: UIViewController {
 
             frameAnimator.startAnimation()
             runningAnimations.append(frameAnimator)
-
-            /// создаем анимацию сгругления углов
-            let cornerRadiusAnimator = UIViewPropertyAnimator(duration: duration, curve: .linear) { [weak self] in
-                guard let self = self else { return }
-                switch state {
-                case .expanded:
-                    self.termsViewController.view.layer.cornerRadius = 12
-                case .reduced:
-                    self.termsViewController.view.layer.cornerRadius = 0
-                }
-            }
-
-            cornerRadiusAnimator.startAnimation()
-            runningAnimations.append(cornerRadiusAnimator)
 
             let blurAnimation = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
@@ -197,7 +201,7 @@ final class ProfileViewController: UIViewController {
         }
     }
 
-    private func startInteractiveTransition(state: CardState, duration: TimeInterval) {
+    private func startInteractiveTransition(state: ScreenState, duration: TimeInterval) {
         if runningAnimations.isEmpty {
             animateTransitionIfNeeded(state: state, duration: duration)
         }
@@ -216,6 +220,18 @@ final class ProfileViewController: UIViewController {
     private func continueInteractiveTransition() {
         for animator in runningAnimations {
             animator.continueAnimation(withTimingParameters: nil, durationFactor: 0)
+        }
+    }
+
+    private func hideTermsViewController() {
+        visualEffectView.isUserInteractionEnabled = false
+        /// Убираем размытие
+        UIView.animate(withDuration: 0.3) {
+            self.visualEffectView.effect = nil
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.termsViewController.view.removeFromSuperview()
         }
     }
 
@@ -238,11 +254,9 @@ final class ProfileViewController: UIViewController {
             var fractionComplete = transition.y / cardHieight
             fractionComplete = cardVisible ? fractionComplete : -fractionComplete
             updateInteractiveTransition(fractionCompleted: fractionComplete)
-            navigationController?.isNavigationBarHidden = true
             tabBarController?.tabBar.isHidden = true
         case .ended:
             continueInteractiveTransition()
-            navigationController?.isNavigationBarHidden = false
             tabBarController?.tabBar.isHidden = false
         default:
             break
@@ -339,5 +353,17 @@ extension ProfileViewController: ProfileViewProtocol {
 
     func showTermsOfConfidentialityController() {
         setupCard()
+    }
+
+    func hideController() {
+        visualEffectView.isUserInteractionEnabled = false
+        /// Убираем размытие
+        UIView.animate(withDuration: 0.3) {
+            self.visualEffectView.effect = nil
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            self.termsViewController.view.removeFromSuperview()
+        }
     }
 }

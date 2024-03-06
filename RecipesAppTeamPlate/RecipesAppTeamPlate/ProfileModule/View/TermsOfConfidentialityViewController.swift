@@ -40,14 +40,28 @@ class TermsOfConfidentialityViewController: UIViewController {
         return text
     }()
 
+    lazy var closedButton: UIButton = {
+        let button = UIButton()
+        button.setImage(.crossIcon, for: .normal)
+        button.sizeToFit()
+        button.addTarget(self, action: #selector(closedScreen), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+
+    // MARK: - Puplic Properties
+
+    var bottonHandler: VoidHandler?
+
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         configureView()
         configureLable()
+        configureButton()
     }
-    
+
     // MARK: - Public Methods
 
     func setupText(_ text: String) {
@@ -57,6 +71,7 @@ class TermsOfConfidentialityViewController: UIViewController {
     // MARK: - Private Methods
 
     private func configureView() {
+        view.layer.cornerRadius = 12
         view.backgroundColor = UIColor.rgba(red: 255, green: 255, blue: 255, alfa: 1)
         view.addSubview(controlLineView)
 
@@ -71,7 +86,6 @@ class TermsOfConfidentialityViewController: UIViewController {
     private func configureLable() {
         view.addSubview(termsOfUseLabel)
         view.addSubview(termsOfUseTextView)
-        // view.addSubview(descriptionTermsOfUse)
 
         NSLayoutConstraint.activate([
             termsOfUseLabel.topAnchor.constraint(equalTo: controlLineView.topAnchor, constant: 26),
@@ -83,5 +97,18 @@ class TermsOfConfidentialityViewController: UIViewController {
             termsOfUseTextView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -40)
 
         ])
+    }
+
+    private func configureButton() {
+        view.addSubview(closedButton)
+
+        NSLayoutConstraint.activate([
+            closedButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 29),
+            closedButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -16)
+        ])
+    }
+
+    @objc private func closedScreen() {
+        bottonHandler?()
     }
 }

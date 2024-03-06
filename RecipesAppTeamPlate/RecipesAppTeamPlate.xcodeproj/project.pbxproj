@@ -57,6 +57,7 @@
 		BAEC14462B93D1C100E9B64F /* RecipeDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC14452B93D1C100E9B64F /* RecipeDescriptionCell.swift */; };
 		BAEC14492B93DA6400E9B64F /* DescriptionInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC14482B93DA6400E9B64F /* DescriptionInformation.swift */; };
 		BAEC144B2B93DB0500E9B64F /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC144A2B93DB0500E9B64F /* Description.swift */; };
+		BAF9929C2B98DF39009B37C2 /* ScreenState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF9929B2B98DF39009B37C2 /* ScreenState.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +113,7 @@
 		BAEC14452B93D1C100E9B64F /* RecipeDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDescriptionCell.swift; sourceTree = "<group>"; };
 		BAEC14482B93DA6400E9B64F /* DescriptionInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionInformation.swift; sourceTree = "<group>"; };
 		BAEC144A2B93DB0500E9B64F /* Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
+		BAF9929B2B98DF39009B37C2 /* ScreenState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -336,6 +338,7 @@
 		BA95EB922B8D0BE700B22C15 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BAF9929B2B98DF39009B37C2 /* ScreenState.swift */,
 				BA95EB8D2B8D0B2600B22C15 /* Profile.swift */,
 				BA733F062B8F41C1002C31BB /* ProfileInfo.swift */,
 				BA733F042B8F4182002C31BB /* UserInfo.swift */,
@@ -518,6 +521,7 @@
 				BACB1AFE2B98596900BD5177 /* UITableView + Extension.swift in Sources */,
 				BA733F072B8F41C1002C31BB /* ProfileInfo.swift in Sources */,
 				BA6EBCB02B8E2B8200862E67 /* ProfileCoordinator.swift in Sources */,
+				BAF9929C2B98DF39009B37C2 /* ScreenState.swift in Sources */,
 				BA5D54D52B8CC988000F1BEE /* LoginViewController.swift in Sources */,
 				BA6EBCAE2B8E2AEE00862E67 /* FavoritesCoordinator.swift in Sources */,
 				BA95EB7F2B8D08F900B22C15 /* FavoritesViewController.swift in Sources */,
