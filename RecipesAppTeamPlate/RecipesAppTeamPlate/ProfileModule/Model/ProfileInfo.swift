@@ -41,18 +41,22 @@ final class ProfileInfo: InfoSourceProtocol {
         """
     )
 
+    /// Получаем данные пользователя
     func getUserInfo() -> UserInfo {
         personInfo
     }
 
+    /// Меняем имя пользователя
     func changeUserName(nameSurname: String) {
         personInfo.nameSurname = nameSurname
     }
 
+    /// Задаем количество бонусов
     func getBonusesCount() -> Int {
         personInfo.bonusesCount
     }
 
+    /// Получаем тескт описания
     func getTextDescription() -> String {
         personInfo.textForDescription
     }

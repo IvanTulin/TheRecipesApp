@@ -36,6 +36,7 @@ extension UIView {
         layer.mask = gradientLayer
     }
 
+    /// Удаляем шимер
     func stopShimmering() {
         layer.mask = nil
     }

@@ -17,9 +17,13 @@ protocol ProfileViewPresenterProtocol: AnyObject {
 
 /// Протокол источника информации
 protocol InfoSourceProtocol: AnyObject {
+    /// Получаем данные пользователя
     func getUserInfo() -> UserInfo
+    /// Меняем имя пользователя
     func changeUserName(nameSurname: String)
+    /// Задаем количество бонусов
     func getBonusesCount() -> Int
+    /// Получаем тескт описания
     func getTextDescription() -> String
 }
 
