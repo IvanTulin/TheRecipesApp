@@ -228,7 +228,6 @@ final class LoginViewController: UIViewController {
 
     @objc private func tappedButton() {
         view.endEditing(true)
-        //authentificateUser()
         autorizationPresenter?.chekPassword(password: passwordTextField.text, login: loginTextField.text)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.autorizationPresenter?.showRecipesTabBarcontroller()
