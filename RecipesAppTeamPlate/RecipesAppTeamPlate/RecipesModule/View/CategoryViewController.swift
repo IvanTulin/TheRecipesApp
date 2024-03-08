@@ -14,6 +14,7 @@ class CategoryViewController: UIViewController {
         static let font = "Verdana-Bold"
         static let bigSize = 28
         static let calories = "Calories"
+        static let filterIconImage = UIImage(named: "filterIcon")
         static let time = "Time"
     }
 
@@ -27,6 +28,8 @@ class CategoryViewController: UIViewController {
         search.searchBarStyle = .minimal
         search.searchTextField.backgroundColor = .appLightGray
         search.searchTextField.layer.cornerRadius = 12
+        search.sizeToFit()
+        search.delegate = self
         return search
     }()
 
@@ -43,9 +46,13 @@ class CategoryViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Constants.calories, for: .normal)
+        button.layer.cornerRadius = 20
+        button.setImage(Constants.filterIconImage, for: .normal)
+        button.backgroundColor = UIColor(red: 242 / 255, green: 245 / 255, blue: 250 / 255, alpha: 1.0)
         button.setTitleColor(.black, for: .normal)
-        button.layer.cornerRadius = 12
-        button.backgroundColor = .recipeCell
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: -30, bottom: 0, right: 10)
+        button.addTarget(self, action: #selector(caloriesButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -59,7 +66,9 @@ class CategoryViewController: UIViewController {
         return button
     }()
 
-    private lazy var tableView: UITableView = {
+
+    lazy var recipesTableView: UITableView = {
+
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.dataSource = self
@@ -75,6 +84,7 @@ class CategoryViewController: UIViewController {
 
     var presenter: CategoryPresenter!
     var recipes: RecipesInfo?
+    var searchRecipes: [RecipesStorage] = []
 
     // MARK: - Private Properties
 
@@ -109,14 +119,27 @@ class CategoryViewController: UIViewController {
 
     private func configureAllUI() {
         view.backgroundColor = .white
-        tabBarController?.tabBar.isHidden = true
-        view.addSubview(tableView)
-        view.addSubview(searchBar)
+        view.addSubview(recipesTableView)
         view.addSubview(caloriesFilterButton)
         view.addSubview(timeFilterButton)
+        view.addSubview(searchBar)
+        // presenter.getTittle()
         configureNavigation()
         presenter.getRecipes()
         configureUI()
+    }
+
+    // MARK: - Private Methods
+
+    private func configureUI() {
+        if let nameRecipes = recipes?.nameRecipesLabel {
+            backButton.setTitle(" \(nameRecipes)", for: .normal)
+        }
+
+        setupSearchBar()
+        setupTableView()
+        setupCaloriesButton()
+        setupTimeButton()
     }
 
     private func setupTimeButton() {
@@ -135,23 +158,24 @@ class CategoryViewController: UIViewController {
     }
 
     private func setupSearchBar() {
-        searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 100).isActive = true
+        searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
         searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         searchBar.widthAnchor.constraint(equalToConstant: 348).isActive = true
         searchBar.heightAnchor.constraint(equalToConstant: 36).isActive = true
     }
 
     private func setupTableView() {
-        tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        tableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 76).isActive = true
-        tableView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        recipesTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        recipesTableView.topAnchor.constraint(equalTo: searchBar.bottomAnchor, constant: 76).isActive = true
+        recipesTableView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
+        recipesTableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
 
     private func configureNavigation() {
         let customBarButtomItem = UIBarButtonItem(customView: backButton)
         navigationItem.leftBarButtonItem = customBarButtomItem
     }
+
 
     private func configureUI() {
         if let nameRecipes = recipes?.nameRecipesLabel {
@@ -166,6 +190,14 @@ class CategoryViewController: UIViewController {
     @objc private func backToTheLastController() {
         navigationController?.popViewController(animated: true)
     }
+
+    @objc private func caloriesButtonTapped() {
+//        recipePresenter?.buttonCaloriesChange(category: recipes?.recepies ?? [])
+    }
+//
+//    @objc private func timeButtonTapped() {
+//        recipePresenter?.buttonTimeChange(category: recipes?.recepies ?? [])
+//    }
 }
 
 // MARK: - CategoryViewController + CategoryViewProtocol
@@ -179,11 +211,16 @@ extension CategoryViewController: CategoryViewProtocol {
     func setTittle(_ nameTitle: String) {}
 }
 
+
 // MARK: - CategoryViewController + UITableViewDataSource
+
+extension CategoryViewController: UITableViewDelegate {}
+
+// MARK: - Extension + UITableViewDataSource
 
 extension CategoryViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        recipes?.storageRecipes.count ?? 0
+        recipes?.storageRecipes.count ?? 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -215,6 +252,24 @@ extension CategoryViewController: UITableViewDataSource {
     }
 }
 
+
 // MARK: - CategoryViewController + UITableViewDelegate
 
 extension CategoryViewController: UITableViewDelegate {}
+
+// MARK: - Extension + UISearchBarDelegate
+
+extension CategoryViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.count > 2 {
+            let searchFiltered = recipes?.storageRecipes
+                .filter { $0.dishLabel.prefix(searchText.count) == searchText }
+            recipes?.storageRecipes = searchFiltered ?? []
+            recipesTableView.reloadData()
+        } else {
+            // recipes?.recipes = searchRecipes
+            recipesTableView.reloadData()
+        }
+    }
+}
+

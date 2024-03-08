@@ -5,7 +5,7 @@ import Foundation
 
 /// Источник информации
 struct Recipes {
-    let recipesInfo = [
+    var recipesInfo = [
         RecipesInfo(
             nameRecipesImage: "salad",
             nameRecipesLabel: "Salad",
