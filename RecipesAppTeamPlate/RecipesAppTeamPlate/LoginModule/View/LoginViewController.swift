@@ -65,6 +65,27 @@ final class LoginViewController: UIViewController {
 
     var autorizationPresenter: LoginPresenter?
 
+    // MARK: - File Manager
+
+    private func fileManager() {
+        let manager = FileManager.default
+        guard let url = manager.urls(
+            for: .documentDirectory,
+            in: .userDomainMask
+        ).first else {
+            return
+        }
+
+        let newFolderUrl = url.appendingPathComponent("recipesLog")
+        let fileUrl = newFolderUrl.appendingPathComponent("logs.txt")
+        let data = "some text".data(using: .utf8)
+        manager.createFile(
+            atPath: fileUrl.path,
+            contents: data,
+            attributes: [FileAttributeKey.creationDate: Date()]
+        )
+    }
+
     // MARK: - Private Properties
 
     private var countKeyboardTap = 0
@@ -118,6 +139,7 @@ final class LoginViewController: UIViewController {
         splashView.addSubview(splashTitleLabel)
         makeAnchor()
         observbleKeyboard()
+        fileManager()
     }
 
     private func makeLabel(label: UILabel, title: String) {
@@ -203,7 +225,9 @@ final class LoginViewController: UIViewController {
     @objc private func tappedButton() {
         view.endEditing(true)
         autorizationPresenter?.chekPassword(password: passwordTextField.text, login: loginTextField.text)
-        autorizationPresenter?.showRecipesTabBarcontroller()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            self.autorizationPresenter?.showRecipesTabBarcontroller()
+        }
     }
 }
 
