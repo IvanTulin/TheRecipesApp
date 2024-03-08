@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		48936A5E2B9273D000C31A44 /* RecipesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48936A5D2B9273D000C31A44 /* RecipesViewCell.swift */; };
 		BA0753DE2B9089F300C11B3B /* VoidHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0753DD2B9089F300C11B3B /* VoidHandler.swift */; };
+		BA33C0682B99EA41007D9B15 /* UserInfoMemento.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA33C0672B99EA41007D9B15 /* UserInfoMemento.swift */; };
+		BA33C06A2B99EADB007D9B15 /* UserInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA33C0692B99EADB007D9B15 /* UserInfoService.swift */; };
 		BA43C16C2B90EE600083A0DD /* RecipesInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43C16B2B90EE600083A0DD /* RecipesInfo.swift */; };
 		BA43C16E2B9106A90083A0DD /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43C16D2B9106A90083A0DD /* UIView + Extension.swift */; };
 		BA43C1712B910A1A0083A0DD /* CategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43C1702B910A1A0083A0DD /* CategoryViewController.swift */; };
@@ -63,6 +65,8 @@
 /* Begin PBXFileReference section */
 		48936A5D2B9273D000C31A44 /* RecipesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewCell.swift; sourceTree = "<group>"; };
 		BA0753DD2B9089F300C11B3B /* VoidHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidHandler.swift; sourceTree = "<group>"; };
+		BA33C0672B99EA41007D9B15 /* UserInfoMemento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoMemento.swift; sourceTree = "<group>"; };
+		BA33C0692B99EADB007D9B15 /* UserInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoService.swift; sourceTree = "<group>"; };
 		BA43C16B2B90EE600083A0DD /* RecipesInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesInfo.swift; sourceTree = "<group>"; };
 		BA43C16D2B9106A90083A0DD /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
 		BA43C1702B910A1A0083A0DD /* CategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryViewController.swift; sourceTree = "<group>"; };
@@ -127,6 +131,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BA33C0662B99E7FB007D9B15 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				BA33C0672B99EA41007D9B15 /* UserInfoMemento.swift */,
+				BA33C0692B99EADB007D9B15 /* UserInfoService.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		BA43C16F2B9106CB0083A0DD /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -170,6 +183,7 @@
 				BA5D54D22B8CC988000F1BEE /* SceneDelegate.swift */,
 				BA552C8B2B8DCA780027E2AB /* AppBuilder.swift */,
 				BA0753DD2B9089F300C11B3B /* VoidHandler.swift */,
+				BA33C0662B99E7FB007D9B15 /* Service */,
 				BA43C16F2B9106CB0083A0DD /* Extension */,
 				BA95EB692B8D05B100B22C15 /* LoginModule */,
 				BA95EB742B8D07A700B22C15 /* RecipesModule */,
@@ -523,9 +537,11 @@
 				BA6EBCB02B8E2B8200862E67 /* ProfileCoordinator.swift in Sources */,
 				BAF9929C2B98DF39009B37C2 /* ScreenState.swift in Sources */,
 				BA5D54D52B8CC988000F1BEE /* LoginViewController.swift in Sources */,
+				BA33C06A2B99EADB007D9B15 /* UserInfoService.swift in Sources */,
 				BA6EBCAE2B8E2AEE00862E67 /* FavoritesCoordinator.swift in Sources */,
 				BA95EB7F2B8D08F900B22C15 /* FavoritesViewController.swift in Sources */,
 				BA6EBCA62B8E255F00862E67 /* AppCoordinator.swift in Sources */,
+				BA33C0682B99EA41007D9B15 /* UserInfoMemento.swift in Sources */,
 				BAEC14382B93B1AA00E9B64F /* DetailRecipesViewController.swift in Sources */,
 				BA6EBCB52B8E4AAC00862E67 /* UserNameCell.swift in Sources */,
 				BA733F032B8F1009002C31BB /* BonusesViewController.swift in Sources */,
