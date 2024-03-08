@@ -66,9 +66,7 @@ class CategoryViewController: UIViewController {
         return button
     }()
 
-
     lazy var recipesTableView: UITableView = {
-
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.dataSource = self
@@ -103,13 +101,13 @@ class CategoryViewController: UIViewController {
         switch stateShimer {
         case .initial:
             stateShimer = .shimmer
-            tableView.showShimmer()
-            tableView.reloadData()
+            recipesTableView.showShimmer()
+            recipesTableView.reloadData()
 
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.stateShimer = .loaded
-                self.tableView.reloadData()
-                self.tableView.hideShimmer()
+                self.recipesTableView.reloadData()
+                self.recipesTableView.hideShimmer()
             }
         default: break
         }
@@ -126,12 +124,12 @@ class CategoryViewController: UIViewController {
         // presenter.getTittle()
         configureNavigation()
         presenter.getRecipes()
-        configureUI()
+        setupUI()
     }
 
     // MARK: - Private Methods
 
-    private func configureUI() {
+    private func setupUI() {
         if let nameRecipes = recipes?.nameRecipesLabel {
             backButton.setTitle(" \(nameRecipes)", for: .normal)
         }
@@ -176,7 +174,6 @@ class CategoryViewController: UIViewController {
         navigationItem.leftBarButtonItem = customBarButtomItem
     }
 
-
     private func configureUI() {
         if let nameRecipes = recipes?.nameRecipesLabel {
             backButton.setTitle(" \(nameRecipes)", for: .normal)
@@ -205,12 +202,11 @@ class CategoryViewController: UIViewController {
 extension CategoryViewController: CategoryViewProtocol {
     func getRecipes(recipes: RecipesInfo) {
         self.recipes = recipes
-        tableView.reloadData()
+        recipesTableView.reloadData()
     }
 
     func setTittle(_ nameTitle: String) {}
 }
-
 
 // MARK: - CategoryViewController + UITableViewDataSource
 
@@ -252,11 +248,6 @@ extension CategoryViewController: UITableViewDataSource {
     }
 }
 
-
-// MARK: - CategoryViewController + UITableViewDelegate
-
-extension CategoryViewController: UITableViewDelegate {}
-
 // MARK: - Extension + UISearchBarDelegate
 
 extension CategoryViewController: UISearchBarDelegate {
@@ -272,4 +263,3 @@ extension CategoryViewController: UISearchBarDelegate {
         }
     }
 }
-
