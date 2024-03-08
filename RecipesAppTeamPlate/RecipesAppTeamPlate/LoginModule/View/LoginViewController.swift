@@ -105,36 +105,6 @@ final class LoginViewController: UIViewController {
 
     // MARK: - Private Methods
 
-    private func authentificateUser() {
-        guard let userName = loginTextField.text, let password = passwordTextField.text else { return }
-        guard let savedUserName = UserDefaults.standard.string(forKey: Constants.userNameKey),
-              let savedPassword = UserDefaults.standard.string(
-                  forKey: Constants.userPasswordKey
-              ) else { return }
-        if savedUserName == userName, savedPassword == password {
-            UserDefaults.standard.set(loginTextField.text, forKey: Constants.userNameKey)
-
-            UserDefaults.standard.set(passwordTextField.text, forKey: Constants.userPasswordKey)
-//            autorizationPresenter?.showRecipesTabBarcontroller()
-        } else {
-            print("Не верно введенные данные")
-        }
-        autorizationPresenter?.showRecipesTabBarcontroller()
-//        if let savedUserName = UserDefaults.standard.string(forKey: Constants.userNameKey),
-//           let savedPassword = UserDefaults.standard.string(
-//               forKey: Constants.userPasswordKey
-//           ), savedUserName == userName,
-//           savedPassword == password {
-//
-//            UserDefaults.standard.set(loginTextField.text, forKey: Constants.userNameKey)
-//
-//            UserDefaults.standard.set(passwordTextField.text, forKey: Constants.userPasswordKey)
-//            autorizationPresenter?.showRecipesTabBarcontroller()
-//        } else {
-//            print("Не верно введенные данные")
-//        }
-    }
-
     private func configureNavigationBar() {
         addTapGestureToHideKeyboard()
         view.backgroundColor = .white
@@ -258,7 +228,7 @@ final class LoginViewController: UIViewController {
 
     @objc private func tappedButton() {
         view.endEditing(true)
-        authentificateUser()
+        //authentificateUser()
         autorizationPresenter?.chekPassword(password: passwordTextField.text, login: loginTextField.text)
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             self.autorizationPresenter?.showRecipesTabBarcontroller()
