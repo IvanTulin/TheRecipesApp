@@ -9,6 +9,7 @@ class CategoryViewController: UIViewController {
 
     enum Constants {
         static let identifier = "RecipecViewCell"
+        static let identifierForEmptyCell = "EmptyCell"
         static let tabBarPlaceHolder = "Search recipes"
         static let font = "Verdana-Bold"
         static let bigSize = 28
@@ -19,7 +20,7 @@ class CategoryViewController: UIViewController {
 
     // MARK: - Visual Components
 
-    lazy var searchBar: UISearchBar = {
+    private lazy var searchBar: UISearchBar = {
         let search = UISearchBar()
         search.translatesAutoresizingMaskIntoConstraints = false
         search.placeholder = Constants.tabBarPlaceHolder
@@ -32,7 +33,7 @@ class CategoryViewController: UIViewController {
         return search
     }()
 
-    lazy var backButton: UIButton = {
+    private lazy var backButton: UIButton = {
         let customButton = UIButton(type: .custom)
         customButton.setImage(.backButton, for: .normal)
         customButton.titleLabel?.font = UIFont(name: Constants.font, size: CGFloat(Constants.bigSize))
@@ -41,7 +42,7 @@ class CategoryViewController: UIViewController {
         return customButton
     }()
 
-    lazy var caloriesFilterButton: UIButton = {
+    private lazy var caloriesFilterButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Constants.calories, for: .normal)
@@ -55,24 +56,25 @@ class CategoryViewController: UIViewController {
         return button
     }()
 
-    lazy var timeFilterButton: UIButton = {
+    private lazy var timeFilterButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(Constants.time, for: .normal)
-        button.setImage(Constants.filterIconImage, for: .normal)
-        button.backgroundColor = UIColor(red: 242 / 255, green: 245 / 255, blue: 250 / 255, alpha: 1.0)
         button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        button.layer.cornerRadius = 20
+        button.layer.cornerRadius = 12
+        button.backgroundColor = .appPaleBlue
         return button
     }()
 
+
     lazy var recipesTableView: UITableView = {
+
         let table = UITableView()
         table.translatesAutoresizingMaskIntoConstraints = false
         table.dataSource = self
         table.delegate = self
         table.register(RecipesViewCell.self, forCellReuseIdentifier: Constants.identifier)
+        table.register(EmptyCell.self, forCellReuseIdentifier: Constants.identifierForEmptyCell)
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
         return table
@@ -84,10 +86,38 @@ class CategoryViewController: UIViewController {
     var recipes: RecipesInfo?
     var searchRecipes: [RecipesStorage] = []
 
+    // MARK: - Private Properties
+
+    private var stateShimer = StateShimer.initial
+
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        configureAllUI()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        switch stateShimer {
+        case .initial:
+            stateShimer = .shimmer
+            tableView.showShimmer()
+            tableView.reloadData()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.stateShimer = .loaded
+                self.tableView.reloadData()
+                self.tableView.hideShimmer()
+            }
+        default: break
+        }
+    }
+
+    // MARK: - Private Methods
+
+    private func configureAllUI() {
         view.backgroundColor = .white
         view.addSubview(recipesTableView)
         view.addSubview(caloriesFilterButton)
@@ -146,6 +176,17 @@ class CategoryViewController: UIViewController {
         navigationItem.leftBarButtonItem = customBarButtomItem
     }
 
+
+    private func configureUI() {
+        if let nameRecipes = recipes?.nameRecipesLabel {
+            backButton.setTitle(" \(nameRecipes)", for: .normal)
+        }
+        setupSearchBar()
+        setupTableView()
+        setupCaloriesButton()
+        setupTimeButton()
+    }
+
     @objc private func backToTheLastController() {
         navigationController?.popViewController(animated: true)
     }
@@ -159,15 +200,19 @@ class CategoryViewController: UIViewController {
 //    }
 }
 
+// MARK: - CategoryViewController + CategoryViewProtocol
+
 extension CategoryViewController: CategoryViewProtocol {
     func getRecipes(recipes: RecipesInfo) {
         self.recipes = recipes
+        tableView.reloadData()
     }
 
     func setTittle(_ nameTitle: String) {}
 }
 
-// MARK: - Extension + UITableViewDelegate
+
+// MARK: - CategoryViewController + UITableViewDataSource
 
 extension CategoryViewController: UITableViewDelegate {}
 
@@ -184,11 +229,20 @@ extension CategoryViewController: UITableViewDataSource {
             for: indexPath
         ) as? RecipesViewCell
         else { return UITableViewCell() }
-        guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
-        cell.getRecipes(recipe: cell1)
-        cell.buttonChangeHandler = { [weak self] in
-            guard let self = self else { return }
-            presenter.showDetails(cell1)
+
+        switch stateShimer {
+        case .initial:
+            cell.deleteRecipes()
+        case .shimmer:
+            cell.deleteRecipes()
+        case .loaded:
+            guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
+            cell.getRecipes(recipe: cell1)
+            cell.buttonChangeHandler = { [weak self] in
+
+                guard let self = self else { return }
+                presenter.showDetails(cell1)
+            }
         }
         return cell
     }
@@ -197,6 +251,11 @@ extension CategoryViewController: UITableViewDataSource {
         115
     }
 }
+
+
+// MARK: - CategoryViewController + UITableViewDelegate
+
+extension CategoryViewController: UITableViewDelegate {}
 
 // MARK: - Extension + UISearchBarDelegate
 
@@ -213,3 +272,4 @@ extension CategoryViewController: UISearchBarDelegate {
         }
     }
 }
+

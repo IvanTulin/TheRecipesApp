@@ -19,7 +19,6 @@ final class RecipesViewCell: UITableViewCell {
     private lazy var intoView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor(named: Constants.cellColor)
         view.layer.cornerRadius = 12
         return view
     }()
@@ -81,15 +80,52 @@ final class RecipesViewCell: UITableViewCell {
 
     var buttonChangeHandler: VoidHandler?
 
+    // MARK: - Initializers
+
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        configureUI()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        configureUI()
+    }
+
     // MARK: - Public Methods
+
+    func deleteRecipes() {
+        selectionStyle = .none
+        intoView.backgroundColor = .systemGray3
+        title.isHidden = true
+        dishImage.isHidden = true
+        dishTime.isHidden = true
+        dishKkal.isHidden = true
+        hardwareButton.isHidden = true
+        timerImage.isHidden = true
+        pizzaImage.isHidden = true
+    }
 
     func getRecipes(recipe: RecipesStorage) {
         selectionStyle = .none
+
+        intoView.backgroundColor = UIColor(named: Constants.cellColor)
+        title.isHidden = false
+        dishImage.isHidden = false
+        dishTime.isHidden = false
+        dishKkal.isHidden = false
+        hardwareButton.isHidden = false
+        timerImage.isHidden = false
+        pizzaImage.isHidden = false
         title.text = recipe.dishLabel
         dishImage.image = UIImage(named: recipe.dishImage)
         dishTime.text = recipe.dishTime
         dishKkal.text = recipe.dishKkal
-        // intoView.addSubview(searchBar)
+    }
+
+    // MARK: - Private Methods
+
+    private func configureUI() {
         intoView.addSubview(title)
         contentView.addSubview(intoView)
         intoView.addSubview(dishImage)
@@ -107,8 +143,6 @@ final class RecipesViewCell: UITableViewCell {
         setupDishKkal()
         setupHardwareButton()
     }
-
-    // MARK: - Private Methods
 
     private func setupIntoView() {
         intoView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 7).isActive = true
@@ -169,7 +203,6 @@ final class RecipesViewCell: UITableViewCell {
     }
 
     @objc private func showDetailRecipes() {
-        print("showDetailRecipes")
         buttonChangeHandler?()
     }
 }

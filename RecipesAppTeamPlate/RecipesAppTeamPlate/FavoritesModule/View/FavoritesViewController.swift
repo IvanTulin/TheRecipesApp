@@ -51,7 +51,6 @@ final class FavoritesViewController: UIViewController {
         title = Constants.favoritesLabel
         navigationController?.navigationBar.prefersLargeTitles = true
         view.addSubview(tableView)
-        // setupEmptyView()
         setupUITableView()
     }
 

@@ -3,14 +3,13 @@
 
 import Foundation
 
-protocol DetailRecipesViewProtocol: AnyObject {
-    ///  Презентер экрана
-    var presenter: DetailRecipesPresenter? { get set }
-
-    func getDetailRecipes(detail: RecipesStorage)
+/// Интерфейс общения с DetailRecipesPresenter
+protocol DetailRecipesProtocol {
+    /// Получить данные рецепта
+    func getDetailRecipes()
+    /// Получить текст для титла
+    func getTextForTittle()
 }
-
-protocol DetailRecipesProtocol {}
 
 final class DetailRecipesPresenter: DetailRecipesProtocol {
     // MARK: - Constants
@@ -32,5 +31,9 @@ final class DetailRecipesPresenter: DetailRecipesProtocol {
         if let detail = detailRecipes {
             detailRecipesView?.getDetailRecipes(detail: detail)
         }
+    }
+
+    func getTextForTittle() {
+        detailRecipesView?.setTittle()
     }
 }
