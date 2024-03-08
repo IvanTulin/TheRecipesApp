@@ -27,7 +27,6 @@ final class AppBuilder: BuilderProtocol {
     // MARK: - Public Methods
 
     static func makeLoginModule() -> LoginViewController {
-        let loginSource = Login()
         let view = LoginViewController()
         let presenter = LoginPresenter(view: view)
         view.autorizationPresenter = presenter

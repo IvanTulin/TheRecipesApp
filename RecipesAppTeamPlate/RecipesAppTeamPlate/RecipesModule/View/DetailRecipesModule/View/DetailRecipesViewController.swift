@@ -3,6 +3,17 @@
 
 import UIKit
 
+/// Интерфейс общения с DetailRecipesViewController
+protocol DetailRecipesViewProtocol: AnyObject {
+    ///  Презентер экрана
+    var presenter: DetailRecipesPresenter? { get set }
+
+    /// Получить данные с хранилища
+    func getDetailRecipes(detail: RecipesStorage)
+    /// Установить титл
+    func setTittle()
+}
+
 /// Экран описания рецепта
 class DetailRecipesViewController: UIViewController {
     // MARK: - Constants
@@ -26,6 +37,16 @@ class DetailRecipesViewController: UIViewController {
     let informationTypes: [InforantionType] = [.picture, .calorie, .description]
 
     // MARK: - Visual Components
+
+    private lazy var tittleLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        label.font = UIFont(name: "Verdana-Bold", size: 20)
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
 
     private lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -75,6 +96,7 @@ class DetailRecipesViewController: UIViewController {
         configureTableView()
         configureNavigation()
         presenter?.getDetailRecipes()
+        presenter?.getTextForTittle()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -85,10 +107,16 @@ class DetailRecipesViewController: UIViewController {
 
     private func configureTableView() {
         view.backgroundColor = .white
+        view.addSubview(tittleLabel)
         view.addSubview(tableView)
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tittleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            tittleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 90),
+            tittleLabel.widthAnchor.constraint(equalToConstant: 350),
+            tittleLabel.heightAnchor.constraint(equalToConstant: 56),
+
+            tableView.topAnchor.constraint(equalTo: tittleLabel.bottomAnchor, constant: 10),
             tableView.leftAnchor.constraint(equalTo: view.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -109,40 +137,21 @@ class DetailRecipesViewController: UIViewController {
     }
 }
 
-// MARK: DetailRecipesViewController + DetailRecipesViewProtocol
+// MARK: - DetailRecipesViewController + DetailRecipesViewProtocol
 
 extension DetailRecipesViewController: DetailRecipesViewProtocol {
     func getDetailRecipes(detail: RecipesStorage) {
         detailRecipes = detail
     }
+
+    func setTittle() {
+        tittleLabel.text = detailRecipes?.dishLabel
+    }
 }
 
-// MARK: DetailRecipesViewController + UITableViewDataSource
+// MARK: - DetailRecipesViewController + UITableViewDataSource
 
 extension DetailRecipesViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = createHeaderView()
-        return headerView
-    }
-
-    func createHeaderView() -> UIView {
-        let headerView = UIView()
-        headerView.backgroundColor = .white
-        let label = UILabel()
-        label.text = "Simple Fish And Corn"
-        label.textAlignment = .center
-        label.font = UIFont(name: "Verdana-Bold", size: 20)
-        label.textColor = .black
-
-        headerView.addSubview(label)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.topAnchor.constraint(equalTo: headerView.topAnchor).isActive = true
-        label.leftAnchor.constraint(equalTo: headerView.leftAnchor).isActive = true
-        label.rightAnchor.constraint(equalTo: headerView.rightAnchor).isActive = true
-        label.bottomAnchor.constraint(equalTo: headerView.bottomAnchor).isActive = true
-        return headerView
-    }
-
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         3
     }
@@ -177,7 +186,7 @@ extension DetailRecipesViewController: UITableViewDataSource {
     }
 }
 
-// MARK: DetailRecipesViewController + UITableViewDelegate
+// MARK: - DetailRecipesViewController + UITableViewDelegate
 
 extension DetailRecipesViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
