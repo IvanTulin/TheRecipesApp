@@ -41,13 +41,6 @@ final class ProfileViewController: UIViewController {
         case controlPanel
     }
 
-    /// высота экрана
-    let cardHieight: CGFloat = 670
-    /// высота уменьшенного экрана
-    let cardHandleAreaHeight: CGFloat = 400
-
-    let informationTypes: [InformationType] = [.avatar, .userName, .controlPanel]
-
     // MARK: - Visual Components
 
     private lazy var tableView: UITableView = {
@@ -84,6 +77,17 @@ final class ProfileViewController: UIViewController {
 
     var runningAnimations: [UIViewPropertyAnimator] = []
     var animationProgressWhenInterrupted: CGFloat = 0
+
+    // MARK: - Private Constants
+
+    /// высота экрана
+    private let cardHieight: CGFloat = 670
+    /// высота уменьшенного экрана
+    private let cardHandleAreaHeight: CGFloat = 400
+
+    private let informationTypes: [InformationType] = [.avatar, .userName, .controlPanel]
+
+    private let imagePicker = ImagePicker()
 
     // MARK: - Life Cycle
 
@@ -283,7 +287,13 @@ extension ProfileViewController: UITableViewDataSource {
                 for: indexPath
             ) as? AvatarCell else { return UITableViewCell() }
             guard let userInfo = presenter?.getUserInformation() else { return cell }
-            cell.setUserInformation(userInfo) {}
+            cell.setUserInformation(userInfo) { [weak self] in
+                guard let self = self else { return }
+                self.imagePicker.showImagePicker(in: self) { image in
+                    guard let imageData = image.pngData() else { return }
+                    self.presenter?.actionChangePhoto(imageData: imageData)
+                }
+            }
             return cell
         case .userName:
             guard let cell = tableView.dequeueReusableCell(

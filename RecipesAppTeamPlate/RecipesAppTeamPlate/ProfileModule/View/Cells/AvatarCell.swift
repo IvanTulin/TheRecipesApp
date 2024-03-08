@@ -39,7 +39,7 @@ final class AvatarCell: UITableViewCell {
         _ userInfo: UserInfo,
         changePhotoComplition: @escaping VoidHandler
     ) {
-        avatarImageView.image = UIImage(named: userInfo.userPhotoName)
+        avatarImageView.image = UIImage(data: userInfo.userImageData)
         avatarImageView.clipsToBounds = true
         avatarImageView.contentMode = .scaleAspectFill
 
@@ -63,5 +63,6 @@ final class AvatarCell: UITableViewCell {
 
     @objc private func changePhoto() {
         print("changePhoto")
+        buttonChangePhotoHandler?()
     }
 }
