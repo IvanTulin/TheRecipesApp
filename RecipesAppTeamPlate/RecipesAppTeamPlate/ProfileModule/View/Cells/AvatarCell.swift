@@ -7,9 +7,12 @@ import UIKit
 final class AvatarCell: UITableViewCell {
     // MARK: - Visual Components
 
-    private let avatarImageView: UIImageView = {
+    private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 80
+        imageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(changePhoto))
+        imageView.addGestureRecognizer(tapGesture)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -56,5 +59,9 @@ final class AvatarCell: UITableViewCell {
             avatarImageView.widthAnchor.constraint(equalToConstant: 160),
             avatarImageView.heightAnchor.constraint(equalToConstant: 160)
         ])
+    }
+
+    @objc private func changePhoto() {
+        print("changePhoto")
     }
 }

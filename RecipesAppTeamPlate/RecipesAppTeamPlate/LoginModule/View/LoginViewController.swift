@@ -26,9 +26,11 @@ final class LoginViewController: UIViewController {
         static let spllashTitle = "Please check the accuracy of the entered credentials."
         static let userNameKey = "userNameKey"
         static let userPasswordKey = "userPasswordKey"
+        static let loginMemento = "loginMemento"
+        static let passwordMemento = "passwordMemento"
     }
 
-    let userInfoService = UserInfoService()
+    let caretaker = Caretaker.shared
 
     // MARK: - Visual Components
 
@@ -228,9 +230,23 @@ final class LoginViewController: UIViewController {
 
     @objc private func tappedButton() {
         view.endEditing(true)
-        autorizationPresenter?.chekPassword(password: passwordTextField.text, login: loginTextField.text)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.autorizationPresenter?.showRecipesTabBarcontroller()
+        caretaker.restoreState()
+
+        let loginData = UserDefaults.standard.string(forKey: Constants.loginMemento)
+        let passwordData = UserDefaults.standard.string(forKey: Constants.passwordMemento)
+        let login = loginTextField.text
+        let password = passwordTextField.text
+
+        if loginData != nil, passwordData != nil {
+            autorizationPresenter?.chekPassword(password: passwordTextField.text, login: loginTextField.text)
+        } else {
+            guard let authorization = autorizationPresenter?.showNextController(password: password, login: login)
+            else { return }
+            if authorization {
+                caretaker.originator.login = loginTextField.text ?? ""
+                caretaker.originator.password = passwordTextField.text ?? ""
+                caretaker.saveState()
+            }
         }
     }
 }
