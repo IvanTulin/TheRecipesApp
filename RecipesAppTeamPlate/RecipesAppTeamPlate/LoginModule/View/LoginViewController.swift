@@ -30,7 +30,7 @@ final class LoginViewController: UIViewController {
         static let passwordMemento = "passwordMemento"
     }
 
-    let caretaker = Caretaker.shared
+    let loginCaretaker = LoginCaretaker.shared
 
     // MARK: - Visual Components
 
@@ -230,7 +230,7 @@ final class LoginViewController: UIViewController {
 
     @objc private func tappedButton() {
         view.endEditing(true)
-        caretaker.restoreState()
+        loginCaretaker.restoreState()
 
         let loginData = UserDefaults.standard.string(forKey: Constants.loginMemento)
         let passwordData = UserDefaults.standard.string(forKey: Constants.passwordMemento)
@@ -243,9 +243,9 @@ final class LoginViewController: UIViewController {
             guard let authorization = autorizationPresenter?.showNextController(password: password, login: login)
             else { return }
             if authorization {
-                caretaker.originator.login = loginTextField.text ?? ""
-                caretaker.originator.password = passwordTextField.text ?? ""
-                caretaker.saveState()
+                loginCaretaker.originator.login = loginTextField.text ?? ""
+                loginCaretaker.originator.password = passwordTextField.text ?? ""
+                loginCaretaker.saveState()
             }
         }
     }

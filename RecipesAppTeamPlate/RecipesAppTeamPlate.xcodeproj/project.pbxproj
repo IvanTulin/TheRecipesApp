@@ -33,9 +33,9 @@
 		BA733F032B8F1009002C31BB /* BonusesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733F022B8F1009002C31BB /* BonusesViewController.swift */; };
 		BA733F052B8F4182002C31BB /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733F042B8F4182002C31BB /* UserInfo.swift */; };
 		BA733F072B8F41C1002C31BB /* ProfileInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA733F062B8F41C1002C31BB /* ProfileInfo.swift */; };
-		BA81A4092B9B6246000175D3 /* Originator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA81A4082B9B6246000175D3 /* Originator.swift */; };
-		BA81A40B2B9B6268000175D3 /* Caretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA81A40A2B9B6268000175D3 /* Caretaker.swift */; };
-		BA81A40D2B9B697E000175D3 /* Memento.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA81A40C2B9B697E000175D3 /* Memento.swift */; };
+		BA81A4092B9B6246000175D3 /* LoginOriginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA81A4082B9B6246000175D3 /* LoginOriginator.swift */; };
+		BA81A40B2B9B6268000175D3 /* LoginCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA81A40A2B9B6268000175D3 /* LoginCaretaker.swift */; };
+		BA81A40D2B9B697E000175D3 /* LoginMemento.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA81A40C2B9B697E000175D3 /* LoginMemento.swift */; };
 		BA95EB6E2B8D06E700B22C15 /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95EB6D2B8D06E700B22C15 /* Login.swift */; };
 		BA95EB712B8D073600B22C15 /* LoginPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95EB702B8D073600B22C15 /* LoginPresenter.swift */; };
 		BA95EB762B8D07F500B22C15 /* RecipesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA95EB752B8D07F500B22C15 /* RecipesViewController.swift */; };
@@ -62,6 +62,12 @@
 		BAEC14492B93DA6400E9B64F /* DescriptionInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC14482B93DA6400E9B64F /* DescriptionInformation.swift */; };
 		BAEC144B2B93DB0500E9B64F /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC144A2B93DB0500E9B64F /* Description.swift */; };
 		BAF9929C2B98DF39009B37C2 /* ScreenState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF9929B2B98DF39009B37C2 /* ScreenState.swift */; };
+		BAFE21842B9CBBCD00ECB303 /* UserImageMemento.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE21832B9CBBCD00ECB303 /* UserImageMemento.swift */; };
+		BAFE21862B9CBC2B00ECB303 /* UserImageOriginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE21852B9CBC2B00ECB303 /* UserImageOriginator.swift */; };
+		BAFE21882B9CC20E00ECB303 /* UserImageCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE21872B9CC20E00ECB303 /* UserImageCaretaker.swift */; };
+		BAFE218B2B9CD32C00ECB303 /* UserNameMemento.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE218A2B9CD32C00ECB303 /* UserNameMemento.swift */; };
+		BAFE218D2B9CD39A00ECB303 /* UserNameOriginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE218C2B9CD39A00ECB303 /* UserNameOriginator.swift */; };
+		BAFE218F2B9CD43C00ECB303 /* UserNameCaretaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE218E2B9CD43C00ECB303 /* UserNameCaretaker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,9 +99,9 @@
 		BA733F022B8F1009002C31BB /* BonusesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BonusesViewController.swift; sourceTree = "<group>"; };
 		BA733F042B8F4182002C31BB /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		BA733F062B8F41C1002C31BB /* ProfileInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileInfo.swift; sourceTree = "<group>"; };
-		BA81A4082B9B6246000175D3 /* Originator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Originator.swift; sourceTree = "<group>"; };
-		BA81A40A2B9B6268000175D3 /* Caretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Caretaker.swift; sourceTree = "<group>"; };
-		BA81A40C2B9B697E000175D3 /* Memento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Memento.swift; sourceTree = "<group>"; };
+		BA81A4082B9B6246000175D3 /* LoginOriginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginOriginator.swift; sourceTree = "<group>"; };
+		BA81A40A2B9B6268000175D3 /* LoginCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginCaretaker.swift; sourceTree = "<group>"; };
+		BA81A40C2B9B697E000175D3 /* LoginMemento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginMemento.swift; sourceTree = "<group>"; };
 		BA95EB6D2B8D06E700B22C15 /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		BA95EB702B8D073600B22C15 /* LoginPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPresenter.swift; sourceTree = "<group>"; };
 		BA95EB752B8D07F500B22C15 /* RecipesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewController.swift; sourceTree = "<group>"; };
@@ -122,6 +128,12 @@
 		BAEC14482B93DA6400E9B64F /* DescriptionInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionInformation.swift; sourceTree = "<group>"; };
 		BAEC144A2B93DB0500E9B64F /* Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
 		BAF9929B2B98DF39009B37C2 /* ScreenState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenState.swift; sourceTree = "<group>"; };
+		BAFE21832B9CBBCD00ECB303 /* UserImageMemento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageMemento.swift; sourceTree = "<group>"; };
+		BAFE21852B9CBC2B00ECB303 /* UserImageOriginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageOriginator.swift; sourceTree = "<group>"; };
+		BAFE21872B9CC20E00ECB303 /* UserImageCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageCaretaker.swift; sourceTree = "<group>"; };
+		BAFE218A2B9CD32C00ECB303 /* UserNameMemento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameMemento.swift; sourceTree = "<group>"; };
+		BAFE218C2B9CD39A00ECB303 /* UserNameOriginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameOriginator.swift; sourceTree = "<group>"; };
+		BAFE218E2B9CD43C00ECB303 /* UserNameCaretaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNameCaretaker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -138,7 +150,9 @@
 		BA33C0662B99E7FB007D9B15 /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				BA81A4072B9B61C3000175D3 /* UserServiceMemento */,
+				BAFE21892B9CD2FF00ECB303 /* UserNameServiceMemento */,
+				BAFE21822B9CBB2400ECB303 /* UserImageServiceMemento */,
+				BA81A4072B9B61C3000175D3 /* LoginServiceMemento */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -223,14 +237,14 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
-		BA81A4072B9B61C3000175D3 /* UserServiceMemento */ = {
+		BA81A4072B9B61C3000175D3 /* LoginServiceMemento */ = {
 			isa = PBXGroup;
 			children = (
-				BA81A40C2B9B697E000175D3 /* Memento.swift */,
-				BA81A4082B9B6246000175D3 /* Originator.swift */,
-				BA81A40A2B9B6268000175D3 /* Caretaker.swift */,
+				BA81A40C2B9B697E000175D3 /* LoginMemento.swift */,
+				BA81A4082B9B6246000175D3 /* LoginOriginator.swift */,
+				BA81A40A2B9B6268000175D3 /* LoginCaretaker.swift */,
 			);
-			path = UserServiceMemento;
+			path = LoginServiceMemento;
 			sourceTree = "<group>";
 		};
 		BA95EB692B8D05B100B22C15 /* LoginModule */ = {
@@ -430,6 +444,26 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BAFE21822B9CBB2400ECB303 /* UserImageServiceMemento */ = {
+			isa = PBXGroup;
+			children = (
+				BAFE21832B9CBBCD00ECB303 /* UserImageMemento.swift */,
+				BAFE21852B9CBC2B00ECB303 /* UserImageOriginator.swift */,
+				BAFE21872B9CC20E00ECB303 /* UserImageCaretaker.swift */,
+			);
+			path = UserImageServiceMemento;
+			sourceTree = "<group>";
+		};
+		BAFE21892B9CD2FF00ECB303 /* UserNameServiceMemento */ = {
+			isa = PBXGroup;
+			children = (
+				BAFE218A2B9CD32C00ECB303 /* UserNameMemento.swift */,
+				BAFE218C2B9CD39A00ECB303 /* UserNameOriginator.swift */,
+				BAFE218E2B9CD43C00ECB303 /* UserNameCaretaker.swift */,
+			);
+			path = UserNameServiceMemento;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -546,6 +580,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BA43C16C2B90EE600083A0DD /* RecipesInfo.swift in Sources */,
+				BAFE218B2B9CD32C00ECB303 /* UserNameMemento.swift in Sources */,
 				BACB1AFE2B98596900BD5177 /* UITableView + Extension.swift in Sources */,
 				BA733F072B8F41C1002C31BB /* ProfileInfo.swift in Sources */,
 				BA6EBCB02B8E2B8200862E67 /* ProfileCoordinator.swift in Sources */,
@@ -557,16 +592,17 @@
 				BAEC14382B93B1AA00E9B64F /* DetailRecipesViewController.swift in Sources */,
 				BA6EBCB52B8E4AAC00862E67 /* UserNameCell.swift in Sources */,
 				BA733F032B8F1009002C31BB /* BonusesViewController.swift in Sources */,
-				BA81A4092B9B6246000175D3 /* Originator.swift in Sources */,
+				BA81A4092B9B6246000175D3 /* LoginOriginator.swift in Sources */,
 				BAD7CA462B8FAB52000B7DEF /* BonusesPresenter.swift in Sources */,
 				BA6EBCB32B8E483300862E67 /* AvatarCell.swift in Sources */,
 				BAEC14442B93D17400E9B64F /* CalorieCell.swift in Sources */,
 				BA733F052B8F4182002C31BB /* UserInfo.swift in Sources */,
 				BA5D54D12B8CC988000F1BEE /* AppDelegate.swift in Sources */,
 				BA95EB8E2B8D0B2600B22C15 /* Profile.swift in Sources */,
+				BAFE21842B9CBBCD00ECB303 /* UserImageMemento.swift in Sources */,
 				BACB1AFC2B9858F400BD5177 /* RecipesStorage.swift in Sources */,
 				BAEC143A2B93B5BF00E9B64F /* DetailRecipesPresenter.swift in Sources */,
-				BA81A40D2B9B697E000175D3 /* Memento.swift in Sources */,
+				BA81A40D2B9B697E000175D3 /* LoginMemento.swift in Sources */,
 				BA95EB862B8D098B00B22C15 /* FavoritesPresenter.swift in Sources */,
 				BAEC14462B93D1C100E9B64F /* RecipeDescriptionCell.swift in Sources */,
 				BA95EB822B8D095600B22C15 /* Favorites.swift in Sources */,
@@ -574,10 +610,12 @@
 				BA5C8F252B90D285006F102B /* CategoriesCell.swift in Sources */,
 				BA0753DE2B9089F300C11B3B /* VoidHandler.swift in Sources */,
 				BAEC14492B93DA6400E9B64F /* DescriptionInformation.swift in Sources */,
+				BAFE218F2B9CD43C00ECB303 /* UserNameCaretaker.swift in Sources */,
 				BAEC144B2B93DB0500E9B64F /* Description.swift in Sources */,
 				BA95EB782B8D083300B22C15 /* Recipes.swift in Sources */,
 				BA95EB8B2B8D0AC500B22C15 /* ProfileViewController.swift in Sources */,
 				BA43C16E2B9106A90083A0DD /* UIView + Extension.swift in Sources */,
+				BAFE218D2B9CD39A00ECB303 /* UserNameOriginator.swift in Sources */,
 				BAAA373C2B9141AE00866A97 /* CategoryPresent.swift in Sources */,
 				BACB1AF02B9850EC00BD5177 /* StateShimer.swift in Sources */,
 				BA552C8C2B8DCA780027E2AB /* AppBuilder.swift in Sources */,
@@ -588,8 +626,9 @@
 				BA6EBCB72B8E4AE600862E67 /* ControlPanelCell.swift in Sources */,
 				BA6EBCAC2B8E2AAA00862E67 /* RecipesCoordinator.swift in Sources */,
 				BA95EB762B8D07F500B22C15 /* RecipesViewController.swift in Sources */,
+				BAFE21882B9CC20E00ECB303 /* UserImageCaretaker.swift in Sources */,
 				BAD610FC2B976FF300F5E877 /* UIColor + Extension.swift in Sources */,
-				BA81A40B2B9B6268000175D3 /* Caretaker.swift in Sources */,
+				BA81A40B2B9B6268000175D3 /* LoginCaretaker.swift in Sources */,
 				BAD610FA2B975A8300F5E877 /* TermsOfConfidentialityViewController.swift in Sources */,
 				BAEC14422B93D14300E9B64F /* PictureOfDishCell.swift in Sources */,
 				BA95EB712B8D073600B22C15 /* LoginPresenter.swift in Sources */,
@@ -597,6 +636,7 @@
 				BA43C1712B910A1A0083A0DD /* CategoryViewController.swift in Sources */,
 				BA6EBCAA2B8E281F00862E67 /* LoginCoordinator.swift in Sources */,
 				BA5EC4672B9BA37A00C57A88 /* ImagePicker.swift in Sources */,
+				BAFE21862B9CBC2B00ECB303 /* UserImageOriginator.swift in Sources */,
 				BA4B7D012B97B94300C8BB17 /* EmptyCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,10 +1,10 @@
-// Memento.swift
+// LoginMemento.swift
 // Copyright © RoadMap. All rights reserved.
 
 import Foundation
 
-/// Класс Memento
-class Memento {
+/// Класс Хранитель для логина/пароля
+class LoginMemento {
     /// логин
     let login: String
     /// пароль

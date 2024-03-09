@@ -29,7 +29,7 @@ protocol AutorizationViewControllerProtocol: AnyObject {
 final class LoginPresenter {
     // MARK: - Constants
 
-    let caretaker = Caretaker.shared
+    let caretaker = LoginCaretaker.shared
 
     // MARK: - Puplic Properties
 

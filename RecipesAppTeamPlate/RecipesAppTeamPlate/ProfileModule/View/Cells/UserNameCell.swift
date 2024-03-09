@@ -9,7 +9,11 @@ final class UserNameCell: UITableViewCell {
 
     enum Constants {
         static let nameFontBold = "Verdana-Bold"
+        static let nameKey = "saveName"
+        static let nameKeyMemento = "userNameMemento"
     }
+
+    let userNameCaretaker = UserNameCaretaker()
 
     // MARK: - Visual Components
 
@@ -60,7 +64,19 @@ final class UserNameCell: UITableViewCell {
         _ userInfo: UserInfo,
         changeNameComplition: @escaping () -> ()
     ) {
-        userNameLabel.text = "\(userInfo.nameSurname)"
+        /// Загружаем имя пользователя из ProfileServiceMemento при инициализации
+        userNameCaretaker.restoreState()
+
+        if UserDefaults.standard.string(forKey: Constants.nameKeyMemento) != nil {
+            userNameLabel.text = userNameCaretaker.originator.userName
+        } else {
+            userNameLabel.text = "\(userInfo.nameSurname)"
+        }
+//        if let userName = UserDefaults.standard.string(forKey: Constants.nameKey) {
+//            userNameLabel.text = userName
+//        } else {
+//            userNameLabel.text = "\(userInfo.nameSurname)"
+//        }
         buttonChangeHandler = changeNameComplition
     }
 

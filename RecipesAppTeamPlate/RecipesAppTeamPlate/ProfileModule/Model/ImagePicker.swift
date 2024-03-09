@@ -5,6 +5,14 @@ import UIKit
 
 /// Экран выбора изображения
 final class ImagePicker: NSObject {
+    // MARK: - Constants
+
+    enum Constants {
+        static let savedImageKey = "savedImageKey"
+    }
+
+    let userImageCaretaker = UserImageCaretaker()
+
     // MARK: - Private Properties
 
     private var imagePickerController = UIImagePickerController()
@@ -28,7 +36,20 @@ extension ImagePicker: UINavigationControllerDelegate {
     ) {
         if let image = info[.originalImage] as? UIImage {
             complition?(image)
+            saveImageToUserDefaults(image: image)
             picker.dismiss(animated: true)
+        }
+    }
+
+    /// Сохраняем выбранное фото из галереи в ProfileServiceMemento
+    func saveImageToUserDefaults(image: UIImage) {
+        if let imageData = image.jpegData(compressionQuality: 1.0) {
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.userImageCaretaker.originator.image = imageData
+                self.userImageCaretaker.saveState()
+//                UserDefaults.standard.set(imageData, forKey: Constants.savedImageKey)
+//                UserDefaults.standard.synchronize()
+            }
         }
     }
 }

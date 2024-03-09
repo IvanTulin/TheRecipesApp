@@ -29,6 +29,8 @@ final class ProfileViewController: UIViewController {
         static let alertText = "Change your name and surname"
         static let cancelButtonText = "Cancel"
         static let okButtonText = "OK"
+        static let nameKey = "saveName"
+        static let nameKeyMemento = "imageMemento"
     }
 
     /// Тип данных
@@ -40,6 +42,8 @@ final class ProfileViewController: UIViewController {
         /// посты
         case controlPanel
     }
+
+    let userNameCaretacker = UserNameCaretaker()
 
     // MARK: - Visual Components
 
@@ -347,6 +351,12 @@ extension ProfileViewController: ProfileViewProtocol {
         }
         let actionOK = UIAlertAction(title: Constants.okButtonText, style: .cancel) { _ in
             guard let newName = alert.textFields?[0].text else { return }
+//            UserDefaults.standard.set(newName, forKey: Constants.nameKey)
+//            UserDefaults.standard.synchronize()
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.userNameCaretacker.originator.userName = newName
+                self.userNameCaretacker.saveState()
+            }
             self.setNewName(newName)
         }
         let actionCancel = UIAlertAction(title: Constants.cancelButtonText, style: .default)
