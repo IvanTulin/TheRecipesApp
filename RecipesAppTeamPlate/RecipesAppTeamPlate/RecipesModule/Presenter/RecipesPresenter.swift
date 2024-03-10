@@ -3,13 +3,12 @@
 
 import Foundation
 
-/// Интерфейс общения с RecipesView
-protocol RecipesViewProtocol: AnyObject {}
-
 /// Интерфейс общения с RecipesPresenter
 protocol RecipesViewPresenterProtocol: AnyObject {
     func getUserInformation() -> [RecipesInfo]?
     func showCategory(_ type: RecipesInfo)
+    /// получить команду
+    func getCommand()
 }
 
 /// Презентер Рецептов
@@ -38,5 +37,9 @@ final class RecipesPresenter: RecipesViewPresenterProtocol {
 
     func showCategory(_ type: RecipesInfo) {
         recipesCoordinator?.showCategories(category: type)
+    }
+
+    func getCommand() {
+        recipesView.sendCommand()
     }
 }

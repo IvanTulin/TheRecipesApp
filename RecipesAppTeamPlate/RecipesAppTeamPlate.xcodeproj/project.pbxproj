@@ -61,6 +61,13 @@
 		BAEC14462B93D1C100E9B64F /* RecipeDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC14452B93D1C100E9B64F /* RecipeDescriptionCell.swift */; };
 		BAEC14492B93DA6400E9B64F /* DescriptionInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC14482B93DA6400E9B64F /* DescriptionInformation.swift */; };
 		BAEC144B2B93DB0500E9B64F /* Description.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEC144A2B93DB0500E9B64F /* Description.swift */; };
+		BAF321022B9E18CA00358FB1 /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF321012B9E18CA00358FB1 /* FileManagerHelper.swift */; };
+		BAF321042B9E1B4500358FB1 /* AnalyticsCommand.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF321032B9E1B4500358FB1 /* AnalyticsCommand.swift */; };
+		BAF321062B9E1BA200358FB1 /* RecipesSrceenReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF321052B9E1BA200358FB1 /* RecipesSrceenReceiver.swift */; };
+		BAF321082B9E1CA400358FB1 /* CategoriesSrceenReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF321072B9E1CA400358FB1 /* CategoriesSrceenReceiver.swift */; };
+		BAF3210A2B9E1D4500358FB1 /* DetailRecipesReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF321092B9E1D4500358FB1 /* DetailRecipesReceiver.swift */; };
+		BAF3210C2B9E1DE000358FB1 /* SharedRecipesReceiver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF3210B2B9E1DE000358FB1 /* SharedRecipesReceiver.swift */; };
+		BAF321102B9E1E7D00358FB1 /* CommandExecutor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF3210F2B9E1E7D00358FB1 /* CommandExecutor.swift */; };
 		BAF9929C2B98DF39009B37C2 /* ScreenState.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF9929B2B98DF39009B37C2 /* ScreenState.swift */; };
 		BAFE21842B9CBBCD00ECB303 /* UserImageMemento.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE21832B9CBBCD00ECB303 /* UserImageMemento.swift */; };
 		BAFE21862B9CBC2B00ECB303 /* UserImageOriginator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFE21852B9CBC2B00ECB303 /* UserImageOriginator.swift */; };
@@ -127,6 +134,13 @@
 		BAEC14452B93D1C100E9B64F /* RecipeDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipeDescriptionCell.swift; sourceTree = "<group>"; };
 		BAEC14482B93DA6400E9B64F /* DescriptionInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionInformation.swift; sourceTree = "<group>"; };
 		BAEC144A2B93DB0500E9B64F /* Description.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Description.swift; sourceTree = "<group>"; };
+		BAF321012B9E18CA00358FB1 /* FileManagerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
+		BAF321032B9E1B4500358FB1 /* AnalyticsCommand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsCommand.swift; sourceTree = "<group>"; };
+		BAF321052B9E1BA200358FB1 /* RecipesSrceenReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesSrceenReceiver.swift; sourceTree = "<group>"; };
+		BAF321072B9E1CA400358FB1 /* CategoriesSrceenReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesSrceenReceiver.swift; sourceTree = "<group>"; };
+		BAF321092B9E1D4500358FB1 /* DetailRecipesReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailRecipesReceiver.swift; sourceTree = "<group>"; };
+		BAF3210B2B9E1DE000358FB1 /* SharedRecipesReceiver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedRecipesReceiver.swift; sourceTree = "<group>"; };
+		BAF3210F2B9E1E7D00358FB1 /* CommandExecutor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommandExecutor.swift; sourceTree = "<group>"; };
 		BAF9929B2B98DF39009B37C2 /* ScreenState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenState.swift; sourceTree = "<group>"; };
 		BAFE21832B9CBBCD00ECB303 /* UserImageMemento.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageMemento.swift; sourceTree = "<group>"; };
 		BAFE21852B9CBC2B00ECB303 /* UserImageOriginator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserImageOriginator.swift; sourceTree = "<group>"; };
@@ -150,6 +164,7 @@
 		BA33C0662B99E7FB007D9B15 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				BAF321002B9E186300358FB1 /* FileManagerHelper */,
 				BAFE21892B9CD2FF00ECB303 /* UserNameServiceMemento */,
 				BAFE21822B9CBB2400ECB303 /* UserImageServiceMemento */,
 				BA81A4072B9B61C3000175D3 /* LoginServiceMemento */,
@@ -444,6 +459,20 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BAF321002B9E186300358FB1 /* FileManagerHelper */ = {
+			isa = PBXGroup;
+			children = (
+				BAF321012B9E18CA00358FB1 /* FileManagerHelper.swift */,
+				BAF321032B9E1B4500358FB1 /* AnalyticsCommand.swift */,
+				BAF321052B9E1BA200358FB1 /* RecipesSrceenReceiver.swift */,
+				BAF321072B9E1CA400358FB1 /* CategoriesSrceenReceiver.swift */,
+				BAF321092B9E1D4500358FB1 /* DetailRecipesReceiver.swift */,
+				BAF3210B2B9E1DE000358FB1 /* SharedRecipesReceiver.swift */,
+				BAF3210F2B9E1E7D00358FB1 /* CommandExecutor.swift */,
+			);
+			path = FileManagerHelper;
+			sourceTree = "<group>";
+		};
 		BAFE21822B9CBB2400ECB303 /* UserImageServiceMemento */ = {
 			isa = PBXGroup;
 			children = (
@@ -584,9 +613,11 @@
 				BACB1AFE2B98596900BD5177 /* UITableView + Extension.swift in Sources */,
 				BA733F072B8F41C1002C31BB /* ProfileInfo.swift in Sources */,
 				BA6EBCB02B8E2B8200862E67 /* ProfileCoordinator.swift in Sources */,
+				BAF321022B9E18CA00358FB1 /* FileManagerHelper.swift in Sources */,
 				BAF9929C2B98DF39009B37C2 /* ScreenState.swift in Sources */,
 				BA5D54D52B8CC988000F1BEE /* LoginViewController.swift in Sources */,
 				BA6EBCAE2B8E2AEE00862E67 /* FavoritesCoordinator.swift in Sources */,
+				BAF3210A2B9E1D4500358FB1 /* DetailRecipesReceiver.swift in Sources */,
 				BA95EB7F2B8D08F900B22C15 /* FavoritesViewController.swift in Sources */,
 				BA6EBCA62B8E255F00862E67 /* AppCoordinator.swift in Sources */,
 				BAEC14382B93B1AA00E9B64F /* DetailRecipesViewController.swift in Sources */,
@@ -595,11 +626,13 @@
 				BA81A4092B9B6246000175D3 /* LoginOriginator.swift in Sources */,
 				BAD7CA462B8FAB52000B7DEF /* BonusesPresenter.swift in Sources */,
 				BA6EBCB32B8E483300862E67 /* AvatarCell.swift in Sources */,
+				BAF3210C2B9E1DE000358FB1 /* SharedRecipesReceiver.swift in Sources */,
 				BAEC14442B93D17400E9B64F /* CalorieCell.swift in Sources */,
 				BA733F052B8F4182002C31BB /* UserInfo.swift in Sources */,
 				BA5D54D12B8CC988000F1BEE /* AppDelegate.swift in Sources */,
 				BA95EB8E2B8D0B2600B22C15 /* Profile.swift in Sources */,
 				BAFE21842B9CBBCD00ECB303 /* UserImageMemento.swift in Sources */,
+				BAF321042B9E1B4500358FB1 /* AnalyticsCommand.swift in Sources */,
 				BACB1AFC2B9858F400BD5177 /* RecipesStorage.swift in Sources */,
 				BAEC143A2B93B5BF00E9B64F /* DetailRecipesPresenter.swift in Sources */,
 				BA81A40D2B9B697E000175D3 /* LoginMemento.swift in Sources */,
@@ -609,6 +642,7 @@
 				48936A5E2B9273D000C31A44 /* RecipesViewCell.swift in Sources */,
 				BA5C8F252B90D285006F102B /* CategoriesCell.swift in Sources */,
 				BA0753DE2B9089F300C11B3B /* VoidHandler.swift in Sources */,
+				BAF321062B9E1BA200358FB1 /* RecipesSrceenReceiver.swift in Sources */,
 				BAEC14492B93DA6400E9B64F /* DescriptionInformation.swift in Sources */,
 				BAFE218F2B9CD43C00ECB303 /* UserNameCaretaker.swift in Sources */,
 				BAEC144B2B93DB0500E9B64F /* Description.swift in Sources */,
@@ -616,6 +650,7 @@
 				BA95EB8B2B8D0AC500B22C15 /* ProfileViewController.swift in Sources */,
 				BA43C16E2B9106A90083A0DD /* UIView + Extension.swift in Sources */,
 				BAFE218D2B9CD39A00ECB303 /* UserNameOriginator.swift in Sources */,
+				BAF321082B9E1CA400358FB1 /* CategoriesSrceenReceiver.swift in Sources */,
 				BAAA373C2B9141AE00866A97 /* CategoryPresent.swift in Sources */,
 				BACB1AF02B9850EC00BD5177 /* StateShimer.swift in Sources */,
 				BA552C8C2B8DCA780027E2AB /* AppBuilder.swift in Sources */,
@@ -627,6 +662,7 @@
 				BA6EBCAC2B8E2AAA00862E67 /* RecipesCoordinator.swift in Sources */,
 				BA95EB762B8D07F500B22C15 /* RecipesViewController.swift in Sources */,
 				BAFE21882B9CC20E00ECB303 /* UserImageCaretaker.swift in Sources */,
+				BAF321102B9E1E7D00358FB1 /* CommandExecutor.swift in Sources */,
 				BAD610FC2B976FF300F5E877 /* UIColor + Extension.swift in Sources */,
 				BA81A40B2B9B6268000175D3 /* LoginCaretaker.swift in Sources */,
 				BAD610FA2B975A8300F5E877 /* TermsOfConfidentialityViewController.swift in Sources */,

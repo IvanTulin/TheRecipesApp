@@ -3,6 +3,12 @@
 
 import UIKit
 
+/// Интерфейс общения с RecipesViewController
+protocol RecipesViewProtocol: AnyObject {
+    /// отправить команду
+    func sendCommand()
+}
+
 /// Экран рецептов
 final class RecipesViewController: UIViewController {
     // MARK: - Constants
@@ -10,6 +16,9 @@ final class RecipesViewController: UIViewController {
     enum Constants {
         static let identifierCell = "CategoriesCell"
     }
+
+    let commandExecutor = CommandExecutor()
+    let recipesSrceenReceiver = RecipesSrceenReceiver()
 
     // MARK: - Visual Components
 
@@ -35,6 +44,7 @@ final class RecipesViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureCollectionView()
+        presenter.getCommand()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -125,4 +135,9 @@ extension RecipesViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - RecipesViewController + RecipesViewProtocol
 
-extension RecipesViewController: RecipesViewProtocol {}
+extension RecipesViewController: RecipesViewProtocol {
+    func sendCommand() {
+        commandExecutor.addCommand(command: recipesSrceenReceiver)
+        commandExecutor.makeRecord()
+    }
+}

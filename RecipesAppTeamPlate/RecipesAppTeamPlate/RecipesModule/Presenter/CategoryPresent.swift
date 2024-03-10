@@ -1,17 +1,12 @@
 // CategoryPresent.swift
 // Copyright © RoadMap. All rights reserved.
 
-/// Интерфейс общения с RecipesView
-protocol CategoryViewProtocol: AnyObject {
-    func setTittle(_ nameTitle: String)
-    func getRecipes(recipes: RecipesInfo)
-}
-
 /// Интерфейс общения с RecipesPresenter
 protocol CategoryViewPresenterProtocol: AnyObject {
     func getTittle() -> String
     func getRecipes()
     func showDetails(_ details: RecipesStorage)
+    func getCommand()
 }
 
 /// Презентер Рецептов
@@ -46,5 +41,9 @@ final class CategoryPresenter: CategoryViewPresenterProtocol {
 
     func showDetails(_ details: RecipesStorage) {
         recipesCoordinator?.showDetailRecipesViewController(details: details)
+    }
+
+    func getCommand() {
+        categoryView?.sendCommand()
     }
 }

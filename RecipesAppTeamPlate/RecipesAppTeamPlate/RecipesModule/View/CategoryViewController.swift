@@ -3,6 +3,13 @@
 
 import UIKit
 
+/// Интерфейс общения с RecipesView
+protocol CategoryViewProtocol: AnyObject {
+    func setTittle(_ nameTitle: String)
+    func getRecipes(recipes: RecipesInfo)
+    func sendCommand()
+}
+
 /// Экран выбранной категории
 class CategoryViewController: UIViewController {
     // MARK: - Constants
@@ -17,6 +24,9 @@ class CategoryViewController: UIViewController {
         static let filterIconImage = UIImage(named: "filterIcon")
         static let time = "Time"
     }
+
+    let commandExecutor = CommandExecutor()
+    let categoriesSrceenReceiver = CategoriesSrceenReceiver()
 
     // MARK: - Visual Components
 
@@ -92,8 +102,8 @@ class CategoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         configureAllUI()
+        presenter.getCommand()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -206,6 +216,11 @@ extension CategoryViewController: CategoryViewProtocol {
     }
 
     func setTittle(_ nameTitle: String) {}
+
+    func sendCommand() {
+        commandExecutor.addCommand(command: categoriesSrceenReceiver)
+        commandExecutor.makeRecord()
+    }
 }
 
 // MARK: - CategoryViewController + UITableViewDataSource
