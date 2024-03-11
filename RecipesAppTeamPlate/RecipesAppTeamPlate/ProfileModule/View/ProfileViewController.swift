@@ -93,6 +93,10 @@ final class ProfileViewController: UIViewController {
 
     private let imagePicker = ImagePicker()
 
+    deinit {
+        print("ProfileViewController deinit")
+    }
+
     // MARK: - Life Cycle
 
     override func viewDidLoad() {

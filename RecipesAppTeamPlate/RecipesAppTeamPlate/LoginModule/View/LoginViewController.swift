@@ -3,7 +3,6 @@
 
 import UIKit
 
-// 1231145@mail.ru
 /// Экран с авторизацией пользователя
 final class LoginViewController: UIViewController {
     // MARK: - Constants
@@ -66,6 +65,10 @@ final class LoginViewController: UIViewController {
         label.text = Constants.spllashTitle
         return label
     }()
+
+    deinit {
+        print("LoginViewController deinit")
+    }
 
     // MARK: - Public Properties
 

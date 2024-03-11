@@ -33,6 +33,10 @@ final class RecipesViewController: UIViewController {
         return collectionView
     }()
 
+    deinit {
+        print("RecipesViewController deinit")
+    }
+
     // MARK: - Puplic Properties
 
     var presenter: RecipesPresenter!

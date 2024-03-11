@@ -69,6 +69,10 @@ final class BonusesViewController: UIViewController {
         return imageView
     }()
 
+    deinit {
+        print("BonusesViewController deinit")
+    }
+
     // MARK: - Public Properties
 
     var presenter: ProfileBonusesPresenter?

@@ -88,6 +88,10 @@ class CategoryViewController: UIViewController {
         return table
     }()
 
+    deinit {
+        print("CategoryViewController deinit")
+    }
+
     // MARK: - Puplic Properties
 
     var presenter: CategoryPresenter!

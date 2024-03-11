@@ -91,6 +91,10 @@ class DetailRecipesViewController: UIViewController {
         return customButton
     }()
 
+    deinit {
+        print("DetailRecipesViewController deinit")
+    }
+
     // MARK: - Public Methods
 
     var presenter: DetailRecipesPresenter?

@@ -93,40 +93,6 @@ extension LoginPresenter: AutorizationProtocol {
             }
             return
         }
-
-//        if login == "Roadmap@mail.ru", password == "1234567" {
-//            if password.count < 6, !login.hasSuffix("@"), !login.isEmpty {
-//                view?.showSpashScreenOn()
-//                view?.setTitleColorPassword(color: "splashColor", isValidatePassword: false)
-//                view?.setTitleColorLogin(color: "splashColor", isValidateLogin: false)
-//
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//                    self.view?.showSpashScreenOff()
-//                }
-//                return
-//            } else {
-//                view?.setTitleColorPassword(color: "splashColor", isValidatePassword: true)
-//                view?.setTitleColorLogin(color: "splashColor", isValidateLogin: true)
-//
-//                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//                    self.showRecipesTabBarcontroller()
-//                }
-//            }
-//            view?.chekValidateUser(imageButton: "loader", titleButton: nil)
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//                self.view?.chekValidateUser(imageButton: nil, titleButton: "Login")
-//                self.view?.showSpashScreenOff()
-//            }
-//        } else {
-//            view?.showSpashScreenOn()
-//            view?.setTitleColorPassword(color: "splashColor", isValidatePassword: false)
-//            view?.setTitleColorLogin(color: "splashColor", isValidateLogin: false)
-//
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//                self.view?.showSpashScreenOff()
-//            }
-//            return
-//        }
     }
 
     func showNextController(password: String?, login: String?) -> Bool {
