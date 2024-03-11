@@ -4,7 +4,7 @@
 import Foundation
 
 /// Источник информации
-struct Recipes {
+struct Recipes: Codable {
     var recipesInfo = [
         RecipesInfo(
             nameRecipesImage: "salad",
@@ -89,8 +89,6 @@ struct Recipes {
             storageRecipes: []
         ),
     ]
-
-    // var categoryTitle: String
 
     func getUserInfo() -> [RecipesInfo] {
         recipesInfo

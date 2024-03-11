@@ -5,7 +5,7 @@ import Foundation
 import UIKit
 
 /// данные о рецептах
-struct RecipesInfo {
+struct RecipesInfo: Codable {
     ///  название картинки рецепта
     var nameRecipesImage: String
     ///  название лейбла рецепта
