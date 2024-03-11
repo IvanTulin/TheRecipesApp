@@ -3,7 +3,6 @@
 
 import UIKit
 
-// 1231145@mail.ru
 /// Экран с авторизацией пользователя
 final class LoginViewController: UIViewController {
     // MARK: - Constants
@@ -26,9 +25,11 @@ final class LoginViewController: UIViewController {
         static let spllashTitle = "Please check the accuracy of the entered credentials."
         static let userNameKey = "userNameKey"
         static let userPasswordKey = "userPasswordKey"
+        static let loginMemento = "loginMemento"
+        static let passwordMemento = "passwordMemento"
     }
 
-    let userInfoService = UserInfoService()
+    let loginCaretaker = LoginCaretaker.shared
 
     // MARK: - Visual Components
 
@@ -64,6 +65,10 @@ final class LoginViewController: UIViewController {
         label.text = Constants.spllashTitle
         return label
     }()
+
+    deinit {
+        print("LoginViewController deinit")
+    }
 
     // MARK: - Public Properties
 
@@ -228,10 +233,23 @@ final class LoginViewController: UIViewController {
 
     @objc private func tappedButton() {
         view.endEditing(true)
-        // authentificateUser()
-        autorizationPresenter?.chekPassword(password: passwordTextField.text, login: loginTextField.text)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.autorizationPresenter?.showRecipesTabBarcontroller()
+        loginCaretaker.restoreState()
+
+        let loginData = UserDefaults.standard.string(forKey: Constants.loginMemento)
+        let passwordData = UserDefaults.standard.string(forKey: Constants.passwordMemento)
+        let login = loginTextField.text
+        let password = passwordTextField.text
+
+        if loginData != nil, passwordData != nil {
+            autorizationPresenter?.chekPassword(password: passwordTextField.text, login: loginTextField.text)
+        } else {
+            guard let authorization = autorizationPresenter?.showNextController(password: password, login: login)
+            else { return }
+            if authorization {
+                loginCaretaker.originator.login = loginTextField.text ?? ""
+                loginCaretaker.originator.password = passwordTextField.text ?? ""
+                loginCaretaker.saveState()
+            }
         }
     }
 }

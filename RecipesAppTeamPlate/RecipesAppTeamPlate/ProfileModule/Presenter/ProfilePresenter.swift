@@ -13,6 +13,8 @@ protocol ProfileViewPresenterProtocol: AnyObject {
     func didSubmitNewName(_ name: String)
     /// Вызов алерта для смены имени
     func actionChangeName()
+    /// Обработка нажатия кнопки изменения фото
+    func actionChangePhoto(imageData: Data)
 }
 
 /// Протокол источника информации
@@ -21,6 +23,8 @@ protocol InfoSourceProtocol: AnyObject {
     func getUserInfo() -> UserInfo
     /// Меняем имя пользователя
     func changeUserName(nameSurname: String)
+    /// Меняем фото пользователя
+    func changeUserPhoto(image: Data)
     /// Задаем количество бонусов
     func getBonusesCount() -> Int
     /// Получаем тескт описания
@@ -75,5 +79,10 @@ final class ProfilePresenter: ProfileViewPresenterProtocol {
 
     func hideTermsViewController() {
         profileView?.hideController()
+    }
+
+    func actionChangePhoto(imageData: Data) {
+        profileInfo?.changeUserPhoto(image: imageData)
+        profileView?.setNewNameFromSource()
     }
 }

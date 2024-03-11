@@ -12,6 +12,10 @@ protocol DetailRecipesViewProtocol: AnyObject {
     func getDetailRecipes(detail: RecipesStorage)
     /// Установить титл
     func setTittle()
+    /// Отправить команду
+    func sendCommand()
+    /// Отправить команду для отправителя рецепта
+    func sendCommandForShare()
 }
 
 /// Экран описания рецепта
@@ -35,6 +39,9 @@ class DetailRecipesViewController: UIViewController {
     }
 
     let informationTypes: [InforantionType] = [.picture, .calorie, .description]
+    let commandExecutor = CommandExecutor()
+    let detailRecipesReceiver = DetailRecipesReceiver()
+    let sharedRecipesReceiver = SharedRecipesReceiver()
 
     // MARK: - Visual Components
 
@@ -60,18 +67,21 @@ class DetailRecipesViewController: UIViewController {
         return tableView
     }()
 
-    private let shareButton: UIButton = {
-        let button = UIButton(type: .custom)
-        button.setImage(UIImage(systemName: "paperplane"), for: .normal)
-        button.tintColor = .black
-        return button
-    }()
-
+  
     private lazy var favoritesButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(.favorites, for: .normal)
         button.tintColor = .black
         button.addTarget(self, action: #selector(addInFavorite), for: .touchUpInside)
+        return button
+    }()
+
+
+    private lazy var shareButton: UIButton = {
+       let button = UIButton(type: .custom)
+        button.setImage(UIImage(systemName: "paperplane"), for: .normal)
+        button.tintColor = .black
+        button.addTarget(self, action: #selector(sendRecipe), for: .touchUpInside)
         return button
     }()
 
@@ -83,6 +93,10 @@ class DetailRecipesViewController: UIViewController {
         customButton.addTarget(self, action: #selector(backToTheLastController), for: .touchUpInside)
         return customButton
     }()
+
+    deinit {
+        print("DetailRecipesViewController deinit")
+    }
 
     // MARK: - Public Methods
 
@@ -98,6 +112,7 @@ class DetailRecipesViewController: UIViewController {
         configureNavigation()
         presenter?.getDetailRecipes()
         presenter?.getTextForTittle()
+        presenter?.getCommand()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -137,6 +152,10 @@ class DetailRecipesViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
+
+    @objc private func sendRecipe() {
+        presenter?.getCommandForShare()
+
     @objc private func addInFavorite() {
         let service = FavoriteService.service
         if let detailRecipes = detailRecipes {
@@ -144,6 +163,7 @@ class DetailRecipesViewController: UIViewController {
         }
     }
 }
+  
 
 // MARK: - DetailRecipesViewController + DetailRecipesViewProtocol
 
@@ -154,6 +174,16 @@ extension DetailRecipesViewController: DetailRecipesViewProtocol {
 
     func setTittle() {
         tittleLabel.text = detailRecipes?.dishLabel
+    }
+
+    func sendCommand() {
+        commandExecutor.addCommand(command: detailRecipesReceiver)
+        commandExecutor.makeRecord()
+    }
+
+    func sendCommandForShare() {
+        commandExecutor.addCommand(command: sharedRecipesReceiver)
+        commandExecutor.makeRecord()
     }
 }
 

@@ -1,14 +1,16 @@
 // ProfileInfo.swift
 // Copyright © RoadMap. All rights reserved.
 
-import Foundation
+import UIKit
 
 /// Источник информации
 final class ProfileInfo: InfoSourceProtocol {
+    private let imageData = UIImage(named: "avatarForProfile")?.pngData() ?? Data()
+
     /// Информация о пользователе
-    private var personInfo = UserInfo(
+    private lazy var personInfo = UserInfo(
         nameSurname: "Surname Name",
-        userPhotoName: "avatarForProfile",
+        userImageData: imageData,
         bonusesCount: 200,
         textForDescription: """
         Welcome to our recipe app! We're thrilled to have you on board.
@@ -49,6 +51,10 @@ final class ProfileInfo: InfoSourceProtocol {
     /// Меняем имя пользователя
     func changeUserName(nameSurname: String) {
         personInfo.nameSurname = nameSurname
+    }
+
+    func changeUserPhoto(image: Data) {
+        personInfo.userImageData = image
     }
 
     /// Задаем количество бонусов

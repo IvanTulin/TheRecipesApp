@@ -29,6 +29,8 @@ final class ProfileViewController: UIViewController {
         static let alertText = "Change your name and surname"
         static let cancelButtonText = "Cancel"
         static let okButtonText = "OK"
+        static let nameKey = "saveName"
+        static let nameKeyMemento = "imageMemento"
     }
 
     /// Тип данных
@@ -41,12 +43,7 @@ final class ProfileViewController: UIViewController {
         case controlPanel
     }
 
-    /// высота экрана
-    let cardHieight: CGFloat = 670
-    /// высота уменьшенного экрана
-    let cardHandleAreaHeight: CGFloat = 400
-
-    let informationTypes: [InformationType] = [.avatar, .userName, .controlPanel]
+    let userNameCaretacker = UserNameCaretaker()
 
     // MARK: - Visual Components
 
@@ -84,6 +81,21 @@ final class ProfileViewController: UIViewController {
 
     var runningAnimations: [UIViewPropertyAnimator] = []
     var animationProgressWhenInterrupted: CGFloat = 0
+
+    // MARK: - Private Constants
+
+    /// высота экрана
+    private let cardHieight: CGFloat = 670
+    /// высота уменьшенного экрана
+    private let cardHandleAreaHeight: CGFloat = 400
+
+    private let informationTypes: [InformationType] = [.avatar, .userName, .controlPanel]
+
+    private let imagePicker = ImagePicker()
+
+    deinit {
+        print("ProfileViewController deinit")
+    }
 
     // MARK: - Life Cycle
 
@@ -283,7 +295,13 @@ extension ProfileViewController: UITableViewDataSource {
                 for: indexPath
             ) as? AvatarCell else { return UITableViewCell() }
             guard let userInfo = presenter?.getUserInformation() else { return cell }
-            cell.setUserInformation(userInfo) {}
+            cell.setUserInformation(userInfo) { [weak self] in
+                guard let self = self else { return }
+                self.imagePicker.showImagePicker(in: self) { image in
+                    guard let imageData = image.pngData() else { return }
+                    self.presenter?.actionChangePhoto(imageData: imageData)
+                }
+            }
             return cell
         case .userName:
             guard let cell = tableView.dequeueReusableCell(
@@ -337,6 +355,12 @@ extension ProfileViewController: ProfileViewProtocol {
         }
         let actionOK = UIAlertAction(title: Constants.okButtonText, style: .cancel) { _ in
             guard let newName = alert.textFields?[0].text else { return }
+//            UserDefaults.standard.set(newName, forKey: Constants.nameKey)
+//            UserDefaults.standard.synchronize()
+            DispatchQueue.global(qos: .userInitiated).async {
+                self.userNameCaretacker.originator.userName = newName
+                self.userNameCaretacker.saveState()
+            }
             self.setNewName(newName)
         }
         let actionCancel = UIAlertAction(title: Constants.cancelButtonText, style: .default)
