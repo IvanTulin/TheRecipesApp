@@ -67,10 +67,11 @@ class DetailRecipesViewController: UIViewController {
         return button
     }()
 
-    private let favoritesButton: UIButton = {
+    private lazy var favoritesButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(.favorites, for: .normal)
         button.tintColor = .black
+        button.addTarget(self, action: #selector(addInFavorite), for: .touchUpInside)
         return button
     }()
 
@@ -134,6 +135,13 @@ class DetailRecipesViewController: UIViewController {
 
     @objc private func backToTheLastController() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc private func addInFavorite() {
+        let service = FavoriteService.service
+        if let detailRecipes = detailRecipes {
+            service.favoriteRecipes.append(detailRecipes)
+        }
     }
 }
 

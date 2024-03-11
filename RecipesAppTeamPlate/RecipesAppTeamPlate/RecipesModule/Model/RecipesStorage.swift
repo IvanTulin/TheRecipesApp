@@ -4,7 +4,7 @@
 import Foundation
 
 /// Xранилище для ячейки Рыба
-struct RecipesStorage {
+struct RecipesStorage: Codable {
     /// лейбл рыбных блюд
     var dishLabel: String
     /// изображение рыбных блюд
