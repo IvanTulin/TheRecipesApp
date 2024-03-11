@@ -1,6 +1,7 @@
 // DetailRecipesViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import Foundation
 import UIKit
 
 /// Интерфейс общения с DetailRecipesViewController
@@ -67,7 +68,6 @@ class DetailRecipesViewController: UIViewController {
         return tableView
     }()
 
-  
     private lazy var favoritesButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(.favorites, for: .normal)
@@ -76,9 +76,8 @@ class DetailRecipesViewController: UIViewController {
         return button
     }()
 
-
     private lazy var shareButton: UIButton = {
-       let button = UIButton(type: .custom)
+        let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "paperplane"), for: .normal)
         button.tintColor = .black
         button.addTarget(self, action: #selector(sendRecipe), for: .touchUpInside)
@@ -152,9 +151,9 @@ class DetailRecipesViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
-
     @objc private func sendRecipe() {
         presenter?.getCommandForShare()
+    }
 
     @objc private func addInFavorite() {
         let service = FavoriteService.service
@@ -163,7 +162,6 @@ class DetailRecipesViewController: UIViewController {
         }
     }
 }
-  
 
 // MARK: - DetailRecipesViewController + DetailRecipesViewProtocol
 
