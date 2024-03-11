@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		486A34252B9D09170024CC8F /* FavoriteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 486A34242B9D09170024CC8F /* FavoriteService.swift */; };
 		48936A5E2B9273D000C31A44 /* RecipesViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 48936A5D2B9273D000C31A44 /* RecipesViewCell.swift */; };
 		BA0753DE2B9089F300C11B3B /* VoidHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0753DD2B9089F300C11B3B /* VoidHandler.swift */; };
 		BA43C16C2B90EE600083A0DD /* RecipesInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA43C16B2B90EE600083A0DD /* RecipesInfo.swift */; };
@@ -78,6 +79,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		486A34242B9D09170024CC8F /* FavoriteService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteService.swift; sourceTree = "<group>"; };
 		48936A5D2B9273D000C31A44 /* RecipesViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesViewCell.swift; sourceTree = "<group>"; };
 		BA0753DD2B9089F300C11B3B /* VoidHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoidHandler.swift; sourceTree = "<group>"; };
 		BA43C16B2B90EE600083A0DD /* RecipesInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecipesInfo.swift; sourceTree = "<group>"; };
@@ -161,6 +163,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		486A34232B9D08E10024CC8F /* Favorite Service */ = {
+			isa = PBXGroup;
+			children = (
+				486A34242B9D09170024CC8F /* FavoriteService.swift */,
+			);
+			path = "Favorite Service";
+			sourceTree = "<group>";
+		};
 		BA33C0662B99E7FB007D9B15 /* Service */ = {
 			isa = PBXGroup;
 			children = (
@@ -219,6 +229,7 @@
 				BA43C16F2B9106CB0083A0DD /* Extension */,
 				BA95EB692B8D05B100B22C15 /* LoginModule */,
 				BA95EB742B8D07A700B22C15 /* RecipesModule */,
+				486A34232B9D08E10024CC8F /* Favorite Service */,
 				BA95EB802B8D091700B22C15 /* FavoritesModule */,
 				BA95EB8C2B8D0ACD00B22C15 /* ProfileModule */,
 				BA6EBCA02B8E1AA000862E67 /* Coordinators */,
@@ -628,6 +639,7 @@
 				BA6EBCB32B8E483300862E67 /* AvatarCell.swift in Sources */,
 				BAF3210C2B9E1DE000358FB1 /* SharedRecipesReceiver.swift in Sources */,
 				BAEC14442B93D17400E9B64F /* CalorieCell.swift in Sources */,
+				486A34252B9D09170024CC8F /* FavoriteService.swift in Sources */,
 				BA733F052B8F4182002C31BB /* UserInfo.swift in Sources */,
 				BA5D54D12B8CC988000F1BEE /* AppDelegate.swift in Sources */,
 				BA95EB8E2B8D0B2600B22C15 /* Profile.swift in Sources */,

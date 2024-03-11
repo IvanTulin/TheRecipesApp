@@ -67,15 +67,18 @@ class DetailRecipesViewController: UIViewController {
         return tableView
     }()
 
-    private let favoritesButton: UIButton = {
+  
+    private lazy var favoritesButton: UIButton = {
         let button = UIButton(type: .custom)
         button.setImage(.favorites, for: .normal)
         button.tintColor = .black
+        button.addTarget(self, action: #selector(addInFavorite), for: .touchUpInside)
         return button
     }()
 
+
     private lazy var shareButton: UIButton = {
-        let button = UIButton(type: .custom)
+       let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "paperplane"), for: .normal)
         button.tintColor = .black
         button.addTarget(self, action: #selector(sendRecipe), for: .touchUpInside)
@@ -149,10 +152,18 @@ class DetailRecipesViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
 
+
     @objc private func sendRecipe() {
         presenter?.getCommandForShare()
+
+    @objc private func addInFavorite() {
+        let service = FavoriteService.service
+        if let detailRecipes = detailRecipes {
+            service.favoriteRecipes.append(detailRecipes)
+        }
     }
 }
+  
 
 // MARK: - DetailRecipesViewController + DetailRecipesViewProtocol
 

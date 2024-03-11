@@ -85,6 +85,7 @@ class CategoryViewController: UIViewController {
         table.register(EmptyCell.self, forCellReuseIdentifier: Constants.identifierForEmptyCell)
         table.separatorStyle = .none
         table.showsVerticalScrollIndicator = false
+        table.reloadData()
         return table
     }()
 
@@ -97,6 +98,7 @@ class CategoryViewController: UIViewController {
     var presenter: CategoryPresenter!
     var recipes: RecipesInfo?
     var searchRecipes: [RecipesStorage] = []
+    var searching = false
 
     // MARK: - Private Properties
 
@@ -227,13 +229,9 @@ extension CategoryViewController: CategoryViewProtocol {
     }
 }
 
-// MARK: - CategoryViewController + UITableViewDataSource
-
-extension CategoryViewController: UITableViewDelegate {}
-
 // MARK: - Extension + UITableViewDataSource
 
-extension CategoryViewController: UITableViewDataSource {
+extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         recipes?.storageRecipes.count ?? 1
     }
@@ -277,7 +275,7 @@ extension CategoryViewController: UISearchBarDelegate {
             recipes?.storageRecipes = searchFiltered ?? []
             recipesTableView.reloadData()
         } else {
-            // recipes?.recipes = searchRecipes
+//            recipes?.recipes = searchRecipes
             recipesTableView.reloadData()
         }
     }
