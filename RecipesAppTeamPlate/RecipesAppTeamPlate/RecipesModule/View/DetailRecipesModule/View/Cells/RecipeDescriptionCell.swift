@@ -63,6 +63,11 @@ class RecipeDescriptionCell: UITableViewCell {
         recipeLabel.text = text
     }
 
+//    func setupText(_ details: RecipeDetail) {
+//        // recipeDescriptionTextView.text = text
+//        recipeLabel.text = details.ingridientLines.first
+//    }
+
     // MARK: - Private Methods
 
     private func configureCell() {

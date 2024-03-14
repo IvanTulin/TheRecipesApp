@@ -57,6 +57,47 @@ class CalorieCell: UITableViewCell {
 
     // MARK: - Public Methods
 
+//    func setupView(_ details: RecipeDetail) {
+//        contentView.addSubview(stackView)
+//
+//        NSLayoutConstraint.activate([
+//            stackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+//            stackView.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+//            stackView.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+//            stackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+//        ])
+//
+//        for (index, item) in nameNutrientViews.enumerated() {
+//            let caloriesView = UIView()
+//            caloriesView.layer.borderWidth = 2
+//            caloriesView.layer.borderColor = UIColor.appPaleBlue.cgColor
+//            stackView.addSubview(caloriesView)
+//            caloriesView.layer.cornerRadius = 16
+//            caloriesView.backgroundColor = .appPaleBlue
+//            caloriesView.translatesAutoresizingMaskIntoConstraints = false
+//
+//            let captionLabel = UILabel()
+//            caloriesView.addSubview(captionLabel)
+//            captionLabel.text = item
+//            captionLabel.textColor = .white
+//            captionLabel.textAlignment = .center
+//            captionLabel.font = UIFont(name: Constants.nameFontName, size: 10)
+//            captionLabel.backgroundColor = .appPaleBlue
+//            captionLabel.translatesAutoresizingMaskIntoConstraints = false
+//
+//            let valueLabel = UILabel()
+//            caloriesView.addSubview(valueLabel)
+//            valueLabel.text = numberNutrientViews[index]
+//            valueLabel.textColor = .appPaleBlue
+//            valueLabel.textAlignment = .center
+//            valueLabel.font = UIFont(name: Constants.nameFontName, size: 10)
+//            valueLabel.backgroundColor = .white
+//            valueLabel.translatesAutoresizingMaskIntoConstraints = false
+//
+//            addConstrints(view: caloriesView, caption: captionLabel, value: valueLabel)
+//        }
+//    }
+
     func setupView() {
         contentView.addSubview(stackView)
 

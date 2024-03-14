@@ -62,13 +62,12 @@ class PictureOfDishCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-//
 //    func setupImage(_ image: String) {
 //        dishImageView.image = UIImage(named: image)
 //    }
 
-    func setupImage(_ image: RecipeCommonInfo) {
-        dishImageView.downloaded(from: image.image)
+    func setupImage(_ image: RecipeDetail) {
+        dishImageView.downloaded(from: image.images)
     }
 
     // MARK: - Private Methods

@@ -112,7 +112,7 @@ class CategoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        presenter?.getRecipe()
+        // presenter?.getRecipe()
         configureAllUI()
         presenter.getCommand()
     }
@@ -137,10 +137,10 @@ class CategoryViewController: UIViewController {
         //        presenter?.getRecipe()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        presenter?.getRecipe()
-    }
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//         presenter?.getRecipe()
+//    }
 
     override func viewDidDisappear(_ animated: Bool) {
         print(recipesNetwork?.count)
@@ -156,7 +156,7 @@ class CategoryViewController: UIViewController {
         view.addSubview(searchBar)
         // presenter.getTittle()
         configureNavigation()
-        presenter.getRecipe()
+        // presenter.getRecipe()
         setupUI()
     }
 

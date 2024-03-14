@@ -6,11 +6,11 @@ import UIKit
 
 /// Интерфейс общения с DetailRecipesViewController
 protocol DetailRecipesViewProtocol: AnyObject {
-    ///  Презентер экрана
-    var presenter: DetailRecipesPresenter? { get set }
+    // var presenter: DetailRecipesPresenter? { get set }
 
-    /// Получить данные с хранилища
-    func getDetailRecipes(detail: RecipeCommonInfo)
+    // func getDetailRecipes(detail: RecipeCommonInfo)
+    /// получение данных с харнилища
+    func getDetailRecipesNetwork(detail: RecipeDetail)
     /// Установить титл
     func setTittle()
     /// Отправить команду
@@ -99,8 +99,9 @@ class DetailRecipesViewController: UIViewController {
 
     // MARK: - Public Methods
 
-    var presenter: DetailRecipesPresenter?
-    var detailRecipes: RecipeCommonInfo?
+    var presenter: DetailRecipesPresenter!
+    // var detailRecipes: RecipeCommonInfo?
+    var detailRecipesNetwork: RecipeDetail?
     var descriptions = Description()
 
     // MARK: - Life Cycle
@@ -112,10 +113,15 @@ class DetailRecipesViewController: UIViewController {
         presenter?.getDetailRecipes()
         presenter?.getTextForTittle()
         presenter?.getCommand()
+        print("detailRecipesNetwork?.label \(detailRecipesNetwork?.label)")
     }
 
     override func viewWillAppear(_ animated: Bool) {
         // navigationController?.navigationBar.isHidden = true
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        print("detailRecipesNetwork?.label \(detailRecipesNetwork?.label)")
     }
 
     // MARK: - Private Methods
@@ -166,12 +172,16 @@ class DetailRecipesViewController: UIViewController {
 // MARK: - DetailRecipesViewController + DetailRecipesViewProtocol
 
 extension DetailRecipesViewController: DetailRecipesViewProtocol {
-    func getDetailRecipes(detail: RecipeCommonInfo) {
-        detailRecipes = detail
+    func getDetailRecipesNetwork(detail: RecipeDetail) {
+        detailRecipesNetwork = detail
     }
 
+//    func getDetailRecipes(detail: RecipeCommonInfo) {
+//        detailRecipes = detail
+//    }
+
     func setTittle() {
-        tittleLabel.text = detailRecipes?.label
+        tittleLabel.text = detailRecipesNetwork?.label
     }
 
     func sendCommand() {
@@ -199,7 +209,7 @@ extension DetailRecipesViewController: UITableViewDataSource {
                 withIdentifier: Constants.pictureOfDiskIdentifier,
                 for: indexPath
             ) as? PictureOfDishCell else { return UITableViewCell() }
-            if let image = detailRecipes {
+            if let image = detailRecipesNetwork {
                 cell.setupImage(image)
             }
             return cell
@@ -215,8 +225,10 @@ extension DetailRecipesViewController: UITableViewDataSource {
                 withIdentifier: Constants.recipeDescriptionIdentifier,
                 for: indexPath
             ) as? RecipeDescriptionCell else { return UITableViewCell() }
-            // cell.setupText(textForRecipes)
             cell.setupText(descriptions.description.textDescription)
+//            if let text = detailRecipesNetwork {
+//                cell.setupText(text)
+//            }
             return cell
         }
     }
