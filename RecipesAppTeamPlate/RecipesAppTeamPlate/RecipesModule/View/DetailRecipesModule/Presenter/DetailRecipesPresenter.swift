@@ -9,6 +9,10 @@ protocol DetailRecipesProtocol {
     func getDetailRecipes()
     /// Получить текст для титла
     func getTextForTittle()
+    /// Отправить команду для контролллера
+    func getCommand()
+    /// Отправить команду для отправки рецепта
+    func getCommandForShare()
 }
 
 final class DetailRecipesPresenter: DetailRecipesProtocol {
@@ -35,5 +39,13 @@ final class DetailRecipesPresenter: DetailRecipesProtocol {
 
     func getTextForTittle() {
         detailRecipesView?.setTittle()
+    }
+
+    func getCommand() {
+        detailRecipesView?.sendCommand()
+    }
+
+    func getCommandForShare() {
+        detailRecipesView?.sendCommandForShare()
     }
 }

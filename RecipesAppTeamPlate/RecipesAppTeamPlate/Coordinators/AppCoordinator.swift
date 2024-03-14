@@ -9,6 +9,10 @@ final class AppCoordinator: BaseCoordinator {
 
     private var tabBarController: UITabBarController?
 
+    deinit {
+        print("tabBarController deinit")
+    }
+
     // MARK: - Public Methods
 
     override func start() {

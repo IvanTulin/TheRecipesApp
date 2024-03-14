@@ -4,7 +4,7 @@
 import Foundation
 
 /// Источник информации
-struct Recipes {
+struct Recipes: Codable {
     var recipesInfo = [
         RecipesInfo(
             nameRecipesImage: "salad",
@@ -90,9 +90,48 @@ struct Recipes {
         ),
     ]
 
-    // var categoryTitle: String
+    lazy var category: [Category] = [
+        .init(avatarImageName: "salad", categoryTitle: .salad, sizeCell: .medium, recepies: []),
+        .init(avatarImageName: "soup", categoryTitle: .soup, sizeCell: .medium, recepies: []),
+        .init(
+            avatarImageName: "chicken",
+            categoryTitle: .chicken,
+            sizeCell: .big,
+            recepies: []
+        ),
+        .init(avatarImageName: "meat", categoryTitle: .meat, sizeCell: .small, recepies: []),
+        .init(avatarImageName: "fish", categoryTitle: .fish, sizeCell: .small, recepies: []),
+        .init(
+            avatarImageName: "side dish",
+            categoryTitle: .sideDish,
+            sizeCell: .small,
+            recepies: []
+        ),
+        .init(avatarImageName: "drinks", categoryTitle: .drinks, sizeCell: .big, recepies: []),
+        .init(
+            avatarImageName: "pancakes",
+            categoryTitle: .pancake,
+            sizeCell: .medium,
+            recepies: []
+        ),
+        .init(
+            avatarImageName: "desserts",
+            categoryTitle: .desserts,
+            sizeCell: .medium,
+            recepies: []
+        )
+    ]
 
     func getUserInfo() -> [RecipesInfo] {
         recipesInfo
+    }
+}
+
+/// RecipesNetwork
+struct RecipesNetwork {
+    var recipesInfoNetwork: [RecipeCommonInfo] = []
+
+    func getUserInfoNetwork() -> [RecipeCommonInfo] {
+        recipesInfoNetwork
     }
 }

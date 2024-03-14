@@ -3,13 +3,13 @@
 
 import Foundation
 
-/// Интерфейс общения с RecipesView
-protocol RecipesViewProtocol: AnyObject {}
-
 /// Интерфейс общения с RecipesPresenter
 protocol RecipesViewPresenterProtocol: AnyObject {
     func getUserInformation() -> [RecipesInfo]?
-    func showCategory(_ type: RecipesInfo)
+    func showCategory(_ type: Category)
+    // func showCategory(_ type: RecipesInfo)
+    /// получить команду
+    func getCommand()
 }
 
 /// Презентер Рецептов
@@ -18,6 +18,7 @@ final class RecipesPresenter: RecipesViewPresenterProtocol {
 
     let recipesView: RecipesViewProtocol
     var source: Recipes?
+    var recipesNewStorage: RecipeCommonInfo?
 
     // MARK: - Puplic Properties
 
@@ -36,7 +37,23 @@ final class RecipesPresenter: RecipesViewPresenterProtocol {
         source?.getUserInfo()
     }
 
-    func showCategory(_ type: RecipesInfo) {
+    func getRecipesNetwork() -> [Category]? {
+        source?.category
+    }
+
+//    func getUserInformationNetwork() -> [RecipesNewStorage]? {
+//        sourceNetwork?.getUserInfoNetwork()
+//    }
+
+//    func showCategory(_ type: RecipesInfo) {
+//        recipesCoordinator?.showCategories(category: type)
+//    }
+
+    func showCategory(_ type: Category) {
         recipesCoordinator?.showCategories(category: type)
+    }
+
+    func getCommand() {
+        recipesView.sendCommand()
     }
 }

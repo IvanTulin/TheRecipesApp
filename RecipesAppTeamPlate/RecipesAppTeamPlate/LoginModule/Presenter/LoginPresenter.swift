@@ -27,8 +27,20 @@ protocol AutorizationViewControllerProtocol: AnyObject {
 
 /// Презентер для экрана с авторизацией
 final class LoginPresenter {
-    private weak var view: AutorizationViewControllerProtocol?
+    // MARK: - Constants
+
+    let caretaker = LoginCaretaker.shared
+
+    // MARK: - Puplic Properties
+
     weak var loginCoordinator: LoginCoordinator?
+
+    // MARK: - Private Properties
+
+    private weak var view: AutorizationViewControllerProtocol?
+
+    // MARK: - Initializers
+
     init(view: AutorizationViewControllerProtocol) {
         self.view = view
     }
@@ -38,32 +50,78 @@ final class LoginPresenter {
     func showRecipesTabBarcontroller() {
         loginCoordinator?.onFinish()
     }
-
-    // MARK: - AutorizationProtocol
 }
+
+// MARK: LoginPresenter + AutorizationProtocol
 
 extension LoginPresenter: AutorizationProtocol {
     func chekPassword(password: String?, login: String?) {
+        caretaker.restoreState()
         guard let login = login else { return }
         guard let password = password else { return }
-        if password.count < 6 {
+
+        if caretaker.originator.login == login, caretaker.originator.password == password {
+            if password.count < 6, !login.hasSuffix("@"), !login.isEmpty {
+                view?.showSpashScreenOn()
+                view?.setTitleColorPassword(color: "splashColor", isValidatePassword: false)
+                view?.setTitleColorLogin(color: "splashColor", isValidateLogin: false)
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    self.view?.showSpashScreenOff()
+                }
+                return
+            } else {
+                view?.setTitleColorPassword(color: "splashColor", isValidatePassword: true)
+                view?.setTitleColorLogin(color: "splashColor", isValidateLogin: true)
+
+                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                    self.showRecipesTabBarcontroller()
+                }
+            }
+            view?.chekValidateUser(imageButton: "loader", titleButton: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.view?.chekValidateUser(imageButton: nil, titleButton: "Login")
+                self.view?.showSpashScreenOff()
+            }
+        } else {
             view?.showSpashScreenOn()
             view?.setTitleColorPassword(color: "splashColor", isValidatePassword: false)
+            view?.setTitleColorLogin(color: "splashColor", isValidateLogin: false)
+
             DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 self.view?.showSpashScreenOff()
             }
             return
+        }
+    }
+
+    func showNextController(password: String?, login: String?) -> Bool {
+        guard let login = login else { return Bool() }
+        guard let password = password else { return Bool() }
+
+        if password.count < 6, !login.hasSuffix("@"), !login.isEmpty {
+            view?.showSpashScreenOn()
+            view?.setTitleColorPassword(color: "splashColor", isValidatePassword: false)
+            view?.setTitleColorLogin(color: "splashColor", isValidateLogin: false)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.view?.showSpashScreenOff()
+            }
+            return false
         } else {
-            view?.setTitleColorPassword(
-                color: "splashColor",
-                isValidatePassword: true
-            )
+            view?.setTitleColorPassword(color: "splashColor", isValidatePassword: true)
+            view?.setTitleColorLogin(color: "splashColor", isValidateLogin: true)
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.showRecipesTabBarcontroller()
+            }
+            return true
         }
-        view?.chekValidateUser(imageButton: "loader", titleButton: nil)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-            self.view?.chekValidateUser(imageButton: nil, titleButton: "Login")
-            self.view?.showSpashScreenOff()
-        }
+//        view?.chekValidateUser(imageButton: "loader", titleButton: nil)
+//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            self.view?.chekValidateUser(imageButton: nil, titleButton: "Login")
+//            self.view?.showSpashScreenOff()
+//        }
     }
 
     func chekUser(login: String?) {

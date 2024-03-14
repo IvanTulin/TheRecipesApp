@@ -26,16 +26,17 @@ final class RecipeCoordinator: BaseCoordinator {
         rootController?.pushViewController(recipeViewController, animated: true)
     }
 
-    func showCategories(category: RecipesInfo) {
+    func showCategories(category: Category) {
         let categoryViewController = CategoryViewController()
         let presenter = CategoryPresenter(
             categoryView: categoryViewController,
-            recipes: category,
+            category: category,
             recipesCoordinator: self
         )
         categoryViewController.presenter = presenter
         rootController?.pushViewController(categoryViewController, animated: true)
     }
+
 
     func showDetailRecipesViewController(details: RecipesStorage) {
         let detailRecipesViewController = AppBuilder.createDetailRecipesModule()

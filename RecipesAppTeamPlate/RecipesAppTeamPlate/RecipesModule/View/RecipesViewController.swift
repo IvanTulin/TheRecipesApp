@@ -3,6 +3,12 @@
 
 import UIKit
 
+/// Интерфейс общения с RecipesViewController
+protocol RecipesViewProtocol: AnyObject {
+    /// отправить команду
+    func sendCommand()
+}
+
 /// Экран рецептов
 final class RecipesViewController: UIViewController {
     // MARK: - Constants
@@ -10,6 +16,9 @@ final class RecipesViewController: UIViewController {
     enum Constants {
         static let identifierCell = "CategoriesCell"
     }
+
+    let commandExecutor = CommandExecutor()
+    let recipesSrceenReceiver = RecipesSrceenReceiver()
 
     // MARK: - Visual Components
 
@@ -24,10 +33,15 @@ final class RecipesViewController: UIViewController {
         return collectionView
     }()
 
+    deinit {
+        print("RecipesViewController deinit")
+    }
+
     // MARK: - Puplic Properties
 
     var presenter: RecipesPresenter!
-    var recipes: Recipes?
+    // var recipes: Recipes?
+    var recipes: RecipeCommonInfo?
 
     // MARK: - Life Cycle
 
@@ -35,6 +49,7 @@ final class RecipesViewController: UIViewController {
         super.viewDidLoad()
         configureUI()
         configureCollectionView()
+        presenter.getCommand()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -83,10 +98,13 @@ extension RecipesViewController: UICollectionViewDataSource {
             for: indexPath
         ) as? CategoriesCell else { return UICollectionViewCell() }
         guard let recipesInfo = presenter.getUserInformation() else { return cell }
+        guard let recipesNetwork = presenter.getRecipesNetwork() else { return cell }
         cell.configureCell(recipesInfo[indexPath.item])
         cell.buttonChangeHandler = { [weak self] in
             guard let self = self else { return }
-            self.presenter.showCategory(recipesInfo[indexPath.item])
+            // self.presenter.showCategory(recipesInfo[indexPath.item])
+            /// передаем категорий, чтобы задавать в дальнейшем тип блюд через DishType
+            self.presenter.showCategory(recipesNetwork[indexPath.row])
         }
         return cell
     }
@@ -125,4 +143,9 @@ extension RecipesViewController: UICollectionViewDelegateFlowLayout {
 
 // MARK: - RecipesViewController + RecipesViewProtocol
 
-extension RecipesViewController: RecipesViewProtocol {}
+extension RecipesViewController: RecipesViewProtocol {
+    func sendCommand() {
+        commandExecutor.addCommand(command: recipesSrceenReceiver)
+        commandExecutor.makeRecord()
+    }
+}

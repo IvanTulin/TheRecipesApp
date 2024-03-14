@@ -5,7 +5,7 @@ import Foundation
 import UIKit
 
 /// данные о рецептах
-struct RecipesInfo {
+struct RecipesInfo: Codable {
     ///  название картинки рецепта
     var nameRecipesImage: String
     ///  название лейбла рецепта
@@ -13,3 +13,13 @@ struct RecipesInfo {
     /// массив рецептов
     var storageRecipes: [RecipesStorage]
 }
+
+// struct RecipesInfo {
+//    ///  название картинки рецепта
+//    var nameRecipesImage: String
+//    ///  название лейбла рецепта
+//    var nameRecipesLabel: String
+//    /// массив рецептов
+//    var storageRecipes: [RecipesNewStorage]
+////    var storageRecipes: [RecipesStorage]
+// }

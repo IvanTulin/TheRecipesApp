@@ -5,11 +5,23 @@ import UIKit
 
 /// Ячейка Аватара пользователя
 final class AvatarCell: UITableViewCell {
+    // MARK: - Constants
+
+    enum Constants {
+        static let savedImageKey = "savedImageKey"
+        static let nameKeyMemento = "imageMemento"
+    }
+
+    let userImageCaretaker = UserImageCaretaker()
+
     // MARK: - Visual Components
 
-    private let avatarImageView: UIImageView = {
+    private lazy var avatarImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 80
+        imageView.isUserInteractionEnabled = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(changePhoto))
+        imageView.addGestureRecognizer(tapGesture)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
@@ -36,11 +48,27 @@ final class AvatarCell: UITableViewCell {
         _ userInfo: UserInfo,
         changePhotoComplition: @escaping VoidHandler
     ) {
-        avatarImageView.image = UIImage(named: userInfo.userPhotoName)
+        /// Загружаем фото из ProfileServiceMemento при инициализации
+        userImageCaretaker.restoreState()
+
+        if UserDefaults.standard.data(forKey: Constants.nameKeyMemento) != nil {
+            if let savedImage = UIImage(data: userImageCaretaker.originator.image) {
+                avatarImageView.image = savedImage
+            }
+        } else {
+            avatarImageView.image = UIImage(data: userInfo.userImageData)
+        }
+
+//        if let imageData = UserDefaults.standard.data(forKey: Constants.savedImageKey) {
+//            if let savedImage = UIImage(data: imageData) {
+//                avatarImageView.image = savedImage
+//            }
+//        } else {
+//            avatarImageView.image = UIImage(data: userInfo.userImageData)
+//        }
+
         avatarImageView.clipsToBounds = true
         avatarImageView.contentMode = .scaleAspectFill
-
-        // TODO: Реализовать смену фотографии
         buttonChangePhotoHandler = changePhotoComplition
     }
 
@@ -56,5 +84,10 @@ final class AvatarCell: UITableViewCell {
             avatarImageView.widthAnchor.constraint(equalToConstant: 160),
             avatarImageView.heightAnchor.constraint(equalToConstant: 160)
         ])
+    }
+
+    @objc private func changePhoto() {
+        print("changePhoto")
+        buttonChangePhotoHandler?()
     }
 }
