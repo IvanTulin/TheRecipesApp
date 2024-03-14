@@ -10,7 +10,7 @@ protocol DetailRecipesViewProtocol: AnyObject {
     var presenter: DetailRecipesPresenter? { get set }
 
     /// Получить данные с хранилища
-    func getDetailRecipes(detail: RecipesStorage)
+    func getDetailRecipes(detail: RecipeCommonInfo)
     /// Установить титл
     func setTittle()
     /// Отправить команду
@@ -100,7 +100,7 @@ class DetailRecipesViewController: UIViewController {
     // MARK: - Public Methods
 
     var presenter: DetailRecipesPresenter?
-    var detailRecipes: RecipesStorage?
+    var detailRecipes: RecipeCommonInfo?
     var descriptions = Description()
 
     // MARK: - Life Cycle
@@ -156,22 +156,22 @@ class DetailRecipesViewController: UIViewController {
     }
 
     @objc private func addInFavorite() {
-        let service = FavoriteService.service
-        if let detailRecipes = detailRecipes {
-            service.favoriteRecipes.append(detailRecipes)
-        }
+//        let service = FavoriteService.service
+//        if let detailRecipes = detailRecipes {
+//            service.favoriteRecipes.append(detailRecipes)
+//        }
     }
 }
 
 // MARK: - DetailRecipesViewController + DetailRecipesViewProtocol
 
 extension DetailRecipesViewController: DetailRecipesViewProtocol {
-    func getDetailRecipes(detail: RecipesStorage) {
+    func getDetailRecipes(detail: RecipeCommonInfo) {
         detailRecipes = detail
     }
 
     func setTittle() {
-        tittleLabel.text = detailRecipes?.dishLabel
+        tittleLabel.text = detailRecipes?.label
     }
 
     func sendCommand() {
@@ -199,7 +199,7 @@ extension DetailRecipesViewController: UITableViewDataSource {
                 withIdentifier: Constants.pictureOfDiskIdentifier,
                 for: indexPath
             ) as? PictureOfDishCell else { return UITableViewCell() }
-            if let image = detailRecipes?.dishImage {
+            if let image = detailRecipes {
                 cell.setupImage(image)
             }
             return cell
