@@ -42,6 +42,9 @@ final class RecipesViewCell: UITableViewCell {
 
     private let dishImage: UIImageView = {
         let image = UIImageView()
+        image.layer.cornerRadius = 12
+        image.clipsToBounds = true
+        image.contentMode = .scaleAspectFill
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
@@ -221,6 +224,7 @@ final class RecipesViewCell: UITableViewCell {
     }
 
     @objc private func showDetailRecipes() {
+        print(#function)
         buttonChangeHandler?()
     }
 }

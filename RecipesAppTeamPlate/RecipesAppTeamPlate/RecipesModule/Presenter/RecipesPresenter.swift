@@ -41,14 +41,6 @@ final class RecipesPresenter: RecipesViewPresenterProtocol {
         source?.category
     }
 
-//    func getUserInformationNetwork() -> [RecipesNewStorage]? {
-//        sourceNetwork?.getUserInfoNetwork()
-//    }
-
-//    func showCategory(_ type: RecipesInfo) {
-//        recipesCoordinator?.showCategories(category: type)
-//    }
-
     func showCategory(_ type: Category) {
         recipesCoordinator?.showCategories(category: type)
     }

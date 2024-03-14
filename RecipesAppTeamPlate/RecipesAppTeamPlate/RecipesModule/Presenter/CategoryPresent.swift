@@ -71,7 +71,7 @@ final class CategoryPresenter: CategoryViewPresenterProtocol {
 //    }
 
     func showDetails(_ details: RecipeCommonInfo) {
-        // recipesCoordinator?.showDetailRecipesViewController(details: details)
+        recipesCoordinator?.showDetailRecipesViewController(details: details)
     }
 
     func getCommand() {

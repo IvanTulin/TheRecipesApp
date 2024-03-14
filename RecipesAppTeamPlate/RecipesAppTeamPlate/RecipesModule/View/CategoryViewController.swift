@@ -47,6 +47,7 @@ class CategoryViewController: UIViewController {
     private lazy var backButton: UIButton = {
         let customButton = UIButton(type: .custom)
         customButton.setImage(.backButton, for: .normal)
+        // customButton.setTitle("riiiiiky", for: .normal)
         customButton.titleLabel?.font = UIFont(name: Constants.font, size: CGFloat(Constants.bigSize))
         customButton.setTitleColor(.black, for: .normal)
         customButton.addTarget(self, action: #selector(backToTheLastController), for: .touchUpInside)
@@ -111,9 +112,9 @@ class CategoryViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.getRecipe()
         configureAllUI()
         presenter.getCommand()
-        // presenter?.getRecipe()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -139,6 +140,10 @@ class CategoryViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter?.getRecipe()
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        print(recipesNetwork?.count)
     }
 
     // MARK: - Private Methods
@@ -205,18 +210,18 @@ class CategoryViewController: UIViewController {
         navigationItem.leftBarButtonItem = customBarButtomItem
     }
 
-    private func configureUI() {
-//        if let nameRecipes = recipes?.nameRecipesLabel {
+//    private func configureUI() {
+    ////        if let nameRecipes = recipes?.nameRecipesLabel {
+    ////            backButton.setTitle(" \(nameRecipes)", for: .normal)
+    ////        }
+//        if let nameRecipes = recipesNetwork?.first?.label {
 //            backButton.setTitle(" \(nameRecipes)", for: .normal)
 //        }
-        if let nameRecipes = recipesNetwork?.first?.label {
-            backButton.setTitle(" \(nameRecipes)", for: .normal)
-        }
-        setupSearchBar()
-        setupTableView()
-        setupCaloriesButton()
-        setupTimeButton()
-    }
+//        setupSearchBar()
+//        setupTableView()
+//        setupCaloriesButton()
+//        setupTimeButton()
+//    }
 
     @objc private func backToTheLastController() {
         navigationController?.popViewController(animated: true)

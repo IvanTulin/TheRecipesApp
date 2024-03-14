@@ -18,6 +18,7 @@ class PictureOfDishCell: UITableViewCell {
     private let dishImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.layer.cornerRadius = 0
+        imageView.layer.cornerRadius = 25
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
 
@@ -61,8 +62,13 @@ class PictureOfDishCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func setupImage(_ image: String) {
-        dishImageView.image = UIImage(named: image)
+//
+//    func setupImage(_ image: String) {
+//        dishImageView.image = UIImage(named: image)
+//    }
+
+    func setupImage(_ image: RecipeCommonInfo) {
+        dishImageView.downloaded(from: image.image)
     }
 
     // MARK: - Private Methods

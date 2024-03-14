@@ -19,7 +19,7 @@ final class DetailRecipesPresenter: DetailRecipesProtocol {
     // MARK: - Constants
 
     let detailRecipesView: DetailRecipesViewProtocol?
-    var detailRecipes: RecipesStorage?
+    var detailRecipes: RecipeCommonInfo?
 
     // MARK: - Puplic Properties
 
