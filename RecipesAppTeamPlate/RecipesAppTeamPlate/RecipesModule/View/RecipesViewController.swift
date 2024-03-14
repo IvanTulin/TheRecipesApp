@@ -40,7 +40,8 @@ final class RecipesViewController: UIViewController {
     // MARK: - Puplic Properties
 
     var presenter: RecipesPresenter!
-    var recipes: Recipes?
+    // var recipes: Recipes?
+    var recipes: RecipeCommonInfo?
 
     // MARK: - Life Cycle
 
@@ -97,10 +98,13 @@ extension RecipesViewController: UICollectionViewDataSource {
             for: indexPath
         ) as? CategoriesCell else { return UICollectionViewCell() }
         guard let recipesInfo = presenter.getUserInformation() else { return cell }
+        guard let recipesNetwork = presenter.getRecipesNetwork() else { return cell }
         cell.configureCell(recipesInfo[indexPath.item])
         cell.buttonChangeHandler = { [weak self] in
             guard let self = self else { return }
-            self.presenter.showCategory(recipesInfo[indexPath.item])
+            // self.presenter.showCategory(recipesInfo[indexPath.item])
+            /// передаем категорий, чтобы задавать в дальнейшем тип блюд через DishType
+            self.presenter.showCategory(recipesNetwork[indexPath.row])
         }
         return cell
     }

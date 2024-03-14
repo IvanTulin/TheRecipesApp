@@ -6,7 +6,8 @@ import UIKit
 /// Интерфейс общения с RecipesView
 protocol CategoryViewProtocol: AnyObject {
     func setTittle(_ nameTitle: String)
-    func getRecipes(recipes: RecipesInfo)
+    // func getRecipes(recipes: RecipesInfo)
+    func getRecipes(recipes: [RecipeCommonInfo])
     func sendCommand()
 }
 
@@ -96,9 +97,11 @@ class CategoryViewController: UIViewController {
     // MARK: - Puplic Properties
 
     var presenter: CategoryPresenter!
-    var recipes: RecipesInfo?
+    // var recipes: RecipesInfo?
+    var recipesNetwork: [RecipeCommonInfo]?
     var searchRecipes: [RecipesStorage] = []
     var searching = false
+    var networkservice = NetworkService()
 
     // MARK: - Private Properties
 
@@ -110,6 +113,7 @@ class CategoryViewController: UIViewController {
         super.viewDidLoad()
         configureAllUI()
         presenter.getCommand()
+        // presenter?.getRecipe()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -124,9 +128,17 @@ class CategoryViewController: UIViewController {
                 self.stateShimer = .loaded
                 self.recipesTableView.reloadData()
                 self.recipesTableView.hideShimmer()
+
+                // self.presenter?.getRecipe()
             }
         default: break
         }
+        //        presenter?.getRecipe()
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        presenter?.getRecipe()
     }
 
     // MARK: - Private Methods
@@ -139,14 +151,17 @@ class CategoryViewController: UIViewController {
         view.addSubview(searchBar)
         // presenter.getTittle()
         configureNavigation()
-        presenter.getRecipes()
+        presenter.getRecipe()
         setupUI()
     }
 
     // MARK: - Private Methods
 
     private func setupUI() {
-        if let nameRecipes = recipes?.nameRecipesLabel {
+//        if let nameRecipes = recipes?.nameRecipesLabel {
+//            backButton.setTitle(" \(nameRecipes)", for: .normal)
+//        }
+        if let nameRecipes = recipesNetwork?.first?.label {
             backButton.setTitle(" \(nameRecipes)", for: .normal)
         }
 
@@ -191,7 +206,10 @@ class CategoryViewController: UIViewController {
     }
 
     private func configureUI() {
-        if let nameRecipes = recipes?.nameRecipesLabel {
+//        if let nameRecipes = recipes?.nameRecipesLabel {
+//            backButton.setTitle(" \(nameRecipes)", for: .normal)
+//        }
+        if let nameRecipes = recipesNetwork?.first?.label {
             backButton.setTitle(" \(nameRecipes)", for: .normal)
         }
         setupSearchBar()
@@ -216,8 +234,9 @@ class CategoryViewController: UIViewController {
 // MARK: - CategoryViewController + CategoryViewProtocol
 
 extension CategoryViewController: CategoryViewProtocol {
-    func getRecipes(recipes: RecipesInfo) {
-        self.recipes = recipes
+    func getRecipes(recipes: [RecipeCommonInfo]) {
+        // self.recipes = recipes
+        recipesNetwork = recipes
         recipesTableView.reloadData()
     }
 
@@ -233,7 +252,8 @@ extension CategoryViewController: CategoryViewProtocol {
 
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        recipes?.storageRecipes.count ?? 1
+        // recipes?.storageRecipes.count ?? 1
+        recipesNetwork?.count ?? 0
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -249,7 +269,8 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         case .shimmer:
             cell.deleteRecipes()
         case .loaded:
-            guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
+//            guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
+            guard let cell1 = recipesNetwork?[indexPath.row] else { return cell }
             cell.getRecipes(recipe: cell1)
             cell.buttonChangeHandler = { [weak self] in
 
@@ -270,9 +291,9 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
 extension CategoryViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count > 2 {
-            let searchFiltered = recipes?.storageRecipes
-                .filter { $0.dishLabel.prefix(searchText.count) == searchText }
-            recipes?.storageRecipes = searchFiltered ?? []
+//            let searchFiltered = recipes?.storageRecipes
+//                .filter { $0.dishLabel.prefix(searchText.count) == searchText }
+//            recipes?.storageRecipes = searchFiltered ?? []
             recipesTableView.reloadData()
         } else {
 //            recipes?.recipes = searchRecipes

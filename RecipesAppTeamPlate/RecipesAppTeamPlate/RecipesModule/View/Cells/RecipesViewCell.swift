@@ -106,7 +106,7 @@ final class RecipesViewCell: UITableViewCell {
         pizzaImage.isHidden = true
     }
 
-    func getRecipes(recipe: RecipesStorage) {
+    func getRecipes(recipe: RecipeCommonInfo) {
         selectionStyle = .none
 
         intoView.backgroundColor = UIColor(named: Constants.cellColor)
@@ -117,11 +117,29 @@ final class RecipesViewCell: UITableViewCell {
         hardwareButton.isHidden = false
         timerImage.isHidden = false
         pizzaImage.isHidden = false
-        title.text = recipe.dishLabel
-        dishImage.image = UIImage(named: recipe.dishImage)
-        dishTime.text = recipe.dishTime
-        dishKkal.text = recipe.dishKkal
+        title.text = recipe.label
+        // dishImage.image = UIImage(named: recipe.dishImage)
+        dishImage.downloaded(from: recipe.image)
+        dishTime.text = "\(recipe.totaltime)"
+        dishKkal.text = "\(recipe.calories)"
     }
+
+//    func getRecipes(recipe: RecipesStorage) {
+//        selectionStyle = .none
+//
+//        intoView.backgroundColor = UIColor(named: Constants.cellColor)
+//        title.isHidden = false
+//        dishImage.isHidden = false
+//        dishTime.isHidden = false
+//        dishKkal.isHidden = false
+//        hardwareButton.isHidden = false
+//        timerImage.isHidden = false
+//        pizzaImage.isHidden = false
+//        title.text = recipe.dishLabel
+//        dishImage.image = UIImage(named: recipe.dishImage)
+//        dishTime.text = recipe.dishTime
+//        dishKkal.text = recipe.dishKkal
+//    }
 
     // MARK: - Private Methods
 

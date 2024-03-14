@@ -38,7 +38,8 @@ final class FavoritesViewController: UIViewController {
     // MARK: - Puplic Properties
 
     var presenter: FavoritesPresenter!
-    var favorites: [RecipesStorage]?
+//    var favorites: [RecipesStorage]?
+    var favorites: [RecipeCommonInfo]?
 
     // MARK: - Life Cycle
 
@@ -92,7 +93,7 @@ final class FavoritesViewController: UIViewController {
 extension FavoritesViewController: FavoritesViewProtocol {
     func showTableView(favoriteRecipes: [RecipesStorage]) {
         makeTableView()
-        favorites = favoriteRecipes
+        // favorites = favoriteRecipes
         tableView.reloadData()
     }
 
