@@ -62,7 +62,6 @@ final class CategoryPresenter: CategoryViewPresenterProtocol {
         }
     }
 
-
     func getRecipe() {
         categoryView?.getRecipes(recipes: recipesNetwork ?? [])
     }
