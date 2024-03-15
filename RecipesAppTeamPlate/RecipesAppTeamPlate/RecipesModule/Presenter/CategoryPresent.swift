@@ -21,7 +21,6 @@ final class CategoryPresenter: CategoryViewPresenterProtocol {
     private var category: Category
     private var recipesNetwork: [RecipeCommonInfo]?
     private var networkService = NetworkService()
-    // private var category: Category
 
     // MARK: - Puplic Properties
 

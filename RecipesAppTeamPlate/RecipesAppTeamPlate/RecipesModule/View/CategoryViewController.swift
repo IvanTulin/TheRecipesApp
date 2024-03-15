@@ -142,10 +142,6 @@ class CategoryViewController: UIViewController {
         presenter?.getRecipe()
     }
 
-    override func viewDidDisappear(_ animated: Bool) {
-        print(recipesNetwork?.count)
-    }
-
     // MARK: - Private Methods
 
     private func configureAllUI() {
