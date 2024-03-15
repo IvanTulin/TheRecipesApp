@@ -39,7 +39,7 @@ final class RecipeCoordinator: BaseCoordinator {
 
     func showDetailRecipesViewController(details: RecipeCommonInfo) {
         let detailRecipesViewController = AppBuilder.createDetailRecipesModule()
-        detailRecipesViewController.presenter?.detailRecipes = details
+        detailRecipesViewController.presenter?.recipes = details
         detailRecipesViewController.presenter?.recipesCoordinator = self
         rootController?.pushViewController(detailRecipesViewController, animated: true)
     }

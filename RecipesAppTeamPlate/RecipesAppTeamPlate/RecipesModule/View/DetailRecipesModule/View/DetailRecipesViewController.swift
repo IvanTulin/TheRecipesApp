@@ -11,6 +11,10 @@ protocol DetailRecipesViewProtocol: AnyObject {
 
     /// Получить данные с хранилища
     func getDetailRecipes(detail: RecipeCommonInfo)
+
+    func getDetailRecipesNetwork(detail: RecipeDetail)
+
+    func reloadDataTableView()
     /// Установить титл
     func setTittle()
     /// Отправить команду
@@ -101,15 +105,17 @@ class DetailRecipesViewController: UIViewController {
 
     var presenter: DetailRecipesPresenter?
     var detailRecipes: RecipeCommonInfo?
+    var detailRecipesNetwork: RecipeDetail?
     var descriptions = Description()
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.getDetailRecipes()
+        presenter?.getParseDetailRecipes()
         configureTableView()
         configureNavigation()
-        presenter?.getDetailRecipes()
         presenter?.getTextForTittle()
         presenter?.getCommand()
     }
@@ -166,12 +172,27 @@ class DetailRecipesViewController: UIViewController {
 // MARK: - DetailRecipesViewController + DetailRecipesViewProtocol
 
 extension DetailRecipesViewController: DetailRecipesViewProtocol {
+    func reloadDataTableView() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.tableView.reloadData()
+        }
+    }
+
     func getDetailRecipes(detail: RecipeCommonInfo) {
         detailRecipes = detail
+        presenter?.reloadData()
+    }
+
+    func getDetailRecipesNetwork(detail: RecipeDetail) {
+        detailRecipesNetwork = detail
+        presenter?.reloadData()
     }
 
     func setTittle() {
-        tittleLabel.text = detailRecipes?.label
+        // tittleLabel.text = detailRecipes?.label
+        tittleLabel.text = detailRecipesNetwork?.label
+        presenter?.reloadData()
     }
 
     func sendCommand() {
@@ -199,7 +220,10 @@ extension DetailRecipesViewController: UITableViewDataSource {
                 withIdentifier: Constants.pictureOfDiskIdentifier,
                 for: indexPath
             ) as? PictureOfDishCell else { return UITableViewCell() }
-            if let image = detailRecipes {
+//            if let image = detailRecipes {
+//                cell.setupImage(image)
+//            }
+            if let image = detailRecipesNetwork {
                 cell.setupImage(image)
             }
             return cell
