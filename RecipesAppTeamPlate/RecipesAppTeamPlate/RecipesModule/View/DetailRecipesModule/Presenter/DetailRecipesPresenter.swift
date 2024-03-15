@@ -19,7 +19,9 @@ final class DetailRecipesPresenter: DetailRecipesProtocol {
     // MARK: - Constants
 
     let detailRecipesView: DetailRecipesViewProtocol?
-    var detailRecipes: RecipeCommonInfo?
+    var recipes: RecipeCommonInfo?
+    var detailRecipes: RecipeDetail?
+    private var networkService = NetworkService()
 
     // MARK: - Puplic Properties
 
@@ -29,12 +31,35 @@ final class DetailRecipesPresenter: DetailRecipesProtocol {
 
     init(view: DetailRecipesViewProtocol) {
         detailRecipesView = view
+        // getParseDetailRecipes()
+    }
+
+    // MARK: - Public Methods
+
+    func getParseDetailRecipes() {
+        networkService.getDetail(uri: recipes?.uri ?? "") { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case let .success(details):
+                self.detailRecipes = details
+                if let detailRecipes = detailRecipes {
+                    detailRecipesView?.getDetailRecipesNetwork(detail: detailRecipes)
+                }
+            case let .failure(failure):
+                print(failure.localizedDescription)
+            }
+        }
     }
 
     func getDetailRecipes() {
-        if let detail = detailRecipes {
-            detailRecipesView?.getDetailRecipes(detail: detail)
+        if let recipes = recipes, let detailRecipes = detailRecipes {
+            detailRecipesView?.getDetailRecipes(detail: recipes)
+            // detailRecipesView?.getDetailRecipesNetwork(detail: detailRecipes)
         }
+    }
+
+    func reloadData() {
+        detailRecipesView?.reloadDataTableView()
     }
 
     func getTextForTittle() {
