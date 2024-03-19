@@ -9,6 +9,8 @@ protocol CategoryViewProtocol: AnyObject {
     // func getRecipes(recipes: RecipesInfo)
     func getRecipes(recipes: [RecipeCommonInfo])
     func sendCommand()
+    func updateStateView()
+    func launchShimmer()
 }
 
 /// Экран выбранной категории
@@ -30,6 +32,13 @@ class CategoryViewController: UIViewController {
     let categoriesSrceenReceiver = CategoriesSrceenReceiver()
 
     // MARK: - Visual Components
+
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh(sender:)), for: .valueChanged)
+
+        return refreshControl
+    }()
 
     private lazy var searchBar: UISearchBar = {
         let search = UISearchBar()
@@ -83,6 +92,7 @@ class CategoryViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.dataSource = self
         table.delegate = self
+        table.refreshControl = refreshControl
         table.register(RecipesViewCell.self, forCellReuseIdentifier: Constants.identifier)
         table.register(EmptyCell.self, forCellReuseIdentifier: Constants.identifierForEmptyCell)
         table.separatorStyle = .none
@@ -98,9 +108,8 @@ class CategoryViewController: UIViewController {
     // MARK: - Puplic Properties
 
     var presenter: CategoryPresenter!
-    // var recipes: RecipesInfo?
     var recipesNetwork: [RecipeCommonInfo]?
-    var searchRecipes: [RecipesStorage] = []
+    var searchRecipes: [RecipeCommonInfo] = []
     var searching = false
     var networkservice = NetworkService()
 
@@ -119,31 +128,47 @@ class CategoryViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        switch stateShimer {
-        case .initial:
-            stateShimer = .shimmer
-            recipesTableView.showShimmer()
-            recipesTableView.reloadData()
+        presenter.restartShimmer()
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                self.stateShimer = .loaded
-                self.recipesTableView.reloadData()
-                self.recipesTableView.hideShimmer()
+//        switch presenter.state {
+//        case .loading:
+//            stateShimer = .shimmer
+//            recipesTableView.showShimmer()
+//            recipesTableView.reloadData()
+//
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+//                guard let self = self else { return }
+//                self.stateShimer = .loaded
+//                if let data = self.recipesNetwork?.first {
+//                    self.presenter.state = .data(data)
+//                }
+//                self.recipesTableView.reloadData()
+//                self.recipesTableView.hideShimmer()
+//            }
+//        default: break
+//        }
 
-                // self.presenter?.getRecipe()
-            }
-        default: break
-        }
-        //        presenter?.getRecipe()
+//        switch stateShimer {
+//        case .initial:
+//            stateShimer = .shimmer
+//            recipesTableView.showShimmer()
+//            recipesTableView.reloadData()
+//
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                self.stateShimer = .loaded
+//                self.recipesTableView.reloadData()
+//                self.recipesTableView.hideShimmer()
+//
+//                // self.presenter?.getRecipe()
+//            }
+//        default: break
+//        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         presenter?.getRecipe()
-    }
-
-    override func viewDidDisappear(_ animated: Bool) {
-        print(recipesNetwork?.count)
+        tabBarController?.tabBar.isHidden = false
     }
 
     // MARK: - Private Methods
@@ -192,7 +217,7 @@ class CategoryViewController: UIViewController {
     }
 
     private func setupSearchBar() {
-        searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 130).isActive = true
+        searchBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 150).isActive = true
         searchBar.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10).isActive = true
         searchBar.widthAnchor.constraint(equalToConstant: 348).isActive = true
         searchBar.heightAnchor.constraint(equalToConstant: 36).isActive = true
@@ -210,30 +235,19 @@ class CategoryViewController: UIViewController {
         navigationItem.leftBarButtonItem = customBarButtomItem
     }
 
-//    private func configureUI() {
-    ////        if let nameRecipes = recipes?.nameRecipesLabel {
-    ////            backButton.setTitle(" \(nameRecipes)", for: .normal)
-    ////        }
-//        if let nameRecipes = recipesNetwork?.first?.label {
-//            backButton.setTitle(" \(nameRecipes)", for: .normal)
-//        }
-//        setupSearchBar()
-//        setupTableView()
-//        setupCaloriesButton()
-//        setupTimeButton()
-//    }
-
     @objc private func backToTheLastController() {
         navigationController?.popViewController(animated: true)
+    }
+
+    @objc private func refresh(sender: UIRefreshControl) {
+        presenter.state = .loading
+        presenter.restartShimmer()
+        sender.endRefreshing()
     }
 
     @objc private func caloriesButtonTapped() {
 //        recipePresenter?.buttonCaloriesChange(category: recipes?.recepies ?? [])
     }
-//
-//    @objc private func timeButtonTapped() {
-//        recipePresenter?.buttonTimeChange(category: recipes?.recepies ?? [])
-//    }
 }
 
 // MARK: - CategoryViewController + CategoryViewProtocol
@@ -251,14 +265,54 @@ extension CategoryViewController: CategoryViewProtocol {
         commandExecutor.addCommand(command: categoriesSrceenReceiver)
         commandExecutor.makeRecord()
     }
+
+    func updateStateView() {
+        switch presenter.state {
+        case .loading, .data:
+            recipesTableView.reloadData()
+        case .noData:
+            return
+        case .error:
+            return
+        }
+    }
+
+    func launchShimmer() {
+        switch presenter.state {
+        case .loading:
+            stateShimer = .shimmer
+            recipesTableView.showShimmer()
+            recipesTableView.reloadData()
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+                guard let self = self else { return }
+                self.stateShimer = .loaded
+//                if let data = self.recipesNetwork?.first {
+//                    self.presenter.state = .data(data)
+//                }
+                if let data = self.recipesNetwork {
+                    self.presenter.state = .data(data)
+                }
+                self.recipesTableView.reloadData()
+                self.recipesTableView.hideShimmer()
+            }
+        default: break
+        }
+    }
 }
 
 // MARK: - Extension + UITableViewDataSource
 
 extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // recipes?.storageRecipes.count ?? 1
-        recipesNetwork?.count ?? 0
+        switch presenter.state {
+        case .loading:
+            9
+        case .data:
+            recipesNetwork?.count ?? 0
+        case .noData, .error:
+            0
+        }
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -268,21 +322,40 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
         ) as? RecipesViewCell
         else { return UITableViewCell() }
 
-        switch stateShimer {
-        case .initial:
+        switch presenter.state {
+        case .loading:
+            stateShimer = .shimmer
             cell.deleteRecipes()
-        case .shimmer:
-            cell.deleteRecipes()
-        case .loaded:
-//            guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
-            guard let cell1 = recipesNetwork?[indexPath.row] else { return cell }
-            cell.getRecipes(recipe: cell1)
+        case let .data(recipes):
+            stateShimer = .loaded
+            print("recipes.count: \(recipes.count)")
+            print("recipesNetwork.count: \(recipesNetwork?.count)")
+//            guard let data = recipesNetwork?[indexPath.row] else { return cell }
+//            recipes = data
+            cell.getRecipes(recipe: recipes[indexPath.row])
             cell.buttonChangeHandler = { [weak self] in
-
                 guard let self = self else { return }
-                presenter.showDetails(cell1)
+                presenter.showDetails(recipes[indexPath.row])
             }
+        case .noData, .error:
+            break
         }
+
+//        switch stateShimer {
+//        case .initial:
+//            cell.deleteRecipes()
+//        case .shimmer:
+//            cell.deleteRecipes()
+//        case .loaded:
+        ////            guard let cell1 = recipes?.storageRecipes[indexPath.row] else { return cell }
+//            guard let cell1 = recipesNetwork?[indexPath.row] else { return cell }
+//            cell.getRecipes(recipe: cell1)
+//            cell.buttonChangeHandler = { [weak self] in
+//
+//                guard let self = self else { return }
+//                presenter.showDetails(cell1)
+//            }
+//        }
         return cell
     }
 
@@ -296,12 +369,12 @@ extension CategoryViewController: UITableViewDelegate, UITableViewDataSource {
 extension CategoryViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         if searchText.count > 2 {
-//            let searchFiltered = recipes?.storageRecipes
-//                .filter { $0.dishLabel.prefix(searchText.count) == searchText }
-//            recipes?.storageRecipes = searchFiltered ?? []
+            let searchFiltered = recipesNetwork?
+                .filter { $0.label.prefix(searchText.count) == searchText }
+            recipesNetwork = searchFiltered ?? []
             recipesTableView.reloadData()
         } else {
-//            recipes?.recipes = searchRecipes
+            recipesNetwork = searchRecipes
             recipesTableView.reloadData()
         }
     }

@@ -151,6 +151,7 @@ class DetailRecipesViewController: UIViewController {
 
         navigationItem.leftBarButtonItem = backBarButtomItem
         navigationItem.rightBarButtonItems = [favoritesBarButtomItem, shareBarButtomItem]
+        tabBarController?.tabBar.isHidden = true
     }
 
     @objc private func backToTheLastController() {
@@ -240,7 +241,10 @@ extension DetailRecipesViewController: UITableViewDataSource {
                 for: indexPath
             ) as? RecipeDescriptionCell else { return UITableViewCell() }
             // cell.setupText(textForRecipes)
-            cell.setupText(descriptions.description.textDescription)
+//            cell.setupText(descriptions.description.textDescription)
+            if let text = detailRecipesNetwork {
+                cell.setupText(text)
+            }
             return cell
         }
     }

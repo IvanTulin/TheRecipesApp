@@ -19,13 +19,16 @@ final class DetailRecipesPresenter: DetailRecipesProtocol {
     // MARK: - Constants
 
     let detailRecipesView: DetailRecipesViewProtocol?
-    var recipes: RecipeCommonInfo?
-    var detailRecipes: RecipeDetail?
-    private var networkService = NetworkService()
 
     // MARK: - Puplic Properties
 
+    var recipes: RecipeCommonInfo?
     weak var recipesCoordinator: RecipeCoordinator?
+
+    // MARK: - Private Properties
+
+    private var detailRecipes: RecipeDetail?
+    private var networkService = NetworkService()
 
     // MARK: - Initializers
 

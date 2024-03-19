@@ -121,7 +121,6 @@ final class RecipesViewCell: UITableViewCell {
         timerImage.isHidden = false
         pizzaImage.isHidden = false
         title.text = recipe.label
-        // dishImage.image = UIImage(named: recipe.dishImage)
         dishImage.downloaded(from: recipe.image)
         dishTime.text = "\(recipe.totaltime)"
         dishKkal.text = "\(recipe.calories)"
