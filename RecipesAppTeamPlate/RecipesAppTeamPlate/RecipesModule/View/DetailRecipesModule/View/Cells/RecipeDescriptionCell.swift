@@ -58,9 +58,9 @@ class RecipeDescriptionCell: UITableViewCell {
 
     // MARK: - Public Methods
 
-    func setupText(_ text: String) {
+    func setupText(_ text: RecipeDetail) {
         // recipeDescriptionTextView.text = text
-        recipeLabel.text = text
+        recipeLabel.text = text.ingridientLines.joined(separator: "\n")
     }
 
     // MARK: - Private Methods
@@ -73,7 +73,6 @@ class RecipeDescriptionCell: UITableViewCell {
             recipeLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 27),
             recipeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 27),
             recipeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -27),
-            recipeLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 }

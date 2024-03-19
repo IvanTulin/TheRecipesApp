@@ -10,6 +10,7 @@ protocol CategoryViewPresenterProtocol: AnyObject {
 //    func showDetails(_ details: RecipesStorage)
     func showDetails(_ details: RecipeCommonInfo)
     func getCommand()
+    func restartShimmer()
 }
 
 /// Презентер Рецептов
@@ -17,15 +18,18 @@ final class CategoryPresenter: CategoryViewPresenterProtocol {
     // MARK: - Constants
 
     private let categoryView: CategoryViewProtocol?
-//    private var recipes: RecipesInfo
     private var category: Category
     private var recipesNetwork: [RecipeCommonInfo]?
     private var networkService = NetworkService()
-    // private var category: Category
+    private weak var recipesCoordinator: RecipeCoordinator?
 
     // MARK: - Puplic Properties
 
-    private weak var recipesCoordinator: RecipeCoordinator?
+    var state: ViewState<RecipeCommonInfo> = .loading {
+        didSet {
+            categoryView?.updateStateView()
+        }
+    }
 
     // MARK: - Initializers
 
@@ -76,5 +80,9 @@ final class CategoryPresenter: CategoryViewPresenterProtocol {
 
     func getCommand() {
         categoryView?.sendCommand()
+    }
+
+    func restartShimmer() {
+        categoryView?.launchShimmer()
     }
 }

@@ -1,6 +1,7 @@
 // LoginViewController.swift
 // Copyright © RoadMap. All rights reserved.
 
+import KeychainSwift
 import UIKit
 
 /// Экран с авторизацией пользователя
@@ -30,6 +31,7 @@ final class LoginViewController: UIViewController {
     }
 
     let loginCaretaker = LoginCaretaker.shared
+    let keychain = KeychainSwift()
 
     // MARK: - Visual Components
 
@@ -235,8 +237,10 @@ final class LoginViewController: UIViewController {
         view.endEditing(true)
         loginCaretaker.restoreState()
 
-        let loginData = UserDefaults.standard.string(forKey: Constants.loginMemento)
-        let passwordData = UserDefaults.standard.string(forKey: Constants.passwordMemento)
+//        let loginData = UserDefaults.standard.string(forKey: Constants.loginMemento)
+//        let passwordData = UserDefaults.standard.string(forKey: Constants.passwordMemento)
+        let loginData = keychain.getData(Constants.loginMemento)
+        let passwordData = keychain.getData(Constants.passwordMemento)
         let login = loginTextField.text
         let password = passwordTextField.text
 
