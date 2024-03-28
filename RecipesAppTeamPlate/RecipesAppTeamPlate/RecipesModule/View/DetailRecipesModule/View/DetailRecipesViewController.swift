@@ -10,7 +10,11 @@ protocol DetailRecipesViewProtocol: AnyObject {
     var presenter: DetailRecipesPresenter? { get set }
 
     /// Получить данные с хранилища
-    func getDetailRecipes(detail: RecipesStorage)
+    func getDetailRecipes(detail: RecipeCommonInfo)
+
+    func getDetailRecipesNetwork(detail: RecipeDetail)
+
+    func reloadDataTableView()
     /// Установить титл
     func setTittle()
     /// Отправить команду
@@ -100,16 +104,18 @@ class DetailRecipesViewController: UIViewController {
     // MARK: - Public Methods
 
     var presenter: DetailRecipesPresenter?
-    var detailRecipes: RecipesStorage?
+    var detailRecipes: RecipeCommonInfo?
+    var detailRecipesNetwork: RecipeDetail?
     var descriptions = Description()
 
     // MARK: - Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter?.getDetailRecipes()
+        presenter?.getParseDetailRecipes()
         configureTableView()
         configureNavigation()
-        presenter?.getDetailRecipes()
         presenter?.getTextForTittle()
         presenter?.getCommand()
     }
@@ -145,6 +151,7 @@ class DetailRecipesViewController: UIViewController {
 
         navigationItem.leftBarButtonItem = backBarButtomItem
         navigationItem.rightBarButtonItems = [favoritesBarButtomItem, shareBarButtomItem]
+        tabBarController?.tabBar.isHidden = true
     }
 
     @objc private func backToTheLastController() {
@@ -156,22 +163,37 @@ class DetailRecipesViewController: UIViewController {
     }
 
     @objc private func addInFavorite() {
-        let service = FavoriteService.service
-        if let detailRecipes = detailRecipes {
-            service.favoriteRecipes.append(detailRecipes)
-        }
+//        let service = FavoriteService.service
+//        if let detailRecipes = detailRecipes {
+//            service.favoriteRecipes.append(detailRecipes)
+//        }
     }
 }
 
 // MARK: - DetailRecipesViewController + DetailRecipesViewProtocol
 
 extension DetailRecipesViewController: DetailRecipesViewProtocol {
-    func getDetailRecipes(detail: RecipesStorage) {
+    func reloadDataTableView() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            self.tableView.reloadData()
+        }
+    }
+
+    func getDetailRecipes(detail: RecipeCommonInfo) {
         detailRecipes = detail
+        presenter?.reloadData()
+    }
+
+    func getDetailRecipesNetwork(detail: RecipeDetail) {
+        detailRecipesNetwork = detail
+        presenter?.reloadData()
     }
 
     func setTittle() {
-        tittleLabel.text = detailRecipes?.dishLabel
+        // tittleLabel.text = detailRecipes?.label
+        tittleLabel.text = detailRecipesNetwork?.label
+        presenter?.reloadData()
     }
 
     func sendCommand() {
@@ -199,7 +221,10 @@ extension DetailRecipesViewController: UITableViewDataSource {
                 withIdentifier: Constants.pictureOfDiskIdentifier,
                 for: indexPath
             ) as? PictureOfDishCell else { return UITableViewCell() }
-            if let image = detailRecipes?.dishImage {
+//            if let image = detailRecipes {
+//                cell.setupImage(image)
+//            }
+            if let image = detailRecipesNetwork {
                 cell.setupImage(image)
             }
             return cell
@@ -216,7 +241,10 @@ extension DetailRecipesViewController: UITableViewDataSource {
                 for: indexPath
             ) as? RecipeDescriptionCell else { return UITableViewCell() }
             // cell.setupText(textForRecipes)
-            cell.setupText(descriptions.description.textDescription)
+//            cell.setupText(descriptions.description.textDescription)
+            if let text = detailRecipesNetwork {
+                cell.setupText(text)
+            }
             return cell
         }
     }

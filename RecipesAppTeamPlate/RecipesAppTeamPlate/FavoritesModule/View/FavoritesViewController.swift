@@ -118,7 +118,7 @@ extension FavoritesViewController: UITableViewDelegate, UITableViewDataSource {
         cell.getRecipes(recipe: cell1)
         cell.buttonChangeHandler = { [weak self] in
 
-            guard let self = self else { return }
+//            guard let self = self else { return }
         }
         return cell
     }
